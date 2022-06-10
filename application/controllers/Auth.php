@@ -22,7 +22,7 @@ class Auth extends BD_Controller
     }
 
     /**
-     * @OA\Post(path="/api/auth/customerLogin",tags={"Auth"},
+     * @OA\Post(path="auth/customerLogin",tags={"Auth"},
      *   @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
