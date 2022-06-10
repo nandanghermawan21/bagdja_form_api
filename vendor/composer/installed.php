@@ -1,96 +1,122 @@
-<?php return array (
-  'root' => 
-  array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
-    'aliases' => 
-    array (
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '519d9632a5b3cd2f07269618bfc9988756ee71bf',
+        'name' => '__root__',
+        'dev' => true,
     ),
-    'reference' => '5069195d1f6ef507c1130402749d2812e1d5a98d',
-    'name' => 'chriskacerguis/codeigniter-restserver',
-  ),
-  'versions' => 
-  array (
-    'chriskacerguis/codeigniter-restserver' => 
-    array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '5069195d1f6ef507c1130402749d2812e1d5a98d',
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '519d9632a5b3cd2f07269618bfc9988756ee71bf',
+            'dev_requirement' => false,
+        ),
+        'chriskacerguis/codeigniter-restserver' => array(
+            'pretty_version' => '3.1.4',
+            'version' => '3.1.4.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../chriskacerguis/codeigniter-restserver',
+            'aliases' => array(),
+            'reference' => 'f386f4e0013daadaa213681a0a41af69aa81d9de',
+            'dev_requirement' => false,
+        ),
+        'doctrine/annotations' => array(
+            'pretty_version' => '1.13.2',
+            'version' => '1.13.2.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/annotations',
+            'aliases' => array(),
+            'reference' => '5b668aef16090008790395c02c893b1ba13f7e08',
+            'dev_requirement' => false,
+        ),
+        'doctrine/lexer' => array(
+            'pretty_version' => '1.2.3',
+            'version' => '1.2.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../doctrine/lexer',
+            'aliases' => array(),
+            'reference' => 'c268e882d4dbdd85e36e4ad69e02dc284f89d229',
+            'dev_requirement' => false,
+        ),
+        'firebase/php-jwt' => array(
+            'pretty_version' => 'v6.2.0',
+            'version' => '6.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../firebase/php-jwt',
+            'aliases' => array(),
+            'reference' => 'd28e6df83830252650da4623c78aaaf98fb385f3',
+            'dev_requirement' => false,
+        ),
+        'psr/cache' => array(
+            'pretty_version' => '1.0.1',
+            'version' => '1.0.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../psr/cache',
+            'aliases' => array(),
+            'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
+            'dev_requirement' => false,
+        ),
+        'symfony/deprecation-contracts' => array(
+            'pretty_version' => 'v2.5.1',
+            'version' => '2.5.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/deprecation-contracts',
+            'aliases' => array(),
+            'reference' => 'e8b495ea28c1d97b5e0c121748d6f9b53d075c66',
+            'dev_requirement' => false,
+        ),
+        'symfony/finder' => array(
+            'pretty_version' => 'v5.4.8',
+            'version' => '5.4.8.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/finder',
+            'aliases' => array(),
+            'reference' => '9b630f3427f3ebe7cd346c277a1408b00249dad9',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-ctype' => array(
+            'pretty_version' => 'v1.26.0',
+            'version' => '1.26.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
+            'aliases' => array(),
+            'reference' => '6fd1b9a79f6e3cf65f9e679b23af304cd9e010d4',
+            'dev_requirement' => false,
+        ),
+        'symfony/polyfill-php80' => array(
+            'pretty_version' => 'v1.26.0',
+            'version' => '1.26.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/polyfill-php80',
+            'aliases' => array(),
+            'reference' => 'cfa0ae98841b9e461207c13ab093d76b0fa7bace',
+            'dev_requirement' => false,
+        ),
+        'symfony/yaml' => array(
+            'pretty_version' => 'v5.4.3',
+            'version' => '5.4.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/yaml',
+            'aliases' => array(),
+            'reference' => 'e80f87d2c9495966768310fc531b487ce64237a2',
+            'dev_requirement' => false,
+        ),
+        'zircote/swagger-php' => array(
+            'pretty_version' => '3.2.0',
+            'version' => '3.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../zircote/swagger-php',
+            'aliases' => array(),
+            'reference' => 'c5f0819764f9bd8a246732d662b95ce533c0479f',
+            'dev_requirement' => false,
+        ),
     ),
-    'codeigniter/framework' => 
-    array (
-      'pretty_version' => '3.1.11',
-      'version' => '3.1.11.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'b73eb19aed66190c10c9cad476da7c36c271d6dc',
-    ),
-    'doctrine/annotations' => 
-    array (
-      'pretty_version' => '1.11.1',
-      'version' => '1.11.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'ce77a7ba1770462cd705a91a151b6c3746f9c6ad',
-    ),
-    'doctrine/lexer' => 
-    array (
-      'pretty_version' => '1.2.1',
-      'version' => '1.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e864bbf5904cb8f5bb334f99209b48018522f042',
-    ),
-    'symfony/deprecation-contracts' => 
-    array (
-      'pretty_version' => 'v2.2.0',
-      'version' => '2.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '5fa56b4074d1ae755beb55617ddafe6f5d78f665',
-    ),
-    'symfony/finder' => 
-    array (
-      'pretty_version' => 'v5.2.1',
-      'version' => '5.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '0b9231a5922fd7287ba5b411893c0ecd2733e5ba',
-    ),
-    'symfony/polyfill-ctype' => 
-    array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'c6c942b1ac76c82448322025e084cadc56048b4e',
-    ),
-    'symfony/yaml' => 
-    array (
-      'pretty_version' => 'v5.2.1',
-      'version' => '5.2.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '290ea5e03b8cf9b42c783163123f54441fb06939',
-    ),
-    'zircote/swagger-php' => 
-    array (
-      'pretty_version' => '3.1.0',
-      'version' => '3.1.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '9d172471e56433b5c7061006b9a766f262a3edfd',
-    ),
-  ),
 );

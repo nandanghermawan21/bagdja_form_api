@@ -19,17 +19,18 @@ use OpenApi\Context;
 use OpenApi\Logger;
 use OpenApi\StaticAnalyser;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\AbstractLogger;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 use Symfony\Component\Yaml\Exception\ParseException;
 use Symfony\Component\Yaml\Yaml;
 
 class OpenApiTestCase extends TestCase
 {
-    protected $countExceptions = 0;
-
     /**
      * @var array
      */
-    private $expectedLogMessages;
+    public $expectedLogMessages = [];
 
     /**
      * @var Closure
@@ -42,7 +43,7 @@ class OpenApiTestCase extends TestCase
         $this->originalLogger = Logger::getInstance()->log;
         Logger::getInstance()->log = function ($entry, $type) {
             if (count($this->expectedLogMessages)) {
-                $assertion = array_shift($this->expectedLogMessages);
+                list($assertion, $needle) = array_shift($this->expectedLogMessages);
                 $assertion($entry, $type);
             } else {
                 $map = [
@@ -61,30 +62,72 @@ class OpenApiTestCase extends TestCase
 
     protected function tearDown(): void
     {
-        $this->assertCount($this->countExceptions, $this->expectedLogMessages, count($this->expectedLogMessages).' OpenApi\Logger messages were not triggered');
+        $this->assertEmpty(
+            $this->expectedLogMessages,
+            implode(PHP_EOL.'  => ', array_merge(
+                ['OpenApi\Logger messages were not triggered:'],
+                array_map(function (array $value) {
+                    return $value[1];
+                }, $this->expectedLogMessages)
+            ))
+        );
         Logger::getInstance()->log = $this->originalLogger;
         parent::tearDown();
     }
 
-    public function assertOpenApiLogEntryContains($entryPrefix, $message = '')
+    public function getPsrLogger(bool $tracking = false): ?LoggerInterface
     {
-        $this->expectedLogMessages[] = function ($entry, $type) use ($entryPrefix, $message) {
+        if (!$tracking) {
+            // allow to test the default behaviour without injected PSR logger
+            switch (strtoupper($_ENV['NON_TRACKING_LOGGER'] ?? 'FALLBACK')) {
+                case 'NULL':
+                    return new NullLogger();
+                case 'FALLBACK':
+                default:
+                    // whatever is set up in Logger::$instance->log
+                    return null;
+            }
+        }
+
+        return new class($this) extends AbstractLogger {
+            protected $testCase;
+
+            public function __construct($testCase)
+            {
+                $this->testCase = $testCase;
+            }
+
+            public function log($level, $message, array $context = [])
+            {
+                if (count($this->testCase->expectedLogMessages)) {
+                    list($assertion, $needle) = array_shift($this->testCase->expectedLogMessages);
+                    $assertion($message, $level);
+                } else {
+                    $this->testCase->fail('Unexpected \OpenApi\Logger::'.$level.'("'.$message.'")');
+                }
+            }
+        };
+    }
+
+    public function assertOpenApiLogEntryContains($needle, $message = '')
+    {
+        $this->expectedLogMessages[] = [function ($entry, $type) use ($needle, $message) {
             if ($entry instanceof Exception) {
                 $entry = $entry->getMessage();
             }
-            $this->assertStringContainsString($entryPrefix, $entry, $message);
-        };
+            $this->assertStringContainsString($needle, $entry, $message);
+        }, $needle];
     }
 
     /**
      * Compare OpenApi specs assuming strings to contain YAML.
      *
-     * @param array|OpenApi|\stdClass|string $expected
-     * @param array|OpenApi|\stdClass|string $spec
+     * @param array|OpenApi|\stdClass|string $actual     The generated output
+     * @param array|OpenApi|\stdClass|string $expected   The specification
      * @param string                         $message
      * @param bool                           $normalized flag indicating whether the inputs are already normalized or not
      */
-    protected function assertSpecEquals($expected, $spec, $message = '', $normalized = false)
+    protected function assertSpecEquals($actual, $expected, $message = '', $normalized = false)
     {
         $normalize = function ($in) {
             if ($in instanceof OpenApi) {
@@ -103,22 +146,40 @@ class OpenApiTestCase extends TestCase
         };
 
         if (!$normalized) {
+            $actual = $normalize($actual);
             $expected = $normalize($expected);
-            $spec = $normalize($spec);
         }
 
-        if (is_iterable($expected) && is_iterable($spec)) {
-            foreach ($expected as $key => $value) {
-                $this->assertArrayHasKey($key, (array) $spec);
-                $this->assertSpecEquals($value, ((array) $spec)[$key], $message, true);
+        if (is_iterable($actual) && is_iterable($expected)) {
+            foreach ($actual as $key => $value) {
+                $this->assertArrayHasKey($key, (array) $expected, $message.': property: "'.$key.'" should be absent, but has value: '.$this->formattedValue($value));
+                $this->assertSpecEquals($value, ((array) $expected)[$key], $message.' > '.$key, true);
             }
-            foreach ($spec as $key => $value) {
-                $this->assertArrayHasKey($key, (array) $expected);
-                $this->assertSpecEquals(((array) $expected)[$key], $value, $message, true);
+            foreach ($expected as $key => $value) {
+                $this->assertArrayHasKey($key, (array) $actual, $message.': property: "'.$key.'" is missing');
+                $this->assertSpecEquals(((array) $actual)[$key], $value, $message.' > '.$key, true);
             }
         } else {
-            $this->assertEquals($expected, $spec, $message);
+            $this->assertEquals($actual, $expected, $message);
         }
+    }
+
+    private function formattedValue($value)
+    {
+        if (is_bool($value)) {
+            return  $value ? 'true' : 'false';
+        }
+        if (is_numeric($value)) {
+            return (string) $value;
+        }
+        if (is_string($value)) {
+            return '"'.$value.'"';
+        }
+        if (is_object($value)) {
+            return get_class($value);
+        }
+
+        return gettype($value);
     }
 
     /**
@@ -207,7 +268,7 @@ class OpenApiTestCase extends TestCase
             if (in_array($class, ['AbstractAnnotation', 'Operation'])) {
                 continue;
             }
-            $classes[] = ['OpenApi\\Annotations\\'.$class];
+            $classes[$class] = ['OpenApi\\Annotations\\'.$class];
         }
 
         return $classes;

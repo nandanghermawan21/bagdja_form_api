@@ -4,24 +4,38 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInita524ec3642e061ae7407be34db8a3c09
+class ComposerStaticInitba5d3c94878fb7a8bf17dc0f8ca6bab6
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '0ccdf99b8f62f02c52cba55802e0c2e7' => __DIR__ . '/..' . '/zircote/swagger-php/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
+        'c' => 
+        array (
+            'chriskacerguis\\RestServer\\' => 26,
+        ),
         'S' => 
         array (
+            'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Ctype\\' => 23,
             'Symfony\\Component\\Yaml\\' => 23,
             'Symfony\\Component\\Finder\\' => 25,
         ),
+        'P' => 
+        array (
+            'Psr\\Cache\\' => 10,
+        ),
         'O' => 
         array (
             'OpenApi\\' => 8,
+        ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
         ),
         'D' => 
         array (
@@ -31,6 +45,14 @@ class ComposerStaticInita524ec3642e061ae7407be34db8a3c09
     );
 
     public static $prefixDirsPsr4 = array (
+        'chriskacerguis\\RestServer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/chriskacerguis/codeigniter-restserver/src',
+        ),
+        'Symfony\\Polyfill\\Php80\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+        ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
@@ -43,9 +65,17 @@ class ComposerStaticInita524ec3642e061ae7407be34db8a3c09
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
+        'Psr\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
         'OpenApi\\' => 
         array (
             0 => __DIR__ . '/..' . '/zircote/swagger-php/src',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
         'Doctrine\\Common\\Lexer\\' => 
         array (
@@ -58,17 +88,20 @@ class ComposerStaticInita524ec3642e061ae7407be34db8a3c09
     );
 
     public static $classMap = array (
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Format' => __DIR__ . '/../..' . '/application/libraries/Format.php',
-        'REST_Controller' => __DIR__ . '/../..' . '/application/libraries/REST_Controller.php',
+        'PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
+        'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+        'UnhandledMatchError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/UnhandledMatchError.php',
+        'ValueError' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/ValueError.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInita524ec3642e061ae7407be34db8a3c09::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInita524ec3642e061ae7407be34db8a3c09::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInita524ec3642e061ae7407be34db8a3c09::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitba5d3c94878fb7a8bf17dc0f8ca6bab6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitba5d3c94878fb7a8bf17dc0f8ca6bab6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitba5d3c94878fb7a8bf17dc0f8ca6bab6::$classMap;
 
         }, null, ClassLoader::class);
     }
