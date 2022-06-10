@@ -22,7 +22,7 @@ class Auth extends BD_Controller
     }
 
     /**
-     * @OA\Post(path="/auth/customerLogin",tags={"Auth"},
+     * @OA\Post(path="/auth/login",tags={"Auth"},
      *   @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
@@ -37,7 +37,7 @@ class Auth extends BD_Controller
      *   ),
      * )
      */
-    public function customerLogin_post()
+    public function login_post()
     {
         //test output
         $jsonBody  = json_decode(file_get_contents('php://input'), true);
