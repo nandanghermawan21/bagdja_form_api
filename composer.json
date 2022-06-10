@@ -1,8 +1,0 @@
-{
-    "require": {
-        "firebase/php-jwt": "^6.2",
-        "zircote/swagger-php": "3.2",
-        "doctrine/annotations": "^1.13",
-        "chriskacerguis/codeigniter-restserver": "^3.1"
-    }
-}
