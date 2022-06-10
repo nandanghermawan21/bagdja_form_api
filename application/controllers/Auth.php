@@ -39,6 +39,7 @@ class Auth extends BD_Controller
      */
     public function customerLogin_post()
     {
+        //test output
         $input = json_decode(trim(file_get_contents('php://input')), true);
         $this->response($input,200);
     }
