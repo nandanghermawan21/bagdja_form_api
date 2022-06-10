@@ -75,8 +75,8 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '209.209.40.87,19521',
-	// 'port'	   => '19521',
+	'hostname' => '209.209.40.87',
+	'port'	   => '19521',
 	'username' => 'fahmi',
 	'password' => 'mobileSurvey2022',
 	'database' => 'survey',
