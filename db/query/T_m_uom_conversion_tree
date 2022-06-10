@@ -1,0 +1,6 @@
+CREATE TRIGGER validateInsertUomConversionTree BEFORE INSERT ON uom_conversion_tree 
+BEGIN
+
+  
+
+END;
