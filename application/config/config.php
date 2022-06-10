@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url']    = "http://" . $_SERVER['HTTP_HOST'];
+$config['base_url']    = "https://" . $_SERVER['HTTP_HOST'];
 $config['base_url'] .= preg_replace('@/+$@', '', dirname($_SERVER['SCRIPT_NAME'])) . '/';
 $config['upload_dir'] = '../upload/form/';
 $config['upload_url'] = 'http://file.api-suzuki.lemburkuring.id/';
