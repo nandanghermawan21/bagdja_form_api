@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
     'dsn'          => '',
-    'hostname'     => 'form.bagdja.com',
-    'username'     => 'user',
-    'password'     => '@H3rm4w4n',
-    'database'     => 'form',
+    'hostname' => '209.209.40.87,19521',
+	'username' => 'fahmi',
+	'password' => 'mobileSurvey2022',
+	'database' => 'survey',
     'dbdriver'     => 'sqlsrv',
     'dbprefix'     => '',
     'pconnect'     => TRUE,
