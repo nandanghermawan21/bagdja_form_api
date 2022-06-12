@@ -130,6 +130,6 @@ class Question extends MY_Controller
             $response = $this->responses->error($messageResult);
         }
 
-        $this->response($response, 200);
+        // $this->response($response, 200);
     }
 }
