@@ -75,7 +75,7 @@ class Question extends MY_Controller
         $total = 0;
         $data = null;
         if($id == null){
-            $data = $this->questiontype->get(null);
+            $data = $this->questiontype->get(null, $total);
         }else{
             $data = $this->questiontype->get([$this->question->id => $id], $total);
         }
