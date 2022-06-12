@@ -76,6 +76,12 @@ class Question_model extends CI_Model
             return null;
         }
     }
+
+    public function delete($where){
+        $this->db->where($where);
+        $this->db->delete($this->tableName);
+        return $this->db->affected_rows();
+    }
 }
 
 

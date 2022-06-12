@@ -112,7 +112,6 @@ class Question extends MY_Controller
      */
     public function add_post()
     {
-
         $response = null;
         $messageResult = null;
         $data = null;
@@ -127,6 +126,43 @@ class Question extends MY_Controller
             $response = $this->responses->error($messageResult);
         }
 
+        $this->response($response, 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/question/delete",
+     *     tags={"question"},
+     * 	   description="delete question by id",
+     *     @OA\Parameter(
+     *       name="id",
+     *       description="id",
+     *       in="query",
+     * 		 required=true,
+     *       @OA\Schema(type="integer",default=null)
+     *   ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response=200,
+     *      description="save location",
+     *      @OA\JsonContent(
+     *        @OA\Items(ref="#/components/schemas/Question")
+     *      ),
+     *    ),
+     *   ),
+     * )
+     */
+    public function delete_get()
+    {
+        $id = $this->get("id");
+        $data = null;
+        $response = null;
+        if ($id == null) {
+            $response = $this->responses->error("Id cannot be null");
+        } else {
+            $data = $this->question->delete([$this->question->id => $id]);
+            $response = $this->responses->successWithData(null, $data);
+        }
         $this->response($response, 200);
     }
 }
