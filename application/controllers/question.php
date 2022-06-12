@@ -72,15 +72,14 @@ class Question extends MY_Controller
      */
     public function types_get(){
         $id = $this->get("id");
+        $total = 0;
+        $data = null;
         if($id == null){
             $data = $this->questiontype->get(null);
         }else{
-            $total = 0;
             $data = $this->questiontype->get([$this->question->id => $id], $total);
         }
-
         $response = $this->responses->successWithData($data,$total);
-
         $this->response($response, 200);
     }
 }
