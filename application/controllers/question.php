@@ -75,10 +75,11 @@ class Question extends MY_Controller
         if($id == null){
             $data = $this->questiontype->get(null);
         }else{
-            $data = $this->questiontype->get([$this->question->id => $id]);
+            $total = 0;
+            $data = $this->questiontype->get([$this->question->id => $id], $total);
         }
 
-        $response = $this->responses->successWithData($data);
+        $response = $this->responses->successWithData($data,$total);
 
         $this->response($response, 200);
     }

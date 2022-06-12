@@ -20,14 +20,16 @@
     public $name;
 
 
-    public function get($where = null)
+    public function get($where = null, &$refTotal = 0)
 	{
         if($where != null)
         {
             $this->db->where($where);
         }
 		$query = $this->db->get($this->tablename);
-        
+
+        $refTotal = $query->num_rows();
+
 		return $query->result();
 	}
  }
