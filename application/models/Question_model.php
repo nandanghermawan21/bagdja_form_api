@@ -63,17 +63,17 @@ class Question_model extends CI_Model
 
     public function add($data = null, &$errorMessage)
     {
-        // $total = 0;
-        // $result = null;
-        // $this->db->insert($this->tableName, $data);
-        // $result = $this->get([$this->question->id => $this->db->insert_id(), $total], null);
-        // if ($total != null) {
-        //     $errorMessage = "";
-        //     return $result[0];
-        // } else {
-        //     $errorMessage = $this->db->error(); 
-        //     return null;
-        // }
+        $total = 0;
+        $result = null;
+        $this->db->insert($this->tableName, $data);
+        $result = $this->get([$this->question->id => $this->db->insert_id(), $total], null);
+        if ($total != null) {
+            $errorMessage = "";
+            return $result[0];
+        } else {
+            $errorMessage = $this->db->error(); 
+            return null;
+        }
     }
 }
 
