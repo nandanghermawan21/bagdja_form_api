@@ -36,10 +36,18 @@ class Responses_model extends CI_Model{
 
     public function successWithData($data, $total = null){
         $response = new Responses_model();
-        $response->status = 100;
+        $response->status = 200;
         $response->message = "Success";
         $response->data = $data;
         $response->total = $total;
+        
+        return $response;
+    }
+
+    public function error($message){
+        $response = new Responses_model();
+        $response->status = "ERR-001";
+        $response->message = $message;
         
         return $response;
     }
