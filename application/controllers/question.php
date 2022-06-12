@@ -116,14 +116,14 @@ class Question extends MY_Controller
         $response = null;
         $input = json_decode(trim(file_get_contents('php://input')), true);
 
-        $data = $this->question->add($input);
+        // $data = $this->question->add($input);
 
-        if ($data != null) {
-            $response = $this->responses->successWithData($data);
-        } else {
-            $response = $this->responses->error($this->db->error());
-        }
+        // if ($data != null) {
+        //     $response = $this->responses->successWithData($data);
+        // } else {
+        //     $response = $this->responses->error($this->db->error());
+        // }
 
-        $this->response($response, 200);
+        $this->response("", 200);
     }
 }
