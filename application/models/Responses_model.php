@@ -40,5 +40,7 @@ class Responses_model extends CI_Model{
         $response->message = "Success";
         $response->data = $data;
         $response->total = $total;
+        
+        return $response;
     }
 }
