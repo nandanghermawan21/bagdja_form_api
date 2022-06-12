@@ -42,16 +42,12 @@ class MY_Controller extends RestController {
   
       if($headers != null)
       {		
-        $token = str_replace('Bearer ',null,$headers);				
+        $token = str_replace('Bearer ',"",$headers);				
         $decoded = $this->_decode($token);
         
         if(!$decoded)
-        {
-          $data = [
-            'success' =>false,
-            'message'=>'Unauthorized'
-          ];            
-          $this->response($data,401);
+        {          
+          $this->response('Unauthorized',401);
           die();
         }
         else
@@ -61,12 +57,7 @@ class MY_Controller extends RestController {
       }
       else
       {
-  
-        $data = [
-          'success' =>false,
-          'message'=>'Unauthorized'
-        ];            
-        $this->response($data,401);
+        $this->response("Unauthorized'",401);
         die();
       }
       

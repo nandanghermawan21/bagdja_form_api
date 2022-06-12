@@ -51,4 +51,12 @@ class Responses_model extends CI_Model{
         
         return $response;
     }
+
+    public function badRequwst($message){
+        $response = new Responses_model();
+        $response->status = "ERR-400";
+        $response->message = $message;
+        
+        return $response;
+    }
 }
