@@ -64,11 +64,11 @@ class Question_model extends CI_Model
     public function add($data)
     {
         $total = 0;
-        $data = null;
+        $result = null;
         $this->db->insert($this->tableName, $data);
-        $data = $this->get([$this->question->id => $this->db->insert_id(), $total], null);
+        $result = $this->get([$this->question->id => $this->db->insert_id(), $total], null);
         if ($total != null) {
-            return $data[0];
+            return $result[0];
         } else {
             return null;
         }
