@@ -69,7 +69,7 @@ class Question_model extends CI_Model
         $result = $this->get($this->db->insert_id(), $total);
         if ($total != null) {
             $errorMessage = "";
-            return $result[0];
+            return $result;
         } else {
             $errorMessage = $this->db->error(); 
             return null;
