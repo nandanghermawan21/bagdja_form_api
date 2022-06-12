@@ -48,18 +48,18 @@ class Question extends MY_Controller
         $this->response($data, 200);
     }
 
-    /**
+     /**
      * @OA\Get(
      *     path="/question/types",
      *     tags={"question"},
-     * 	   description="Get all question types",
+     * 	   description="Get all question list param id null, get specific with param id",
      *   ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response=200,
      *      description="save location",
      *      @OA\JsonContent(
-     *        @OA\Items(ref="#/components/schemas/Response")
+     *        @OA\Items(ref="#/components/schemas/Question")
      *      ),
      *    ),
      *   ),
