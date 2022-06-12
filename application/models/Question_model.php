@@ -61,7 +61,7 @@ class Question_model extends CI_Model
         return $query->result();
     }
 
-    public function add($data, &$errorMessage)
+    public function add($data, &$errorMessage = "")
     {
         $total = 0;
         $result = null;
