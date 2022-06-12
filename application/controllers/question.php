@@ -121,15 +121,12 @@ class Question extends MY_Controller
 
         $data = $this->question->add($input, $messageResult);
 
-        echo("data result");
-        print_r($data);
-
         if ($data != null) {
             $response = $this->responses->successWithData($data, 0);
         } else {
             $response = $this->responses->error($messageResult);
         }
 
-        // $this->response($response, 200);
+        $this->response($response, 200);
     }
 }

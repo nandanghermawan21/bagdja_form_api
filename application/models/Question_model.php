@@ -68,9 +68,6 @@ class Question_model extends CI_Model
         $this->db->insert($this->tableName, $data);
         $result = $this->get(["id" => $this->db->insert_id()], $total);
 
-        echo("insert result :");
-        print_r($result);
-
         if ($total == 1) {
             $errorMessage = "";
             return $result[0];
