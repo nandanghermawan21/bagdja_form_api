@@ -1,7 +1,7 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * @OA\Schema(schema="Question")
+ * @OA\Schema(schema="Questiontype")
  */
 
  class Questiontype_model extends CI_Model{

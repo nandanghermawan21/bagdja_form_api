@@ -64,7 +64,7 @@ class Question extends MY_Controller
      *    @OA\Response(response=200,
      *      description="Response data inside Responses model",
      *      @OA\JsonContent(
-     *        @OA\Items(ref="#/components/schemas/Questiontypes")
+     *        @OA\Items(ref="#/components/schemas/Questiontype")
      *      ),
      *    ),
      *   ),
