@@ -160,7 +160,7 @@ class Question extends MY_Controller
         if ($id == null) {
             $response = $this->responses->error("Id cannot be null");
         } else {
-            $data = $this->question->delete([$this->question->id => $id]);
+            $data = $this->question->delete(["id" => $id]);
             $response = $this->responses->successWithData(null, $data);
         }
         $this->response($response, 200);
