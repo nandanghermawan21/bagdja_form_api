@@ -137,9 +137,9 @@ class Collection extends MY_Controller {
 			  }
 			  else
 			  {
-						$id = $this->collection->insert($input,'sys_collection');
-						$data = array_merge(['id'=>$id],$input);
-						$this->response($data,200);
+					$id = $this->collection->insert($input,'sys_collection');
+					$data = array_merge(['id'=>$id],$input);
+					$this->response($data,200);
 			  }			
 		}
 	}
