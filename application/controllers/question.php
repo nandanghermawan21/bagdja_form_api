@@ -118,7 +118,7 @@ class Question extends MY_Controller
         $input = json_decode(trim(file_get_contents('php://input')), true);
         $this->form_validation->set_data($input);
 
-        $data = $this->question->add($input,$error);
+        $data = $this->question->add($input);
 
         if ($data != null) {
             $response = $this->responses->successWithData($data);
