@@ -114,11 +114,12 @@ class Question extends MY_Controller
     {
 
         $response = null;
-        $messageResult = "";
+        $messageResult = null;
+        $data = null;
         $input = json_decode(trim(file_get_contents('php://input')), true);
         $this->form_validation->set_data($input);
 
-        $data = $this->question->add($input, $messageResult);
+        // $data = $this->question->add($input, $messageResult);
 
         if ($data != null) {
             $response = $this->responses->successWithData($data, 0);
