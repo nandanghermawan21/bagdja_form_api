@@ -51,5 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'doc';
 $route['404_override'] = '';
+$route['4500_override'] = 'Custom404';
+
 
 $route['translate_uri_dashes'] = FALSE;
