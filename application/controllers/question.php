@@ -115,7 +115,6 @@ class Question extends MY_Controller
 
         $response = null;
         $input = json_decode(trim(file_get_contents('php://input')), true);
-        $this->form_validation->set_data($input);
 
         $data = $this->question->add($input);
 
