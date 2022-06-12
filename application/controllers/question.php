@@ -13,7 +13,7 @@ class Question extends MY_Controller
 
         $this->load->model('Question_model', 'question');
         $this->load->model('Questiontype_model',"questiontype");
-        $this->load->model('Response_model','response');
+        $this->load->model('Responses_model','responses');
     }
 
     /**
@@ -78,7 +78,7 @@ class Question extends MY_Controller
             $data = $this->questiontype->get([$this->question->id => $id]);
         }
 
-        $response = $this->response->successWithData($data);
+        $response = $this->responses->successWithData($data);
 
         $this->response($response, 200);
     }

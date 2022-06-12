@@ -1,9 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * @OA\Schema(schema="Response")
+ * @OA\Schema(schema="Responses")
  */
-class Response_model extends CI_Model{
+class Responses_model extends CI_Model{
      /**
      * @OA\Property()
      * @var String
@@ -35,7 +35,7 @@ class Response_model extends CI_Model{
     public $total;
 
     public function successWithData($data, $total = null){
-        $response = new Response_model();
+        $response = new Responses_model();
         $response->status = 100;
         $response->message = "Success";
         $response->data = $data;
