@@ -75,6 +75,10 @@ class Question_model extends CI_Model
     }
 }
 
+
+/**
+ * @OA\Schema(schema="QuestionInput")
+ */
 class QuestionInput
 {
     /**
