@@ -53,6 +53,11 @@ class Question extends MY_Controller
      *     path="/question/types",
      *     tags={"question"},
      * 	   description="Get all question list param id null, get specific with param id",
+     *     @OA\Parameter(
+     *       name="id",
+     *       description="id",
+     *       in="query",
+     *       @OA\Schema(type="integer",default=null)
      *   ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
