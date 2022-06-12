@@ -62,9 +62,9 @@ class Question extends MY_Controller
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response=200,
-     *      description="save location",
+     *      description="Response data inside Responses model",
      *      @OA\JsonContent(
-     *        @OA\Items(ref="#/components/schemas/Responses")
+     *        @OA\Items(ref="#/components/schemas/Questiontypes")
      *      ),
      *    ),
      *   ),
