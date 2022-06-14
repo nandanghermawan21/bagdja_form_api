@@ -270,7 +270,7 @@ class Collection extends MY_Controller
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
 	 *         mediaType="application/json",
-	 *         @OA\Schema(ref="#/components/schemas/CollectionModel")
+	 *         @OA\Schema(ref="#/components/schemas/CollectionData")
 	 *       ),
 	 *     ),
 	 *    security={{"bearerAuth": {}}},
@@ -278,7 +278,7 @@ class Collection extends MY_Controller
 	 *    @OA\Response(response="200", 
 	 * 		description="Response data inside Responses model",
 	 *      @OA\JsonContent(
-	 *        ref="#/components/schemas/CollectionModel"
+	 *        ref="#/components/schemas/CollectionData"
 	 *      ),
 	 *    ),
 	 *   )
