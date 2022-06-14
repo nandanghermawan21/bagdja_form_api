@@ -29,7 +29,7 @@ class Collection_model extends CI_Model
         return $query->result();
     }
 
-    public function add($data = null, &$errorMessage)
+    public function create($data = null, &$errorMessage)
     {
         $total = 0;
         $result = null;
@@ -62,11 +62,11 @@ class Collection_model extends CI_Model
 
 
 /**
- * @OA\Schema(schema="collectionInputList")
+ * @OA\Schema(schema="CollectionInput")
  */
 
 
-class collectionInputList
+class CollectionInput
 {
     /**
      * @OA\Property()

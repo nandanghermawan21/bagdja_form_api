@@ -57,54 +57,48 @@ class Collection extends MY_Controller
 
 	/**
 	 * @OA\Post(
-	 *     path="/collection/list/add",
+	 *     path="/collection/list",
 	 *     tags={"collection"},
-	 *    @OA\Response(response="200",
-	 * 		description="Success",
-	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/CollectionModel"
+	 * 	   description="create new collection list",
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/CollectionInput")
+	 *       ),
 	 *     ),
-	 * ),
-	 *    @OA\Response(response="400", description="required field",
-	 *       @OA\JsonContent(
-	 *       ref="#/components/schemas/required"
-	 *     ),
-	 * ),
-	 *    @OA\RequestBody(
-	 *      required=true,
-	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/collectionInputList"
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(type="array",
+	 *             @OA\Items(type="object",
+	 *				ref="#/components/schemas/CollectionModel"               
+	 *             )
+	 *         ),
 	 *     ),
 	 *   ),
-	 *   security={{"bearerAuth": {}}},
 	 * )
 	 */
-
-	public function _create()
+	public function create_post()
 	{
-		$val = [
-			'name' => 'name'
-		];
 
-		$input = json_decode(trim(file_get_contents('php://input')), true);
-		if ($input) {
-			$this->form_validation->set_data($input);
-			foreach ($val as $row => $key) :
-				$this->form_validation->set_rules($row, $key, 'trim|required|xss_clean');
-			endforeach;
-			$this->form_validation->set_error_delimiters(null, null);
+		$response = null;
+        $messageResult = null;
+        $data = null;
+        $input = json_decode(trim(file_get_contents('php://input')), true);
 
-			if ($this->form_validation->run() == FALSE) {
-				foreach ($val as $key => $value) {
-					$data[$key] = form_error($key);
-				}
-				$this->response($data, 400);
-			} else {
-				$id = $this->collection->insert($input, 'sys_collection');
-				$data = array_merge(['id' => $id], $input);
-				$this->response($data, 200);
-			}
-		}
+        $data = $this->collection->create()($input, $messageResult);
+
+        if ($data != null) {
+            $response = $this->responses->successWithData($data, 0);
+        } else {
+            $response = $this->responses->error($messageResult);
+        }
+
+        $this->response($response, 200);
+
 	}
 
 
