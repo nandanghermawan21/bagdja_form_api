@@ -89,7 +89,7 @@ class Collection extends MY_Controller
         $data = null;
         $input = json_decode(trim(file_get_contents('php://input')), true);
 
-        $data = $this->collection->create()($input, $messageResult);
+        $data = $this->collection->create($input, $messageResult);
 
         if ($data != null) {
             $response = $this->responses->successWithData($data, 0);
