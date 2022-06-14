@@ -99,6 +99,11 @@ class QuestionInput
      * @OA\Property()
      * @var string
      */
+    public $name;
+    /**
+     * @OA\Property()
+     * @var string
+     */
     public $label;
     /**
      * @OA\Property()
