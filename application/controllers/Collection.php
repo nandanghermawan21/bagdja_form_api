@@ -126,8 +126,9 @@ class Collection extends MY_Controller
 	public function update_post()
 	{
 		$id = $this->get("id");
+		$message = "";
 		$input = json_decode(trim(file_get_contents('php://input')), true);
-		$data = $this->collection->update($id, $input);
+		$data = $this->collection->update($id, $input, $message);
 		if ($data != null) {
 			$response = $this->responses->successWithData(null, $data);
 		} else {
