@@ -132,7 +132,7 @@ class Collection extends MY_Controller
 		if ($data != null) {
 			$response = $this->responses->successWithData(null, $data);
 		} else {
-			$response = $this->responses->error("Id cannot be null");
+			$response = $this->responses->error($id." Id cannot be null");
 		}
 		$this->response($response, 200);
 	}
