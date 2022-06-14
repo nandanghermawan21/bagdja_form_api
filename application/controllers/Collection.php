@@ -125,7 +125,7 @@ class Collection extends MY_Controller
 	 */
 	public function update_post()
 	{
-		$id =$this->input->post('id', TRUE);
+		$id =$this->input->get('id', TRUE);
 		echo("id => ".$id);
 		$message = "";
 		$input = json_decode(trim(file_get_contents('php://input')), true);
