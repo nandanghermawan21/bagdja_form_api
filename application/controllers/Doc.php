@@ -71,7 +71,7 @@ class Doc extends CI_Controller {
 				'version'=> 1,
 			],
 			'servers'=> [
-				['url'=> base_url() ]
+				['url'=> base_url()."/api" ]
 			],
 			'paths'=> [
 				//auth
