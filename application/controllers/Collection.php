@@ -299,41 +299,43 @@ class Collection extends MY_Controller
 	}
 
 	/**
-	 * @OA\Get(
-	 *     path="/collection/data/delete",
+	 * @OA\Post(
+	 *     path="/collection/deleteData",
 	 *     tags={"collection"},
-	 * 	   description="Get all collection data param id null, get specific with param id",
+	 * 	   description="update collection",
 	 *     @OA\Parameter(
-	 *       name="id",
-	 * 		 required=true,
-	 *       description="id collection data",
-	 *       in="query",
-	 *       @OA\Schema(type="integer",default=null)
-	 *   ),
-	 * security={{"bearerAuth": {}}},
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\Parameter(
+	 *       	name="value",
+	 *       	description="value",
+	 *       	in="query",
+	 *       	@OA\Schema(type="String",default=null)
+	 *     ),	 
+	 *    security={{"bearerAuth": {}}},
 	 *    @OA\Response(response="401", description="Unauthorized"),
 	 *    @OA\Response(response="200", 
-	 * 		description="Success",
-	 *      @OA\JsonContent(     
-	 *         @OA\Property(property="collection_id", type="integer", default=0),
-	 *     ),
-	 *   ),
-	 * )
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/CollectionData"
+	 *      ),
+	 *    ),
+	 *   )
 	 */
-	public function remove()
+	public function deleteData_post()
 	{
 		$id = $this->input->get('id');
-		$da = $this->collection->delete(['collection_id' => $id], 'sys_collection_data');
+		$value = $this->input->get('value');
+		$data = $this->collection->delete($id, $value);
 
-		if ($da > 0) {
-			$data = ['collection_id' => $id];
-			$this->response($data, 200);
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
 		} else {
-			$data = [
-				'success' => false,
-				'message' => 'delete collection invalid data',
-			];
-			$this->response($data, 400);
+			$response = $this->responses->error("id not found");
 		}
+		$this->response($response, 200);
 	}
 }
