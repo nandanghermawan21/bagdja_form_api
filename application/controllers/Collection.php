@@ -57,7 +57,7 @@ class Collection extends MY_Controller
 
 	/**
 	 * @OA\Post(
-	 *     path="/collection/list",
+	 *     path="/collection/create",
 	 *     tags={"collection"},
 	 * 	   description="create new collection list",
 	 *     @OA\RequestBody(
