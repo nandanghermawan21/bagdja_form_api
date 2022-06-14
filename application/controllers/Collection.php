@@ -125,15 +125,15 @@ class Collection extends MY_Controller
 	 */
 	public function update_post()
 	{
-		$id =$this->input->get('id', TRUE);
-		echo("id => ".$id);
+		$id = $this->input->get('id', TRUE);
+		echo ("id => " . $id);
 		$message = "";
 		$input = json_decode(trim(file_get_contents('php://input')), true);
 		$data = $this->collection->update($id, $input, $message);
 		if ($data != null) {
 			$response = $this->responses->successWithData(null, $data);
 		} else {
-			$response = $this->responses->error($id." Id cannot be null");
+			$response = $this->responses->error($id . " Id cannot be null");
 		}
 		$this->response($response, 200);
 	}
