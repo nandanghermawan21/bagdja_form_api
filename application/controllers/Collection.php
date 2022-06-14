@@ -212,55 +212,41 @@ class Collection extends MY_Controller
 
 	/**
 	 * @OA\Post(
-	 *     path="/collection/data/create",
+	 *     path="/collection/addData",
 	 *     tags={"collection"},
-	 *    @OA\Response(response="200",
-	 * 		description="Success",
+	 * 	   description="create new collection list",
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/CollectionData")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
 	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/collectionInputData"
-	 *     ),
-	 * ),
-	 *    @OA\Response(response="400", description="required field",
-	 *       @OA\JsonContent(
-	 *       ref="#/components/schemas/required"
-	 *     ),
-	 * ),
-	 *    @OA\RequestBody(
-	 *      required=true,
-	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/collectionInputData"
-	 *     ),
+	 *        ref="#/components/schemas/CollectionData"
+	 *      ),
 	 *   ),
-	 *   security={{"bearerAuth": {}}},
 	 * )
 	 */
-
 	public function create()
 	{
-		$val = [
-			'collection_id' => 'collection_id',
-			'value' => 'value',
-			'label' => 'label'
-		];
-
+		$response = null;
+		$messageResult = null;
+		$data = null;
 		$input = json_decode(trim(file_get_contents('php://input')), true);
-		if ($input) {
-			$this->form_validation->set_data($input);
-			foreach ($val as $row => $key) :
-				$this->form_validation->set_rules($row, $key, 'trim|required|xss_clean');
-			endforeach;
-			$this->form_validation->set_error_delimiters(null, null);
 
-			if ($this->form_validation->run() == FALSE) {
-				foreach ($val as $key => $value) {
-					$data['messages'][$key] = form_error($key);
-				}
-				$this->response($data, 400);
-			} else {
-				$this->collection->insert($input, 'sys_collection_data');
-				$this->response($input, 200);
-			}
+		$data = $this->collection->addData($input, $messageResult);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 0);
+		} else {
+			$response = $this->responses->error($messageResult);
 		}
+
+		$this->response($response, 200);
 	}
 
 
