@@ -11,7 +11,7 @@ class Auth extends MY_Controller
 	{
 		parent::__construct();
 		header("Access-Control-Allow-Origin:*");
-		header("Access-Control-Allow-Methods: GET, DELETE, HEAD, OPTIONS");
+		header("Access-Control-Allow-Methods: POST, GET, DELETE, HEAD, OPTIONS");
 		header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 		$this->load->model('Auth_model', 'auth');
 		$this->load->model('Responses_model', 'responses');
