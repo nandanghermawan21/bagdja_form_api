@@ -79,7 +79,8 @@ class Collection_model extends CI_Model
             $this->db->where(["id" => $id]);
             $this->db->delete($this->tableName);
 
-            if ($this->db->affected_rows() > 1) {
+            $cc = $this->db->affected_rows();
+            if ($cc > 1) {
                 return $result[0];
             } else {
                 return null;
