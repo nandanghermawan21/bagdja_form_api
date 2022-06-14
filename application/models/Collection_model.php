@@ -80,7 +80,7 @@ class Collection_model extends CI_Model
             $this->db->delete($this->tableName);
 
             $cc = $this->db->affected_rows();
-            if ($cc > 1) {
+            if ($cc > 0) {
                 return $result[0];
             } else {
                 return null;
