@@ -13,8 +13,9 @@ class MY_Controller extends RestController
   public function __construct()
   {
     header("Access-Control-Allow-Origin:*");
+    header("Access-Control_Allow_Origin:*");
 		header("Access-Control-Allow-Methods: POST, GET, DELETE, HEAD, OPTIONS");
-		header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
+		header("Access-Control-Allow-Headers: access-control_allow_origin,client-timestamp,content-type");
     parent::__construct();
   }
 
