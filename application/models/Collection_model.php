@@ -148,7 +148,7 @@ class Collection_model extends CI_Model
         $result = $this->getData(["collection_id" => $id, "value" => $value], $total);
 
         if ($total > 0) {
-            $this->db->where(["id" => $id, "value" => $value]);
+            $this->db->where(["collection_id" => $id, "value" => $value]);
             $this->db->delete($this->dataTableName);
 
             $cc = $this->db->affected_rows();
