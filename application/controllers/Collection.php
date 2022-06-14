@@ -70,14 +70,9 @@ class Collection extends MY_Controller
 	 *    @OA\Response(response="401", description="Unauthorized"),
 	 *    @OA\Response(response="200", 
 	 * 		description="Response data inside Responses model",
-	 *      @OA\MediaType(
-	 *         mediaType="application/json",
-	 *         @OA\Schema(type="array",
-	 *             @OA\Items(type="object",
-	 *				ref="#/components/schemas/CollectionModel"               
-	 *             )
-	 *         ),
-	 *     ),
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/CollectionModel"
+	 *      ),
 	 *   ),
 	 * )
 	 */
@@ -85,89 +80,60 @@ class Collection extends MY_Controller
 	{
 
 		$response = null;
-        $messageResult = null;
-        $data = null;
-        $input = json_decode(trim(file_get_contents('php://input')), true);
+		$messageResult = null;
+		$data = null;
+		$input = json_decode(trim(file_get_contents('php://input')), true);
 
-        $data = $this->collection->create($input, $messageResult);
+		$data = $this->collection->create($input, $messageResult);
 
-        if ($data != null) {
-            $response = $this->responses->successWithData($data, 0);
-        } else {
-            $response = $this->responses->error($messageResult);
-        }
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 0);
+		} else {
+			$response = $this->responses->error($messageResult);
+		}
 
-        $this->response($response, 200);
-
+		$this->response($response, 200);
 	}
 
 
 	/**
 	 * @OA\Post(
-	 *     path="/collection/list/update",
+	 *     path="/collection/create",
 	 *     tags={"collection"},
-	 *    @OA\Response(response="200",
-	 * 		description="Success",
+	 * 	   description="update collection",
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/CollectionInput")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
 	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/CollectionModel"
-	 *     ),
-	 * ),
-	 *    @OA\Response(response="400", description="required field",
-	 *       @OA\JsonContent(
-	 *       ref="#/components/schemas/required"
-	 *     ),
-	 * ),
-	 *    @OA\RequestBody(
-	 *      required=true,
-	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/CollectionModel"
-	 *     ),
+	 *        ref="#/components/schemas/CollectionModel"
+	 *      ),
 	 *   ),
-	 *   security={{"bearerAuth": {}}},
 	 * )
 	 */
-
-	public function _update()
+	public function update_post()
 	{
-
-		$val = [
-			'id' => 'id',
-			'name' => 'nanme'
-		];
-
+		$id = $this->get("id");
 		$input = json_decode(trim(file_get_contents('php://input')), true);
-		if ($input) {
-			$this->form_validation->set_data($input);
-			foreach ($val as $row => $key) :
-				$this->form_validation->set_rules($row, $key, 'trim|required|xss_clean');
-			endforeach;
-			$this->form_validation->set_error_delimiters(null, null);
-
-			if ($this->form_validation->run() == FALSE) {
-				foreach ($val as $key => $value) {
-					$data[$key] = form_error($key);
-				}
-				$this->response($data, 400);
-			} else {
-				$val = [
-					'name' => $input['name']
-				];
-				$wh = ['id' => $input['id']];
-
-				$cc = $this->collection->update($wh, $val, 'sys_collection');
-
-				if ($cc > 0) {
-
-					$this->response($input, 200);
-				} else {
-					$data = [
-						'success' => false,
-						'message' => "invalid field update"
-					];
-					$this->response($data, 400);
-				}
-			}
+		$data = $this->collection->update($id, $input);
+		if ($data != null) {
+			$response = $this->responses->successWithData(null, $data);
+		} else {
+			$response = $this->responses->error("Id cannot be null");
 		}
+		$this->response($response, 200);
 	}
 
 
@@ -209,7 +175,6 @@ class Collection extends MY_Controller
 			$this->response($data, 400);
 		}
 	}
-
 
 	// data
 
