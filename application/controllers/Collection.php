@@ -132,7 +132,7 @@ class Collection extends MY_Controller
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 1);
 		} else {
-			$response = $this->responses->error($id . " Id cannot be null");
+			$response = $this->responses->error("id not found");
 		}
 		$this->response($response, 200);
 	}
@@ -168,7 +168,7 @@ class Collection extends MY_Controller
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 1);
 		} else {
-			$response = $this->responses->error($id . " Id cannot be null");
+			$response = $this->responses->error("id not found");
 		}
 		$this->response($response, 200);
 	}
