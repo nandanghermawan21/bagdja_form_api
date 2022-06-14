@@ -252,73 +252,50 @@ class Collection extends MY_Controller
 
 	/**
 	 * @OA\Post(
-	 *     path="/collection/data/update",
+	 *     path="/collection/updateData",
 	 *     tags={"collection"},
-	 *    @OA\Response(response="200",
-	 * 		description="Success",
+	 * 	   description="update collection",
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="value",
+	 *       	in="query",
+	 *       	@OA\Schema(type="String",default=null)
+	 *     ),	 
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/CollectionInput")
+	 *       ),
+	 *     ),
+	 *    security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
 	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/collectionInputData"
-	 *     ),
-	 * ),
-	 *    @OA\Response(response="400", description="required field",
-	 *       @OA\JsonContent(
-	 *       ref="#/components/schemas/required"
-	 *     ),
-	 * ),
-	 *    @OA\RequestBody(
-	 *      required=true,
-	 *      @OA\JsonContent(
-	 *		ref="#/components/schemas/collectionInputData"
-	 *     ),
-	 *   ),
-	 *   security={{"bearerAuth": {}}},
-	 * )
+	 *        ref="#/components/schemas/CollectionModel"
+	 *      ),
+	 *    ),
+	 *   )
 	 */
-	public function update()
+	public function updateData_post()
 	{
-
-		$val = [
-			'collection_id' => 'collection id',
-			'value' => 'value',
-			'label' => 'label'
-		];
-
-		$data = array('success' => false, 'messages' => array());
+		$id = $this->input->get('id', TRUE);
+		$value = $this->input->get('value', TRUE);
+		$message = "";
 		$input = json_decode(trim(file_get_contents('php://input')), true);
-		if ($input) {
-			$this->form_validation->set_data($input);
-			foreach ($val as $row => $key) :
-				$this->form_validation->set_rules($row, $key, 'trim|required|xss_clean');
-			endforeach;
-			$this->form_validation->set_error_delimiters(null, null);
-
-			if ($this->form_validation->run() == FALSE) {
-				foreach ($val as $key => $value) {
-					$data['messages'][$key] = form_error($key);
-				}
-				http_response_code('400');
-			} else {
-
-				$wh = ['collection_id' => $input['collection_id']];
-
-				$cc = $this->mdata->update_all($wh, $input, 'sys_collection_data');
-
-				if ($cc > 0) {
-					$data = [
-						'success' => true,
-						'message' => 'update collection success'
-					];
-					http_response_code('200');
-				} else {
-					$data = [
-						'success' => false,
-						'message' => "update collection failed"
-					];
-					http_response_code('400');
-				}
-			}
-			echo json_encode($data);
+		$data = $this->collection->updateData($id, $value, $input, $message);
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
+		} else {
+			$response = $this->responses->error("id not found");
 		}
+		$this->response($response, 200);
 	}
 
 	/**
