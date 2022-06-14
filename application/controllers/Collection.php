@@ -205,7 +205,7 @@ class Collection extends MY_Controller
 		$id = $this->get("id");
 		$total = 0;
 		$data = null;
-		$data = $this->collection->getData(["id" => $id], $total);
+		$data = $this->collection->getData(["collection_id" => $id], $total);
 		$response = $this->responses->successWithData($data, $total);
 		$this->response($response, 200);
 	}
