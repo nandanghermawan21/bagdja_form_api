@@ -122,7 +122,7 @@ class Collection_model extends CI_Model
         $total = 0;
         $result = null;
 
-        $this->db->where(["id" => $id, "value" => $value]);
+        $this->db->where(["collection_id" => $id, "value" => $value]);
         $this->db->update($this->dataTableName, $data);
 
         $cc = $this->db->affected_rows();
