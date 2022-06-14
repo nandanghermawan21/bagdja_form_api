@@ -130,7 +130,7 @@ class Collection extends MY_Controller
 		$input = json_decode(trim(file_get_contents('php://input')), true);
 		$data = $this->collection->update($id, $input, $message);
 		if ($data != null) {
-			$response = $this->responses->successWithData(null, $data);
+			$response = $this->responses->successWithData($data, 1);
 		} else {
 			$response = $this->responses->error($id . " Id cannot be null");
 		}
@@ -166,7 +166,7 @@ class Collection extends MY_Controller
 		$data = $this->collection->delete($id);
 
 		if ($data != null) {
-			$response = $this->responses->successWithData(null, $data);
+			$response = $this->responses->successWithData($data, 1);
 		} else {
 			$response = $this->responses->error($id . " Id cannot be null");
 		}
