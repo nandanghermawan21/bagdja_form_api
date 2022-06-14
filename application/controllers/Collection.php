@@ -262,7 +262,7 @@ class Collection extends MY_Controller
 	 *       	@OA\Schema(type="integer",default=null)
 	 *     ),	 
 	 *     @OA\Parameter(
-	 *       	name="id",
+	 *       	name="value",
 	 *       	description="value",
 	 *       	in="query",
 	 *       	@OA\Schema(type="String",default=null)
@@ -270,7 +270,7 @@ class Collection extends MY_Controller
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
 	 *         mediaType="application/json",
-	 *         @OA\Schema(ref="#/components/schemas/CollectionInput")
+	 *         @OA\Schema(ref="#/components/schemas/CollectionModel")
 	 *       ),
 	 *     ),
 	 *    security={{"bearerAuth": {}}},
