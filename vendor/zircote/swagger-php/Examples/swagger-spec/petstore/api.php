@@ -2,6 +2,8 @@
 
 /**
  * @OA\OpenApi(
+ *     host="awesome.com",
+ *     basePath="/whatever",
  *     @OA\Info(
  *         version="1.0.0",
  *         title="Swagger Petstore",

@@ -6,7 +6,9 @@ use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
 
-
+/**
+ * @OA\Server(url="/api/")
+ */
 
 class MY_Controller extends RestController
 {
