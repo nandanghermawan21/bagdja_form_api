@@ -173,80 +173,41 @@ class Collection extends MY_Controller
 		$this->response($response, 200);
 	}
 
-	// data
-
-	public function data_post()
-	{
-		$uri = $this->uri->segment(3);
-
-		switch ($uri) {
-			case 'create':
-				$this->create();
-				break;
-			case 'update':
-				$this->update();
-				break;
-			default:
-				show_404();
-				break;
-		}
-	}
-
-	public function data_get()
-	{
-		$uri = $this->uri->segment(3);
-
-		switch ($uri) {
-			case null:
-			case false:
-			case '':
-				$this->show();
-				break;
-			case 'delete':
-				$this->remove();
-				break;
-			default:
-				show_404();
-				break;
-		}
-	}
-
 	/**
 	 * @OA\Get(
 	 *     path="/collection/data",
 	 *     tags={"collection"},
-	 * 	   description="Get all collection data param id null, get specific with param id",
+	 * 	   description="get data collection",
 	 *     @OA\Parameter(
 	 *       name="id",
-	 *       description="id list data",
+	 *       description="id collection",
 	 *       in="query",
+	 *       required=true,
 	 *       @OA\Schema(type="integer",default=null)
 	 *   ),
 	 * security={{"bearerAuth": {}}},
 	 *    @OA\Response(response="401", description="Unauthorized"),
 	 *    @OA\Response(response="200", 
-	 * 		description="Success",
+	 * 		description="Response data inside Responses model",
 	 *      @OA\MediaType(
 	 *         mediaType="application/json",
 	 *         @OA\Schema(type="array",
 	 *             @OA\Items(type="object",
-	 *				ref="#/components/schemas/CollectionModel"               
+	 *				ref="#/components/schemas/CollectionData"               
 	 *             )
 	 *         ),
 	 *     ),
 	 *   ),
 	 * )
 	 */
-
-	public function show()
+	public function data_get()
 	{
-		$id = $this->input->get('id');
-		if ($id == null) {
-			$da = $this->collection->view(null, 'sys_collection_data');
-		} else {
-			$da = $this->mdata->view(['id' => $id], 'sys_collection_data');
-		}
-		$this->response($da, 200);
+		$id = $this->get("id");
+		$total = 0;
+		$data = null;
+		$data = $this->collection->getData(["id" => $id], $total);
+		$response = $this->responses->successWithData($data, $total);
+		$this->response($response, 200);
 	}
 
 	/**
@@ -327,7 +288,6 @@ class Collection extends MY_Controller
 	 *   security={{"bearerAuth": {}}},
 	 * )
 	 */
-
 	public function update()
 	{
 
