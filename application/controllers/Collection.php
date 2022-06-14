@@ -140,7 +140,7 @@ class Collection extends MY_Controller
 
 	/**
 	 * @OA\Get(
-	 *     path="/collection/list/delete",
+	 *     path="/collection/delete",
 	 *     tags={"collection"},
 	 * 	   description="Get all collection list param id null, get specific with param id",
 	 *     @OA\Parameter(
@@ -160,21 +160,17 @@ class Collection extends MY_Controller
 	 *   ),
 	 * )
 	 */
-	public function _remove()
+	public function delete_get()
 	{
 		$id = $this->input->get('id');
-		$da = $this->collection->delete(['id' => $id], 'sys_collection');
+		$data = $this->collection->delete($id);
 
-		if ($da > 0) {
-			$data = ['id' => $id];
-			$this->response($data, 200);
+		if ($data != null) {
+			$response = $this->responses->successWithData(null, $data);
 		} else {
-			$data = [
-				'success' => false,
-				'message' => 'delete collection invalid data',
-			];
-			$this->response($data, 400);
+			$response = $this->responses->error($id . " Id cannot be null");
 		}
+		$this->response($response, 200);
 	}
 
 	// data

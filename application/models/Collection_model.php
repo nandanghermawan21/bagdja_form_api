@@ -69,11 +69,24 @@ class Collection_model extends CI_Model
         }
     }
 
-    public function delete($data, $table)
+    public function delete($id)
     {
-        $this->db->where($data);
-        $this->db->delete($table);
-        return $this->db->affected_rows();
+        $total = 0;
+        $result = null;
+        $result = $this->get(["id" => $id], $this->tableName);
+
+        if ($total > 0) {
+            $this->db->where(["id" => $id]);
+            $this->db->delete($this->tableName);
+
+            if ($this->db->affected_rows() > 1) {
+                return $result[0];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }
 
