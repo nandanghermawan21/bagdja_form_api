@@ -10,6 +10,8 @@ class Auth extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		header("Access-Control-Allow-Methods: GET, OPTIONS");
+		header("Access-Control-Allow-Headers: Content-Type, Content-Length, Accept-Encoding");
 		$this->load->model('Auth_model', 'auth');
 		$this->load->model('Responses_model', 'responses');
 	}
