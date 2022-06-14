@@ -231,7 +231,7 @@ class Collection extends MY_Controller
 	 *   ),
 	 * )
 	 */
-	public function create()
+	public function addData_post()
 	{
 		$response = null;
 		$messageResult = null;
