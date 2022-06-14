@@ -329,7 +329,7 @@ class Collection extends MY_Controller
 	{
 		$id = $this->input->get('id');
 		$value = $this->input->get('value');
-		$data = $this->collection->delete($id, $value);
+		$data = $this->collection->deleteData($id, $value);
 
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 1);
