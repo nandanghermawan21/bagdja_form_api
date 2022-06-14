@@ -98,7 +98,7 @@ class Collection extends MY_Controller
 
 	/**
 	 * @OA\Post(
-	 *     path="/collection/create",
+	 *     path="/collection/update",
 	 *     tags={"collection"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
