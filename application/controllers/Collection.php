@@ -44,15 +44,15 @@ class Collection extends MY_Controller
 	public function list_get()
 	{
 		$id = $this->get("id");
-        $total = 0;
-        $data = null;
-        if ($id == null) {
-            $data = $this->question->get(null, $total);
-        } else {
-            $data = $this->question->get([$this->question->id => $id], $total);
-        }
-        $response = $this->responses->successWithData($data, $total);
-        $this->response($response, 200);
+		$total = 0;
+		$data = null;
+		if ($id == null) {
+			$data = $this->collection->get(null, $total);
+		} else {
+			$data = $this->collection->get(["id" => $id], $total);
+		}
+		$response = $this->responses->successWithData($data, $total);
+		$this->response($response, 200);
 	}
 
 	/**

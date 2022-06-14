@@ -46,7 +46,7 @@ class Question extends MY_Controller
         if ($id == null) {
             $data = $this->question->get(null, $total);
         } else {
-            $data = $this->question->get([$this->question->id => $id], $total);
+            $data = $this->question->get(["id" => $id], $total);
         }
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
