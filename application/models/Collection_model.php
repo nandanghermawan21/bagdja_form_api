@@ -73,7 +73,7 @@ class Collection_model extends CI_Model
     {
         $total = 0;
         $result = null;
-        $result = $this->get(["id" => $id], $this->tableName);
+        $result = $this->get(["id" => $id], $total);
 
         if ($total > 0) {
             $this->db->where("id", $id);
