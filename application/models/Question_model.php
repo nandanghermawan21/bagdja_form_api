@@ -77,6 +77,30 @@ class Question_model extends CI_Model
         }
     }
 
+    public function update($id, $data, &$errorMessage)
+    {
+        $total = 0;
+        $result = null;
+
+        $this->db->where(["id" => $id]);
+        $this->db->update($this->tableName, $data);
+
+        $cc = $this->db->affected_rows();
+
+        if ($cc > 0) {
+            $result = $this->get(["id" => $id], $total);
+            if ($total == 1) {
+                $errorMessage = "";
+                return $result[0];
+            } else {
+                $errorMessage = $this->db->error();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public function delete($id){
        $total = 0;
         $result = null;

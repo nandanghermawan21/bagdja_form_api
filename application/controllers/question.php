@@ -130,6 +130,47 @@ class Question extends MY_Controller
     }
 
     /**
+	 * @OA\Post(
+	 *     path="/question/update",
+	 *     tags={"collection"},
+	 * 	   description="update collection",
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/QuestionInput")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/Question"
+	 *      ),
+	 *   ),
+	 * )
+	 */
+	public function update_post()
+	{
+		$id = $this->input->get('id', TRUE);
+		$message = "";
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+		$data = $this->question->update($id, $input, $message);
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
+		} else {
+			$response = $this->responses->error("id not found");
+		}
+		$this->response($response, 200);
+	}
+
+    /**
      * @OA\Get(
      *     path="/question/delete",
      *     tags={"question"},
