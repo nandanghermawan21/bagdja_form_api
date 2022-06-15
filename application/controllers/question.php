@@ -132,7 +132,7 @@ class Question extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/question/update",
-	 *     tags={"collection"},
+	 *     tags={"question"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",
