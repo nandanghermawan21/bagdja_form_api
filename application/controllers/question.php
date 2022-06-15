@@ -158,9 +158,9 @@ class Question extends MY_Controller
         $data = null;
         $response = null;
         if ($id == null) {
-            $response = $this->responses->error("Id cannot be null");
+            $response = $this->responses->error("Id not found");
         } else {
-            $data = $this->question->delete(["id" => $id]);
+            $data = $this->question->delete($id);
             $response = $this->responses->successWithData($data, 1);
         }
         $this->response($response, 200);

@@ -77,10 +77,24 @@ class Question_model extends CI_Model
         }
     }
 
-    public function delete($where){
-        $this->db->where($where);
-        $this->db->delete($this->tableName);
-        return $this->db->affected_rows();
+    public function delete($id){
+       $total = 0;
+        $result = null;
+        $result = $this->get(["id" => $id], $total);
+
+        if ($total > 0) {
+            $this->db->where("id", $id);
+            $this->db->delete($this->tableName);
+
+            $cc = $this->db->affected_rows();
+            if ($cc > 0) {
+                return $result[0];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
     }
 }
 
