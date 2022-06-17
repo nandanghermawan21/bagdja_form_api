@@ -105,11 +105,11 @@ class Questiongroup_model extends CI_Model
 
         $whereQuery = "";
         foreach (array_keys($where) as $key) {
-            print($key);
-            print("/n");
+            print($key."=>".$where[$key]);
+            print("\n");
             $whereQuery = $whereQuery . $key . " = " . $where[$key];
-            print($whereQuery);
-            print("/n");
+            print("new where ".$whereQuery);
+            print("\n");
 
         }
 
