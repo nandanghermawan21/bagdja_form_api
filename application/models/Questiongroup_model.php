@@ -112,6 +112,8 @@ class Questiongroup_model extends CI_Model
             $sql . " " . $whereQuery;
         }
 
+        print($sql);
+
         $this->db->query($sql);
         $query = $this->db->query($sql);
 
