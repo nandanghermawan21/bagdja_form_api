@@ -16,7 +16,7 @@ class Questiongroup extends MY_Controller
      * @OA\Get(
      *     path="/questiongroup/list",
      *     tags={"Question Group"},
-     * 	   description="Get all collection list param id null, get specific with param id",
+     * 	   description="Get all quustion group param id null, get specific with param id",
      *     @OA\Parameter(
      *       name="id",
      *       description="id list",
@@ -137,10 +137,10 @@ class Questiongroup extends MY_Controller
 	 * @OA\Get(
 	 *     path="/questiongroup/delete",
 	 *     tags={"Question Group"},
-	 * 	   description="Get all collection list param id null, get specific with param id",
+	 * 	   description="Get all quustion group param id null, get specific with param id",
 	 *     @OA\Parameter(
 	 *       name="id",
-	 *       description="id collection list",
+	 *       description="id quustion group",
 	 *       in="query",
 	 * 		 required=true,
 	 *       @OA\Schema(type="integer",)
@@ -322,8 +322,8 @@ class Questiongroup extends MY_Controller
 	public function deleteData_post()
 	{
 		$id = $this->input->get('id');
-		$value = $this->input->get('value');
-		$data = $this->questiongroup->deleteData($id, $value);
+		$questionId = $this->input->get('questionId');
+		$data = $this->questiongroup->deleteData($id, $questionId);
 
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 1);
