@@ -104,7 +104,7 @@ class Questiongroup_model extends CI_Model
         $query = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
         join sys_question b on a.question_id = b.id";
 
-        $this->db->select()($query);
+        $this->db->select($query);
         if ($where != null) {
             $this->db->where($where);
         }
