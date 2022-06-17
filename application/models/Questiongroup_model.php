@@ -125,7 +125,7 @@ class Questiongroup_model extends CI_Model
         $total = 0;
         $result = null;
         $this->db->insert($this->dataTableName, $data);
-        $result = $this->getData(array($data->group_id, $data->question_id), $total);
+        $result = $this->getData(array($data["group_id"], $data["question_id"]), $total);
 
         if ($total == 1) {
             $errorMessage = "";
