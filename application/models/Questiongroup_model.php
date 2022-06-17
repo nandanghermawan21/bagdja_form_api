@@ -100,9 +100,17 @@ class Questiongroup_model extends CI_Model
 
     public function getData($where = null, &$refTotal)
     {
+        print_r($where);
+        print_r(array_keys($where));
+
         $whereQuery = "";
         foreach (array_keys($where) as $key) {
+            print($key);
+            print("/n");
             $whereQuery = $whereQuery . $key . " = " . $where[$key];
+            print($whereQuery);
+            print("/n");
+
         }
 
         $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
@@ -112,7 +120,6 @@ class Questiongroup_model extends CI_Model
             $sql . " " . $whereQuery;
         }
 
-        print($sql);
 
         $this->db->query($sql);
         $query = $this->db->query($sql);
