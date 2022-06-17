@@ -100,6 +100,8 @@ class Questiongroup_model extends CI_Model
 
     public function getData($where = null, &$refTotal)
     {
+        print_r($where);
+
         $whereQuery = "";
         for ($x = 0; $x <= count(array_keys($where)); $x++) {
             $key = array_keys($where)[$x];
