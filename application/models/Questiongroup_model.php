@@ -100,16 +100,17 @@ class Questiongroup_model extends CI_Model
 
     public function getData($where = null, &$refTotal)
     {
-      
-        $query = 'select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
-        join sys_question b on a.question_id = b.id';
-
-        $this->db->select($query);
         if ($where != null) {
             $this->db->where($where);
         }
 
+        $query = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
+        join sys_question b on a.question_id = b.id";
+
+        $this->db->query('YOUR QUERY HERE');
         $query = $this->db->get();
+
+        // $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
         return $query->result();
     }
