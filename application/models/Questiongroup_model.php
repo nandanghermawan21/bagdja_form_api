@@ -150,6 +150,9 @@ class Questiongroup_model extends CI_Model
 
         if ($cc > 0) {
             $result = $this->getData([$data["group_id"], $data["question_id"]], $total);
+
+            print_r($result);
+
             if ($total == 1) {
                 $errorMessage = "";
                 return $result[0];
