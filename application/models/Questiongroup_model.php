@@ -100,24 +100,16 @@ class Questiongroup_model extends CI_Model
 
     public function getData($where = null, &$refTotal)
     {
-        print_r($where);
-        print_r(array_keys($where));
-
         $whereQuery = "";
         foreach (array_keys($where) as $key) {
-            print($key."=>".$where[$key]);
-            print("\n");
             $whereQuery = $whereQuery . $key . " = " . $where[$key];
-            print("new where ".$whereQuery);
-            print("\n");
-
         }
 
         $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
         join sys_question b on a.question_id = b.id";
 
         if ($whereQuery != "") {
-            $sql . " " . $whereQuery;
+            $sql = $sql . " " . $whereQuery;
         }
 
 
