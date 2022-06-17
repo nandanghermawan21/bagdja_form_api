@@ -146,6 +146,8 @@ class Questiongroup_model extends CI_Model
 
         $cc = $this->db->affected_rows();
 
+        print_r($data);
+
         if ($cc > 0) {
             $result = $this->getData([$data["group_id"], $data["question_id"]], $total);
             if ($total == 1) {
