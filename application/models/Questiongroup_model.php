@@ -101,11 +101,8 @@ class Questiongroup_model extends CI_Model
     public function getData($where = null, &$refTotal)
     {
         $whereQuery = "";
-        if (count(array_keys($where)) > 0) {
-            for ($x = 0; $x <= count(array_keys($where)); $x++) {
-                $key = array_keys($where)[$x];
-                $whereQuery = $whereQuery . $key . " = " . $where[$key];
-            };
+        foreach (array_keys($where) as $key) {
+            $whereQuery = $whereQuery . $key . " = " . $where[$key];
         }
 
         $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
