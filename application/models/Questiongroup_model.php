@@ -8,6 +8,7 @@ class Questiongroup_model extends CI_Model
 {
     private $tableName = "sys_question_group";
     private $dataTableName = "sys_question_list";
+    private $questionTableName = "sys_question";
 
     /**
      * @OA\Property()
@@ -102,6 +103,14 @@ class Questiongroup_model extends CI_Model
         if ($where != null) {
             $this->db->where($where);
         }
+
+
+        $this->db->select('*');
+        $this->db->from($this->dataTableName);
+        $this->db->join($this->questionTableName, $this->questionTableName.'.id = '.$this->dataTableName.'.question_id');
+        $query = $this->db->get();
+
+
         $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
         return $query->result();
