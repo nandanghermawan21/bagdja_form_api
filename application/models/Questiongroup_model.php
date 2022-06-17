@@ -113,7 +113,7 @@ class Questiongroup_model extends CI_Model
         //     $query . " " . $whereQuery;
         // }
 
-        $query = $this->db->query($sql, $where);
+        $query = $this->db->query($sql, array(100));
 
         // $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
