@@ -200,7 +200,7 @@ class Questiongroup extends MY_Controller
 		$id = $this->get("id");
 		$total = 0;
 		$data = null;
-		$data = $this->questiongroup->getData(["group_id" => $id], $total);
+		$data = $this->questiongroup->getData([$id], $total);
 		$response = $this->responses->successWithData($data, $total);
 		$this->response($response, 200);
 	}

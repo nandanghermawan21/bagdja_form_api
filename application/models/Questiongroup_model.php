@@ -106,14 +106,14 @@ class Questiongroup_model extends CI_Model
         //     $whereQuery = $whereQuery . $key . " = " . $where[$key];
         // };
 
-        $query = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
+        $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
         join sys_question b on a.question_id = b.id";
 
         // if ($whereQuery != "") {
         //     $query . " " . $whereQuery;
         // }
 
-        $query = $this->db->query($query);
+        $query = $this->db->query($sql, $where);
 
         // $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
@@ -125,7 +125,7 @@ class Questiongroup_model extends CI_Model
         $total = 0;
         $result = null;
         $this->db->insert($this->dataTableName, $data);
-        $result = $this->getData($data, $total);
+        $result = $this->getData(array($data->group_id, $data->question_id), $total);
 
         if ($total == 1) {
             $errorMessage = "";
@@ -147,7 +147,7 @@ class Questiongroup_model extends CI_Model
         $cc = $this->db->affected_rows();
 
         if ($cc > 0) {
-            $result = $this->getData($data, $total);
+            $result = $this->getData([$data->group_id, $data->question_id], $total);
             if ($total == 1) {
                 $errorMessage = "";
                 return $result[0];
@@ -164,7 +164,7 @@ class Questiongroup_model extends CI_Model
     {
         $total = 0;
         $result = null;
-        $result = $this->getData(["group_id" => $id, "question_id" => $questionId], $total);
+        $result = $this->getData([$id, $questionId], $total);
 
         if ($total > 0) {
             $this->db->where(["group_id" => $id, "question_id" => $questionId]);
