@@ -102,7 +102,7 @@ class Questiongroup_model extends CI_Model
     {
         $whereArray = array();
         foreach (array_keys($where) as $key) {
-            array_push($whereArray, $key . " = " . $where[$key]);
+            array_push($whereArray, "[" . $key . "]" . " = " . $where[$key]);
         }
 
         $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
