@@ -7,8 +7,8 @@ class Questiongroup extends MY_Controller
     {
         parent::__construct();
         $this->_authenticate();
-
-        $this->load->model('Questiongroup_model', 'questiongroup');
+                            
+        $this->load->model('Questuiongroup_model', 'questiongroup');
         $this->load->model('Responses_model', 'responses');
     }
 
