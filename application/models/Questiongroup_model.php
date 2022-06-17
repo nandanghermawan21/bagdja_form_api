@@ -107,8 +107,8 @@ class Questiongroup_model extends CI_Model
         // $query = $this->db->get($this->dataTableName);
 
         $this->db->select('*');
-        $this->db->from($this->dataTableName);
-        $this->db->join($this->questionTableName, $this->questionTableName.'.id = '.$this->dataTableName.'.question_id');
+        $this->db->from($this->dataTableName." as a");
+        $this->db->join($this->questionTableName." as b", 'a.id = b.question_id');
         $query = $this->db->get();
         $refTotal = $query->num_rows();
         return $query->result();
