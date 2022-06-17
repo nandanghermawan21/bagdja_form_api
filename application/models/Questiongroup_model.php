@@ -102,21 +102,21 @@ class Questiongroup_model extends CI_Model
     {
         $whereQuery = "";
         if (count(array_keys($where)) > 0) {
-            for ($x = 0; $x <= count(array_keys($where)) - 1; $x++) {
+            for ($x = 0; $x <= count(array_keys($where)); $x++) {
                 $key = array_keys($where)[$x];
                 $whereQuery = $whereQuery . $key . " = " . $where[$key];
             };
         }
 
-        $query = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
+        $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
         join sys_question b on a.question_id = b.id";
 
         if ($whereQuery != "") {
-            $query . " " . $whereQuery;
+            $sql . " " . $whereQuery;
         }
 
-        $this->db->query($query);
-        $query = $this->db->query($query);
+        $this->db->query($sql);
+        $query = $this->db->query($sql);
 
         // $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
