@@ -100,16 +100,18 @@ class Questiongroup_model extends CI_Model
 
     public function getData($where = null, &$refTotal)
     {
+      
+        $query = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
+        join sys_question b on a.question_id = b.id";
+
+        $this->db->query($query);
         if ($where != null) {
             $this->db->where($where);
         }
 
-        // $query = $this->db->get($this->dataTableName);
-
-        $this->db->select('*');
-        $this->db->from("sys_question_list as a");
-        $this->db->join("sys_question as b", 'a.id = .question_id');
         $query = $this->db->get();
+
+        // $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
         return $query->result();
     }
@@ -174,7 +176,6 @@ class Questiongroup_model extends CI_Model
             return null;
         }
     }
-
 }
 
 /**
@@ -209,7 +210,7 @@ class QuestionGroupData
      * @var integer
      */
     public $question_id;
-      /**
+    /**
      * @OA\Property()
      * @var integer
      */
