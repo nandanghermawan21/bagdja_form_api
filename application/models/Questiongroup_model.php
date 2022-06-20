@@ -112,7 +112,7 @@ class Questiongroup_model extends CI_Model
             $sql = $sql . " where " . implode(" and ", $whereArray);
         }
 
-        $sql = $sql + " order by [order] asc ";
+        $sql = $sql . " order by [order] asc ";
 
         $this->db->query($sql);
         $query = $this->db->query($sql);
