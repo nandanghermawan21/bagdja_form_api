@@ -191,7 +191,7 @@ class Questiongroup_model extends CI_Model
 
         $query = $this->db->query($sql, array($groupId, $questionId, $target) );
 
-        return $query->result();
+        return $query->num_rows();
     }
 }
 
