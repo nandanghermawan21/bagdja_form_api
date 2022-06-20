@@ -162,6 +162,10 @@ class Questiongroup_model extends CI_Model
 
     public function deleteData($id, $questionId)
     {
+
+        print("id => ".$id );
+        print("question_id => ".$questionId );
+
         $total = 0;
         $result = null;
         $result = $this->getData(["group_id" => $id, "question_id" => $questionId], $total);
