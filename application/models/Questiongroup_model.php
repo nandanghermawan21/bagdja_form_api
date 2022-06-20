@@ -127,6 +127,8 @@ class Questiongroup_model extends CI_Model
         $this->db->insert($this->dataTableName, $data);
         $result = $this->getData($data, $total);
 
+        $this->reorder($data["group_id"],$data["question_id"],$data["order"]);
+
         if ($total == 1) {
             $errorMessage = "";
             return $result[0];
@@ -179,6 +181,19 @@ class Questiongroup_model extends CI_Model
         } else {
             return null;
         }
+    }
+
+    public function reorder($groupId, $questionId, $target)
+    {
+        $sql = "update sys_question_list 
+        set [order] = [order] + 1
+        where [group_id] = ? and [question_id] != ? and [order] >= ?";
+
+        $this->db->query($sql);
+        $query = $this->db->query($sql, array($groupId, $questionId, $target) );
+
+        // $query = $this->db->get($this->dataTableName);
+        return $query->result();
     }
 }
 
