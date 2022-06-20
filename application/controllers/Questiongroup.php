@@ -321,8 +321,8 @@ class Questiongroup extends MY_Controller
 	 */
 	public function deleteData_post()
 	{
-		$id = $this->input->get('id');
-		$questionId = $this->input->get('questionId');
+		$id = $this->input->post('id', true);
+		$questionId = $this->input->get('questionId', true);
 		$data = $this->questiongroup->deleteData($id, $questionId);
 
 		if ($data != null) {
