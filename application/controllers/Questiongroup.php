@@ -324,9 +324,6 @@ class Questiongroup extends MY_Controller
 		$id = $this->input->get('id', true);
 		$questionId = $this->input->get('questionId', true);
 
-		print("id => ".$id );
-        print("question_id => ".$questionId );
-
 		$data = $this->questiongroup->deleteData($id, $questionId);
 
 		if ($data != null) {
