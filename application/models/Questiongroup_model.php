@@ -189,10 +189,8 @@ class Questiongroup_model extends CI_Model
         set [order] = [order] + 1
         where [group_id] = ? and [question_id] != ? and [order] >= ?";
 
-        $this->db->query($sql);
         $query = $this->db->query($sql, array($groupId, $questionId, $target) );
 
-        // $query = $this->db->get($this->dataTableName);
         return $query->result();
     }
 }
