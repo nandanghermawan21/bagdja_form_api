@@ -150,6 +150,8 @@ class Questiongroup_model extends CI_Model
 
         $cc = $this->db->affected_rows();
 
+        $this->reorder($data["group_id"],$data["question_id"],$data["order"]); 
+
         if ($cc > 0) {
             $result = $this->getData($data, $total);
             if ($total == 1) {
