@@ -106,11 +106,13 @@ class Questiongroup_model extends CI_Model
         }
 
         $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
-        join sys_question b on a.question_id = b.id order by [order] asc";
+        join sys_question b on a.question_id = b.id ";
 
         if (count($whereArray) > 0) {
             $sql = $sql . " where " . implode(" and ", $whereArray);
         }
+
+        $sql = $sql + " order by [order] asc ";
 
         $this->db->query($sql);
         $query = $this->db->query($sql);
