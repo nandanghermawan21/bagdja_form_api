@@ -109,7 +109,7 @@ class Page_model extends CI_Model
     {
         $sql = "update sys_form_page 
         set [order] = [order] + 1
-        where [id] != ? and [form_id] == ? and [order] >= ?";
+        where [id] != ? and [form_id] = ? and [order] >= ?";
 
         $query = $this->db->query($sql, array($pageId, $formId, $target));
 
