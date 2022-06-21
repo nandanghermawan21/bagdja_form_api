@@ -14,7 +14,7 @@ class Form extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/questiongroup/application",
+     *     path="/form/application",
      *     tags={"Form"},
      * 	   description="Get all form on application",
      *     @OA\Parameter(
