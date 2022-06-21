@@ -5,8 +5,6 @@
  */
 class Form_model extends CI_Model
 {
-    private $tableName = "sys_form";
-
     /**
      * @OA\Property()
      * @var integer
@@ -39,4 +37,44 @@ class Form_model extends CI_Model
         
         return $query->result();
     }
+
+    public function getFormPages($formId, &$refTotal)
+    {
+        $sql = "select * from [sys_form_page]
+                WHERE [form_id] = ?
+                ORDER by [order] ASC";
+
+        $query = $this->db->query($sql, array($formId));
+        $refTotal = $query->num_rows();
+        
+        return $query->result();
+    }
 }
+
+/**
+ * @OA\Schema(schema="FormPage")
+ */
+class QuestionGroupInput
+{
+    /**
+     * @OA\Property()
+     * @var int
+     */
+    public $id;
+    /**
+     * @OA\Property()
+     * @var int
+     */
+    public $form_id;
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $name;
+    /**
+     * @OA\Property()
+     * @var int
+     */
+    public $order;
+}
+
