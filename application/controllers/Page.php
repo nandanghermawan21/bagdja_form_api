@@ -41,11 +41,145 @@ class Page extends MY_Controller
     public function questions_get()
     {
         $id = $this->get("id");
-        $total = 0;
-        $data = null;
-        $data = $this->page->getQuestions($id, $total);
-
-        $response = $this->responses->successWithData($data, $total);
-        $this->response($response, 200);
+		$total = 0;
+		$data = null;
+		$data = $this->page->getQuestions(["page_id" => $id], $total);
+		$response = $this->responses->successWithData($data, $total);
+		$this->response($response, 200);
     }
+
+    /**
+	 * @OA\Post(
+	 *     path="/page/addQuestion",
+	 *     tags={"page"},
+	 * 	   description="add data question to page",
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageQuestion")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageQuestionDetail"
+	 *      ),
+	 *   ),
+	 * )
+	 */
+	public function addQuestion_post()
+	{
+		$response = null;
+		$messageResult = null;
+		$data = null;
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+
+		$data = $this->page->addQuestion($input, $messageResult);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 0);
+		} else {
+			$response = $this->responses->error($messageResult);
+		}
+
+		$this->response($response, 200);
+	}
+
+    /**
+	 * @OA\Post(
+	 *     path="/page/updateQuestion",
+	 *     tags={"page"},
+	 * 	   description="update question in page",
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\Parameter(
+	 *       	name="groupId",
+	 *       	description="value",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageQuestion")
+	 *       ),
+	 *     ),
+	 *    security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageQuestionDetail"
+	 *      ),
+	 *    ),
+	 *   )
+	 */
+	public function updateQuestion_post()
+	{
+		$id = $this->input->get('id', TRUE);
+		$groupId = $this->input->get('groupId', TRUE);
+		$message = "";
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+		$data = $this->page->updateQuestion($id, $groupId, $input, $message);
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
+		} else {
+			$response = $this->responses->error("id not found");
+		}
+		$this->response($response, 200);
+	}
+
+     /**
+	 * @OA\Post(
+	 *     path="/page/deleteQuestion",
+	 *     tags={"page"},
+	 * 	   description="delete question from page",
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\Parameter(
+	 *       	name="groupId",
+	 *       	description="value",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageQuestion")
+	 *       ),
+	 *     ),
+	 *    security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageQuestionDetail"
+	 *      ),
+	 *    ),
+	 *   )
+	 */
+	public function deleteData_post()
+	{
+		$id = $this->input->get('id', true);
+		$groupId = $this->input->get('groupId', true);
+
+		$data = $this->page->deleteQuestion($id, $groupId);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
+		} else {
+			$response = $this->responses->error("id not found");
+		}
+		$this->response($response, 200);
+	}
 }

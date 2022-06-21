@@ -8,7 +8,7 @@ class Questiongroup_model extends CI_Model
 {
     private $tableName = "sys_question_group";
     private $dataTableName = "sys_question_list";
-    private $questionTableName = "sys_question";
+    
 
     /**
      * @OA\Property()
