@@ -95,7 +95,7 @@ class Page extends MY_Controller
 
     /**
 	 * @OA\Get(
-	 *     path="/questiongroup/delete",
+	 *     path="/page/delete",
 	 *     tags={"page"},
 	 * 	   description="delete page",
 	 *     @OA\Parameter(
