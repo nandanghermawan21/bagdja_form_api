@@ -152,12 +152,6 @@ class Page extends MY_Controller
 	 *       	in="query",
 	 *       	@OA\Schema(type="integer",default=null)
 	 *     ),	 
-	 *     @OA\RequestBody(
-	 *     @OA\MediaType(
-	 *         mediaType="application/json",
-	 *         @OA\Schema(ref="#/components/schemas/PageQuestion")
-	 *       ),
-	 *     ),
 	 *    security={{"bearerAuth": {}}},
 	 *    @OA\Response(response="401", description="Unauthorized"),
 	 *    @OA\Response(response="200", 
