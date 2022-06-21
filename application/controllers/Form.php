@@ -43,7 +43,7 @@ class Form extends MY_Controller
         $id = $this->get("id");
         $total = 0;
         $data = null;
-        $data = $this->form->get($id, $total);
+        $data = $this->form->getApplicationForms($id, $total);
 
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
