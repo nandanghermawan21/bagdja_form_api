@@ -92,7 +92,7 @@ class Page_model extends CI_Model
 
         if ($total > 0) {
             $this->db->where("id", $id);
-            $this->db->delete($this->tableName);
+            $this->db->delete($this->pageTableName);
 
             $cc = $this->db->affected_rows();
             if ($cc > 0) {
