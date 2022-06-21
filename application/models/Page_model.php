@@ -48,7 +48,7 @@ class Page_model extends CI_Model
         $this->db->insert($this->pageTableName, $data);
         $result = $this->get(["id" => $this->db->insert_id()], $total);
 
-        $this->reorderPages($this->db->insert_id(),$data["form_id"],$data["order"]);
+        $this->reorderPages($this->db->insert_id(), $data["form_id"], $data["order"]);
 
         if ($total == 1) {
             $errorMessage = "";
@@ -68,7 +68,7 @@ class Page_model extends CI_Model
         $this->db->update($this->pageTableName, $data);
 
         $cc = $this->db->affected_rows();
-        $this->reorderPages($id,$data["form_id"],$data["order"]);
+        $this->reorderPages($id, $data["form_id"], $data["order"]);
 
         if ($cc > 0) {
             $result = $this->get(["id" => $id], $total);
@@ -111,7 +111,7 @@ class Page_model extends CI_Model
         set [order] = [order] + 1
         where [id] = ? and [form_id] != ? and [order] >= ?";
 
-        $query = $this->db->query($sql, array($pageId, $formId, $target) );
+        $query = $this->db->query($sql, array($pageId, $formId, $target));
 
         return $query;
     }
@@ -152,7 +152,7 @@ class Page_model extends CI_Model
         $this->db->insert($this->pageQuestionTableName, $data);
         $result = $this->getQuestions($data, $total);
 
-        $this->reorderQuestions($data["page_id"],$data["group_id"],$data["order"]);
+        $this->reorderQuestions($data["page_id"], $data["group_id"], $data["order"]);
 
         if ($total == 1) {
             $errorMessage = "";
@@ -173,7 +173,7 @@ class Page_model extends CI_Model
 
         $cc = $this->db->affected_rows();
 
-        $this->reorderQuestions($data["page_id"],$data["group_id"],$data["order"]); 
+        $this->reorderQuestions($data["page_id"], $data["group_id"], $data["order"]);
 
         if ($cc > 0) {
             $result = $this->getQuestions($data, $total);
@@ -216,12 +216,32 @@ class Page_model extends CI_Model
         set [order] = [order] + 1
         where [page_id] = ? and [group_id] != ? and [order] >= ?";
 
-        $query = $this->db->query($sql, array($pageId, $groupId, $target) );
+        $query = $this->db->query($sql, array($pageId, $groupId, $target));
 
         return $query;
     }
+}
 
-
+/**
+ * @OA\Schema(schema="PageInput")
+ */
+class PageInput
+{
+    /**
+     * @OA\Property()
+     * @var int
+     */
+    public $form_id;
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $name;
+    /**
+     * @OA\Property()
+     * @var int
+     */
+    public $order;
 }
 
 /**
@@ -277,5 +297,3 @@ class PageQuestion
      */
     public $order;
 }
-
-

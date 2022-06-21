@@ -20,7 +20,7 @@ class Page extends MY_Controller
      *     @OA\RequestBody(
      *     @OA\MediaType(
      *         mediaType="application/json",
-     *         @OA\Schema(ref="#/components/schemas/PageModel")
+     *         @OA\Schema(ref="#/components/schemas/PageInput")
      *       ),
      *     ),
      * security={{"bearerAuth": {}}},
@@ -66,7 +66,7 @@ class Page extends MY_Controller
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
 	 *         mediaType="application/json",
-	 *         @OA\Schema(ref="#/components/schemas/PageModel")
+	 *         @OA\Schema(ref="#/components/schemas/PageInput")
 	 *       ),
 	 *     ),
 	 * security={{"bearerAuth": {}}},
