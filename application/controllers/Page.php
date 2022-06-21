@@ -55,7 +55,7 @@ class Page extends MY_Controller
      /**
 	 * @OA\Post(
 	 *     path="/page/update",
-	 *     tags={"Question Group"},
+	 *     tags={"page"},
 	 * 	   description="update page",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -96,7 +96,7 @@ class Page extends MY_Controller
     /**
 	 * @OA\Get(
 	 *     path="/questiongroup/delete",
-	 *     tags={"Question Group"},
+	 *     tags={"page"},
 	 * 	   description="delete page",
 	 *     @OA\Parameter(
 	 *       name="id",
