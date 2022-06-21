@@ -7,6 +7,7 @@
 
 class Page_model extends CI_Model
 {
+    private $pageTableName = "sys_form_page";
     private $pageQuestionTableName = "sys_page_question";
 
     /**
@@ -29,6 +30,91 @@ class Page_model extends CI_Model
      * @var int
      */
     public $order;
+
+    public function get($where = null, &$refTotal)
+    {
+        if ($where != null) {
+            $this->db->where($where);
+        }
+        $query = $this->db->get($this->pageTableName);
+        $refTotal = $query->num_rows();
+        return $query->result();
+    }
+
+    public function create($data = null, &$errorMessage)
+    {
+        $total = 0;
+        $result = null;
+        $this->db->insert($this->pageTableName, $data);
+        $result = $this->get(["id" => $this->db->insert_id()], $total);
+
+        $this->reorderPages($data["id"],$data["form_id"],$data["order"]);
+
+        if ($total == 1) {
+            $errorMessage = "";
+            return $result[0];
+        } else {
+            $errorMessage = $this->db->error();
+            return null;
+        }
+    }
+
+    public function update($id, $data, &$errorMessage)
+    {
+        $total = 0;
+        $result = null;
+
+        $this->db->where(["id" => $id]);
+        $this->db->update($this->pageTableName, $data);
+
+        $cc = $this->db->affected_rows();
+        $this->reorderPages($id,$data["form_id"],$data["order"]);
+
+        if ($cc > 0) {
+            $result = $this->get(["id" => $id], $total);
+            if ($total == 1) {
+                $errorMessage = "";
+                return $result[0];
+            } else {
+                $errorMessage = $this->db->error();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function delete($id)
+    {
+        $total = 0;
+        $result = null;
+        $result = $this->get(["id" => $id], $total);
+
+        if ($total > 0) {
+            $this->db->where("id", $id);
+            $this->db->delete($this->tableName);
+
+            $cc = $this->db->affected_rows();
+            if ($cc > 0) {
+                return $result[0];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function reorderPages($pageId, $formId, $target)
+    {
+        $sql = "update sys_form_page 
+        set [order] = [order] + 1
+        where [id] = ? and [form_id] != ? and [order] >= ?";
+
+        $query = $this->db->query($sql, array($pageId, $formId, $target) );
+
+        return $query;
+    }
 
     public function getQuestions($where = null, &$refTotal)
     {

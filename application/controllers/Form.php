@@ -68,7 +68,7 @@ class Form extends MY_Controller
      *         mediaType="application/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
-     *				ref="#/components/schemas/FormPage"               
+     *				ref="#/components/schemas/PageModel"               
      *             )
      *         ),
      *     ),

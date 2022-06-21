@@ -51,30 +51,5 @@ class Form_model extends CI_Model
     }
 }
 
-/**
- * @OA\Schema(schema="FormPage")
- */
-class QuestionGroupInput
-{
-    /**
-     * @OA\Property()
-     * @var int
-     */
-    public $id;
-    /**
-     * @OA\Property()
-     * @var int
-     */
-    public $form_id;
-    /**
-     * @OA\Property()
-     * @var string
-     */
-    public $name;
-    /**
-     * @OA\Property()
-     * @var int
-     */
-    public $order;
-}
+
 

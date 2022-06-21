@@ -13,6 +13,122 @@ class Page extends MY_Controller
     }
 
     /**
+     * @OA\Post(
+     *     path="/page/create",
+     *     tags={"page"},
+     * 	   description="create new page",
+     *     @OA\RequestBody(
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(ref="#/components/schemas/PageModel")
+     *       ),
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\JsonContent(
+     *        ref="#/components/schemas/PageModel"
+     *      ),
+     *   ),
+     * )
+     */
+    public function create_post()
+    {
+
+        $response = null;
+        $messageResult = null;
+        $data = null;
+        $input = json_decode(trim(file_get_contents('php://input')), true);
+
+        $data = $this->page->create($input, $messageResult);
+
+        if ($data != null) {
+            $response = $this->responses->successWithData($data, 0);
+        } else {
+            $response = $this->responses->error($messageResult);
+        }
+
+        $this->response($response, 200);
+    }
+
+     /**
+	 * @OA\Post(
+	 *     path="/page/update",
+	 *     tags={"Question Group"},
+	 * 	   description="update page",
+	 *     @OA\Parameter(
+	 *       	name="id",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageModel")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageModel"
+	 *      ),
+	 *   ),
+	 * )
+	 */
+	public function update_post()
+	{
+		$id = $this->input->get('id', TRUE);
+		$message = "";
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+		$data = $this->page->update($id, $input, $message);
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
+		} else {
+			$response = $this->responses->error("id not found");
+		}
+		$this->response($response, 200);
+	}
+
+    /**
+	 * @OA\Get(
+	 *     path="/questiongroup/delete",
+	 *     tags={"Question Group"},
+	 * 	   description="delete page",
+	 *     @OA\Parameter(
+	 *       name="id",
+	 *       description="id quustion group",
+	 *       in="query",
+	 * 		 required=true,
+	 *       @OA\Schema(type="integer",)
+	 *   ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Success",
+	 *      @OA\JsonContent(     
+	 *         ref="#/components/schemas/PageModel"
+	 *     ),
+	 *   ),
+	 * )
+	 */
+	public function delete_get()
+	{
+		$id = $this->input->get('id');
+		$data = $this->form->delete($id);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 1);
+		} else {
+			$response = $this->responses->error("id not found");
+		}
+		$this->response($response, 200);
+	}
+
+    /**
      * @OA\Get(
      *     path="/page/questions",
      *     tags={"page"},
