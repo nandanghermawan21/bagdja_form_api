@@ -48,7 +48,7 @@ class Page_model extends CI_Model
         $this->db->insert($this->pageTableName, $data);
         $result = $this->get(["id" => $this->db->insert_id()], $total);
 
-        $this->reorderPages($result["id"],$result["form_id"],$data["order"]);
+        $this->reorderPages($this->db->insert_id(),$data["form_id"],$data["order"]);
 
         if ($total == 1) {
             $errorMessage = "";
