@@ -118,7 +118,7 @@ class Page extends MY_Controller
 	public function delete_get()
 	{
 		$id = $this->input->get('id');
-		$data = $this->form->delete($id);
+		$data = $this->page->delete($id);
 
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 1);
