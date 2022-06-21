@@ -162,7 +162,7 @@ class Page extends MY_Controller
 	 *    ),
 	 *   )
 	 */
-	public function deleteData_post()
+	public function deleteQuestion_post()
 	{
 		$id = $this->input->get('id', true);
 		$groupId = $this->input->get('groupId', true);
