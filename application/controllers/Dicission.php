@@ -8,7 +8,7 @@ class Dicission extends MY_Controller
         parent::__construct();
         $this->_authenticate();
                             
-        $this->load->model('Dicission_model', 'dicission');
+        $this->load->model('Dicissiontype_model', 'dicissiontype');
         $this->load->model('Responses_model', 'responses');
     }
 
@@ -44,9 +44,9 @@ class Dicission extends MY_Controller
         $total = 0;
         $data = null;
         if ($id == null) {
-            $data = $this->dicission->get(null, $total);
+            $data = $this->dicissiontype->get(null, $total);
         } else {
-            $data = $this->dicission->get(["id" => $id], $total);
+            $data = $this->dicissiontype->get(["id" => $id], $total);
         }
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
