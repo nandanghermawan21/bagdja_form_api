@@ -220,6 +220,107 @@ class Page_model extends CI_Model
 
         return $query;
     }
+
+    public function getDicission($where = null, &$refTotal)
+    {
+        $whereArray = array();
+        foreach (array_keys($where) as $key) {
+            array_push($whereArray, "[" . $key . "]" . " = " . $where[$key]);
+        }
+
+        $sql = "SELECT d.*,
+                    g.code as group_code,
+                    g.name as group_name,
+                    q.code as question_code,
+                    q.name as question_name,
+                    q.label as question_label,
+                    q.hint as question_hint,
+                    q.type as question_type,
+                    q.collection_id as question_collection_id
+                from sys_page_dicission as d
+                join sys_question_group g on d.dicission_group_id = g.id
+                join sys_question q on d.dicission_question_id = q.id ";
+
+        if (count($whereArray) > 0) {
+            $sql = $sql . " where " . implode(" and ", $whereArray);
+        }
+
+        $this->db->query($sql);
+        $query = $this->db->query($sql);
+
+        // $query = $this->db->get($this->dataTableName);
+        $refTotal = $query->num_rows();
+        return $query->result();
+    }
+
+    public function addDicission($data = null, &$errorMessage)
+    {
+        $total = 0;
+        $result = null;
+        $this->db->insert($this->dataTableName, $data);
+        $result = $this->getDicission($data, $total);
+
+        if ($total == 1) {
+            $errorMessage = "";
+            return $result[0];
+        } else {
+            $errorMessage = $this->db->error();
+            return null;
+        }
+    }
+
+    public function updateDicission($data, &$errorMessage)
+    {
+        $total = 0;
+        $result = null;
+
+        $getKey = array(
+            "page_id" => $data["page_id"],
+            "group_id" => $data["group_id"],
+            "dicission_group_id" => $data["dicission_group_id"],
+            "dicission_question_id" => $data["dicission_question_id"],
+        );
+
+        $this->db->where($getKey);
+        $this->db->update($this->dataTableName, $data);
+
+        $cc = $this->db->affected_rows();
+
+        if ($cc > 0) {
+            $result = $this->getDicission($data, $total);
+            if ($total == 1) {
+                $errorMessage = "";
+                return $result[0];
+            } else {
+                $errorMessage = $this->db->error();
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public function deleteDicission($data)
+    {
+        $total = 0;
+        $result = null;
+
+        $result = $this->getDicission($data, $total);
+
+        if ($total > 0) {
+            $this->db->where($data);
+            $this->db->delete($this->dataTableName);
+
+            $cc = $this->db->affected_rows();
+            if ($cc > 0) {
+                return $result[0];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
 }
 
 /**
@@ -296,4 +397,131 @@ class PageQuestion
      * @var integer
      */
     public $order;
+}
+
+/**
+ * @OA\Schema(schema="PageDicission")
+ */
+class PageDicission
+{
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $page_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $group_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_group_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_question_id;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_type;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_value;
+}
+
+/**
+ * @OA\Schema(schema="PageDicissionDetail")
+ */
+class PageDicissionDetail
+{
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $page_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $group_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_group_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_question_id;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_type;
+
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $dicission_value;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $group_code;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $group_name;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $question_code;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $question_name;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $question_label;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $question_hint;
+
+     /**
+     * @OA\Property()
+     * @var string
+     */
+    public $question_type;
+
+     /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $question_collection_id;
+
 }

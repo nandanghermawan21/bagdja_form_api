@@ -292,4 +292,166 @@ class Page extends MY_Controller
 		}
 		$this->response($response, 200);
 	}
+
+	/**
+	 * @OA\Get(
+	 *     path="/page/dicission",
+	 *     tags={"page"},
+	 * 	   description="get page dicission",
+	 *     @OA\Parameter(
+	 *       name="id",
+	 *       description="page id",
+	 *       in="query",
+	 *       required=true,
+	 *       @OA\Schema(type="integer",default=null)
+	 *     ),
+	 *     @OA\Parameter(
+	 *       name="groupId",
+	 *       description="question group id",
+	 *       in="query",
+	 *       required=true,
+	 *       @OA\Schema(type="integer",default=null)
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(type="array",
+	 *             @OA\Items(type="object",
+	 *				ref="#/components/schemas/PageDicissionDetail"               
+	 *             )
+	 *         ),
+	 *     ),
+	 *   ),
+	 * )
+	 */
+	public function dicission_get()
+	{
+		$id = $this->get("id");
+		$groupId = $this->get("groupId");
+		$total = 0;
+		$data = null;
+		$data = $this->page->getDicission(["page_id" => $id, "group_id" => $groupId], $total);
+		$response = $this->responses->successWithData($data, $total);
+		$this->response($response, 200);
+	}
+
+	 /**
+	 * @OA\Post(
+	 *     path="/page/addDicission",
+	 *     tags={"page"},
+	 * 	   description="add page dicission",
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageDicission")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageDicissionDetail"
+	 *      ),
+	 *   ),
+	 * )
+	 */
+	public function addDicission_post()
+	{
+		$response = null;
+		$messageResult = null;
+		$data = null;
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+
+		$data = $this->page->addDicission($input, $messageResult);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 0);
+		} else {
+			$response = $this->responses->error($messageResult);
+		}
+
+		$this->response($response, 200);
+	}
+
+	 /**
+	 * @OA\Post(
+	 *     path="/page/updateDicission",
+	 *     tags={"page"},
+	 * 	   description="update page dicission",
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageDicission")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageDicissionDetail"
+	 *      ),
+	 *   ),
+	 * )
+	 */
+	public function updateDicission_post()
+	{
+		$response = null;
+		$messageResult = null;
+		$data = null;
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+
+		$data = $this->page->updateDicission($input, $messageResult);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 0);
+		} else {
+			$response = $this->responses->error($messageResult);
+		}
+
+		$this->response($response, 200);
+	}
+
+	 /**
+	 * @OA\Post(
+	 *     path="/page/deleteDicission",
+	 *     tags={"page"},
+	 * 	   description="delete page dicission",
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/PageDicission")
+	 *       ),
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/PageDicissionDetail"
+	 *      ),
+	 *   ),
+	 * )
+	 */
+	public function deleteDicission_post()
+	{
+		$response = null;
+		$messageResult = null;
+		$data = null;
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+
+		$data = $this->page->updateDicission($input, $messageResult);
+
+		if ($data != null) {
+			$response = $this->responses->successWithData($data, 0);
+		} else {
+			$response = $this->responses->error($messageResult);
+		}
+
+		$this->response($response, 200);
+	}
 }
