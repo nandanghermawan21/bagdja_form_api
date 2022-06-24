@@ -9,6 +9,7 @@ class Page_model extends CI_Model
 {
     private $pageTableName = "sys_form_page";
     private $pageQuestionTableName = "sys_page_question";
+    private $pageDicissionTableName = "sys_page_dicission";
 
     /**
      * @OA\Property()
@@ -257,7 +258,7 @@ class Page_model extends CI_Model
     {
         $total = 0;
         $result = null;
-        $this->db->insert($this->dataTableName, $data);
+        $this->db->insert($this->pageDicissionTableName, $data);
         $result = $this->getDicission($data, $total);
 
         if ($total == 1) {
@@ -282,7 +283,7 @@ class Page_model extends CI_Model
         );
 
         $this->db->where($getKey);
-        $this->db->update($this->dataTableName, $data);
+        $this->db->update($this->pageDicissionTableName, $data);
 
         $cc = $this->db->affected_rows();
 
@@ -309,7 +310,7 @@ class Page_model extends CI_Model
 
         if ($total > 0) {
             $this->db->where($data);
-            $this->db->delete($this->dataTableName);
+            $this->db->delete($this->pageDicissionTableName);
 
             $cc = $this->db->affected_rows();
             if ($cc > 0) {
