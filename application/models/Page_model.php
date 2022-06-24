@@ -226,7 +226,7 @@ class Page_model extends CI_Model
     {
         $whereArray = array();
         foreach (array_keys($where) as $key) {
-            array_push($whereArray, "[" . $key . "]" . " = " . $where[$key]);
+            array_push($whereArray, "[" . $key . "]" . " = '" . $where[$key]."'");
         }
 
         $sql = "SELECT d.*,
