@@ -255,7 +255,7 @@ class Page_model extends CI_Model
     }
 
     public function addDicission($data = null, &$errorMessage)
-    {
+    {   //test
         $total = 0;
         $result = null;
         $this->db->insert($this->pageDicissionTableName, $data);
