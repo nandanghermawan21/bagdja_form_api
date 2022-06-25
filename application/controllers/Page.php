@@ -444,7 +444,7 @@ class Page extends MY_Controller
 		$data = null;
 		$input = json_decode(trim(file_get_contents('php://input')), true);
 
-		$data = $this->page->updateDicission($input, $messageResult);
+		$data = $this->page->deleteDicission($input, $messageResult);
 
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 0);

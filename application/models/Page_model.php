@@ -322,7 +322,6 @@ class Page_model extends CI_Model
             $cc = $this->db->affected_rows();
             $total = $cc;
             if ($cc > 0) {
-                $result[0]["query"] = $this->db->last_query();
                 return $result[0];
             } else {
                 return null;
