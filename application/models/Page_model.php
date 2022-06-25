@@ -320,6 +320,7 @@ class Page_model extends CI_Model
             $this->db->delete($this->pageDicissionTableName);
 
             $cc = $this->db->affected_rows();
+            $total = $cc;
             if ($cc > 0) {
                 return $result[0];
             } else {
