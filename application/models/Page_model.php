@@ -306,10 +306,17 @@ class Page_model extends CI_Model
         $total = 0;
         $result = null;
 
-        $result = $this->getDicission($data, $total);
+        $getKey = array(
+            "page_id" => $data["page_id"],
+            "group_id" => $data["group_id"],
+            "dicission_group_id" => $data["dicission_group_id"],
+            "dicission_question_id" => $data["dicission_question_id"],
+        );
+
+        $result = $this->getDicission($getKey, $total);
 
         if ($total > 0) {
-            $this->db->where($data);
+            $this->db->where($getKey);
             $this->db->delete($this->pageDicissionTableName);
 
             $cc = $this->db->affected_rows();
