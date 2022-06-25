@@ -295,6 +295,43 @@ class Page extends MY_Controller
 
 	/**
 	 * @OA\Get(
+	 *     path="/page/dicissionSummary",
+	 *     tags={"page"},
+	 * 	   description="get page dicission summary",
+	 *     @OA\Parameter(
+	 *       name="id",
+	 *       description="page id",
+	 *       in="query",
+	 *       required=true,
+	 *       @OA\Schema(type="integer",default=null)
+	 *     ),
+	 * security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(type="array",
+	 *             @OA\Items(type="object",
+	 *				ref="#/components/schemas/PageDicissionSummary"               
+	 *             )
+	 *         ),
+	 *     ),
+	 *   ),
+	 * )
+	 */
+	public function dicissionSummary_get()
+	{
+		$id = $this->get("id");
+		$total = 0;
+		$data = null;
+		$data = $this->page->getDicissionSummary($id, $total);
+		$response = $this->responses->successWithData($data, $total);
+		$this->response($response, 200);
+	}
+
+	/**
+	 * @OA\Get(
 	 *     path="/page/dicission",
 	 *     tags={"page"},
 	 * 	   description="get page dicission",

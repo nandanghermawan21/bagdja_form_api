@@ -222,11 +222,33 @@ class Page_model extends CI_Model
         return $query;
     }
 
+    public function getDicissionSummary($pageId, &$refTotal)
+    {
+        $sql = "SELECT 
+                    d.page_id,
+                    d.group_id,
+                    g.code,
+                    g.name,
+                    COUNT(*) as total
+                from sys_page_dicission as d
+                join sys_question_group g on d.group_id = g.id
+                join sys_question q on d.dicission_question_id = q.id
+                where d.page_id = ?
+                GROUP BY d.page_id, d.group_id, g.code, g.name";
+
+        $this->db->query($sql, array($pageId));
+        $query = $this->db->query($sql);
+
+        // $query = $this->db->get($this->dataTableName);
+        $refTotal = $query->num_rows();
+        return $query->result();
+    }
+
     public function getDicission($where = null, &$refTotal)
     {
         $whereArray = array();
         foreach (array_keys($where) as $key) {
-            array_push($whereArray, "[" . $key . "]" . " = '" . $where[$key]."'");
+            array_push($whereArray, "[" . $key . "]" . " = '" . $where[$key] . "'");
         }
 
         $sql = "SELECT d.*,
@@ -448,6 +470,38 @@ class PageDicission
 }
 
 /**
+ * @OA\Schema(schema="PageDicissionSummary")
+ */
+class PageDicissionSummary
+{
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $page_id;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $group_id;
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $code;
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $name;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $total;
+}
+
+/**
  * @OA\Schema(schema="PageDicissionDetail")
  */
 class PageDicissionDetail
@@ -485,52 +539,51 @@ class PageDicissionDetail
      */
     public $dicission_value;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $group_code;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $group_name;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $question_code;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $question_name;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $question_label;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $question_hint;
 
-     /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $question_type;
 
-     /**
+    /**
      * @OA\Property()
      * @var integer
      */
     public $question_collection_id;
-
 }
