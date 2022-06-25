@@ -138,7 +138,7 @@ class Page_model extends CI_Model
 
         $sql = $sql . " order BY q.[order] asc ";
 
-        $this->db->query($sql);
+      
         $query = $this->db->query($sql);
 
         // $query = $this->db->get($this->dataTableName);
@@ -236,8 +236,7 @@ class Page_model extends CI_Model
                 where d.page_id = ?
                 GROUP BY d.page_id, d.group_id, g.code, g.name";
 
-        $this->db->query($sql, array($pageId));
-        $query = $this->db->query($sql);
+        $query = $this->db->query($sql, array($pageId));
 
         // $query = $this->db->get($this->dataTableName);
         $refTotal = $query->num_rows();
@@ -268,7 +267,6 @@ class Page_model extends CI_Model
             $sql = $sql . " where " . implode(" and ", $whereArray);
         }
 
-        $this->db->query($sql);
         $query = $this->db->query($sql);
 
         // $query = $this->db->get($this->dataTableName);
