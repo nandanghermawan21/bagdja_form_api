@@ -24,6 +24,21 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         return $query->result();
     }
+
+    //cuntion khusus merecord order ke submission and set current user to CMO
+    public function assignSurvey()
+    {
+        $this->db->trans_start();
+
+        //check us
+        $this->db->query('AN SQL QUERY...');
+        $this->db->query('ANOTHER QUERY...');
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            // generate an error... or use the log_message() function to log your error
+        }
+    }
 }
 
 /**

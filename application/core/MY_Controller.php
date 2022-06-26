@@ -49,6 +49,17 @@ class MY_Controller extends RestController
     }
   }
 
+  public function _getData(){
+    $headers = $this->input->get_request_header('Authorization', TRUE);
+    if ($headers != null) {
+      $token = str_replace('Bearer ', "", $headers);
+      $decoded = $this->_decode($token);
+      return $decoded;
+    }else{
+      return null;
+    }
+  }
+
   public function _authenticate()
   {
     $headers = $this->input->get_request_header('Authorization', TRUE);

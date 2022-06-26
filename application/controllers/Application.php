@@ -108,4 +108,8 @@ class Application extends MY_Controller
      *   ),
      * )
      */
+    public function assignSurvey_post(){
+        $data = $this->_getData();
+        print_r($data);
+    }
 }
