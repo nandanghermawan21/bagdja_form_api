@@ -115,10 +115,10 @@ class Application extends MY_Controller
     {
         //validate 
         $input = [
-            'orderNumber' => $this->get("orderNumber"),
-            'cmoUserName' => $this->get("cmoUserName"),
-            'cmoFullName' => $this->get("cmoFullName"),
-            'message' => $this->get("message"),
+            'orderNumber' => $this->get("orderNumber", TRUE),
+            'cmoUserName' => $this->get("cmoUserName", TRUE),
+            'cmoFullName' => $this->get("cmoFullName", TRUE),
+            'message' => $this->get("message", TRUE),
         ];
 
         print_r($input);
