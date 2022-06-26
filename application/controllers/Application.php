@@ -115,10 +115,10 @@ class Application extends MY_Controller
     {
         //validate 
         $input = [
-            'orderNumber' => $this->get("orderNumber", TRUE),
-            'cmoUserName' => $this->get("cmoUserName", TRUE),
-            'cmoFullName' => $this->get("cmoFullName", TRUE),
-            'message' => $this->get("message", TRUE),
+            'orderNumber' => $this->input->get("orderNumber", TRUE),
+            'cmoUserName' => $this->input->get("cmoUserName", TRUE),
+            'cmoFullName' => $this->input->get("cmoFullName", TRUE),
+            'message' => $this->input->get("message", TRUE),
         ];
 
         print_r($input);
@@ -141,7 +141,7 @@ class Application extends MY_Controller
             }
             $this->response($message, 403);
         } else {
-            $this->response($body,200);
+            $this->response($body, 200);
         }
     }
 }
