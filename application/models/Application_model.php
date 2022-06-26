@@ -120,6 +120,8 @@ class Application_model extends CI_Model
             '" . $submission["message"] . "'
         );";
 
+        $this->db->query($insertHistory);
+
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
