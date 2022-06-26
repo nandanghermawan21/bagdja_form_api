@@ -72,8 +72,8 @@ class Application_model extends CI_Model
             " . $user->id . ",
             100,
             GETUTCDATE(),
-            " .  $cek->id . ",
             302,
+            " .  $cek->id . ",
             101
         );";
 
