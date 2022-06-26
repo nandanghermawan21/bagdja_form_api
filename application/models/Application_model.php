@@ -91,7 +91,7 @@ class Application_model extends CI_Model
             )VALUES(
                 " . $submissionId . ",
                 " . $val["id"] . ",
-                " . $val["value"] . ",
+                '" . $val["value"] . "',
                 " . $submission["lat"] . ",
                 " . $submission["lon"] . "
             );";
