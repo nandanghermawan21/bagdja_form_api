@@ -121,6 +121,9 @@ class Application extends MY_Controller
             'message' => $this->get("message"),
         ];
 
+        //read body
+        $body = json_decode(trim(file_get_contents('php://input')), true);
+
         $this->form_validation->set_data($input);
         foreach ($input as $row => $key) :
             $this->form_validation->set_rules($row, $row, 'trim|required|xss_clean');
@@ -133,9 +136,9 @@ class Application extends MY_Controller
             foreach ($input as $key => $value) {
                 $message[$key] = form_error($key);
             }
-            $this->response($message, 400);
-        }else{
-            $this->response("Data Valid");
+            $this->response($message, 403);
+        } else {
+            $this->response($body,200);
         }
     }
 }
