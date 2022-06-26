@@ -65,7 +65,7 @@ class Application_model extends CI_Model
             [current_user_id],
             [current_state]
         ) VALUES (
-            'number',
+            '".$submission["orderNumber"]."',
             201,
             " . $user->id . ",
             " . $user->organitation_id . ",
