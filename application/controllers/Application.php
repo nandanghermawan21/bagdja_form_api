@@ -83,6 +83,13 @@ class Application extends MY_Controller
      *       required=true,
      *       @OA\Schema(type="string",default="")
      *     ),
+     *     @OA\Parameter(
+     *       name="message",
+     *       description="message",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string",default="")
+     *     ),
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
 	 *         mediaType="application/json",
