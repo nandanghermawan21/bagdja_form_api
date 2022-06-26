@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Aplications extends MY_Controller
+class Dudung extends MY_Controller
 {
 
     public function __construct()
