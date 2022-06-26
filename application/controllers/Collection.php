@@ -18,7 +18,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Get(
 	 *     path="/collection/list",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="Get all collection list param id null, get specific with param id",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -58,7 +58,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Post(
 	 *     path="/collection/create",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="create new collection list",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
@@ -99,7 +99,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Post(
 	 *     path="/collection/update",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -141,7 +141,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Get(
 	 *     path="/collection/delete",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="Get all collection list param id null, get specific with param id",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -176,7 +176,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Get(
 	 *     path="/collection/data",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="get data collection",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -213,7 +213,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Post(
 	 *     path="/collection/addData",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="create new collection list",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
@@ -253,7 +253,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Post(
 	 *     path="/collection/updateData",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -301,7 +301,7 @@ class Collection extends MY_Controller
 	/**
 	 * @OA\Post(
 	 *     path="/collection/deleteData",
-	 *     tags={"collection"},
+	 *     tags={"Collection"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",

@@ -19,7 +19,7 @@ class Question extends MY_Controller
     /**
      * @OA\Get(
      *     path="/question/list",
-     *     tags={"question"},
+     *     tags={"Question"},
      * 	   description="Get all question list param id null, get specific with param id",
      *     @OA\Parameter(
      *       name="id",
@@ -55,7 +55,7 @@ class Question extends MY_Controller
     /**
      * @OA\Get(
      *     path="/question/types",
-     *     tags={"question"},
+     *     tags={"Question"},
      * 	   description="Get all question list param id null, get specific with param id",
      *     @OA\Parameter(
      *       name="id",
@@ -91,7 +91,7 @@ class Question extends MY_Controller
     /**
      * @OA\Post(
      *     path="/question/add",
-     *     tags={"question"},
+     *     tags={"Question"},
      * 	   description="add question",
      *     @OA\RequestBody(
      *     @OA\MediaType(
@@ -132,7 +132,7 @@ class Question extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/question/update",
-	 *     tags={"question"},
+	 *     tags={"Question"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -173,7 +173,7 @@ class Question extends MY_Controller
     /**
      * @OA\Get(
      *     path="/question/delete",
-     *     tags={"question"},
+     *     tags={"Question"},
      * 	   description="delete question by id",
      *     @OA\Parameter(
      *       name="id",

@@ -15,7 +15,7 @@ class Organitation extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/organitation",
-     *     tags={"organitation"},
+     *     tags={"Organitation"},
 	 * 	   description="Get all organitation param id null, get specific with param id",
 	 *     @OA\Parameter(
      *       name="id",
@@ -59,7 +59,7 @@ class Organitation extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/organitation/tree",
-     *     tags={"organitation"},
+     *     tags={"Organitation"},
 	 * 	   description="Get all organitation param id null, get specific with param id",
 	 *     @OA\Parameter(
      *       name="id",
@@ -102,7 +102,7 @@ class Organitation extends MY_Controller {
 	  /**
      * @OA\Post(
      *     path="/organitation/create",
-     *     tags={"organitation"},
+     *     tags={"Organitation"},
      *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
@@ -165,7 +165,7 @@ class Organitation extends MY_Controller {
 	/**
      * @OA\Post(
      *     path="/organitation/update",
-     *     tags={"organitation"},
+     *     tags={"Organitation"},
      *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
@@ -246,7 +246,7 @@ class Organitation extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/organitation/remove",
-     *     tags={"organitation"},	 
+     *     tags={"Organitation"},	 
 	 *     @OA\Parameter(
      *       name="id",
 	 *       description="id organitation",

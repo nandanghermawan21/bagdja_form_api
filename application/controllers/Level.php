@@ -16,7 +16,7 @@ class Level extends MY_Controller {
 		/**
      * @OA\Get(
      *     path="/level",
-     *     tags={"level"},
+     *     tags={"Level"},
 	 * 	   description="Get all Level param id null, get specific with param id",
 	 *     @OA\Parameter(
      *       name="parent_id",
@@ -58,7 +58,7 @@ class Level extends MY_Controller {
 	/**
      * @OA\Post(
      *     path="/level/create",
-     *     tags={"level"},
+     *     tags={"Level"},
      *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
@@ -127,7 +127,7 @@ class Level extends MY_Controller {
 	/**
      * @OA\Post(
      *     path="/level/update",
-     *     tags={"level"},
+     *     tags={"Level"},
      *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
@@ -205,7 +205,7 @@ class Level extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/level/remove",
-     *     tags={"level"},	 
+     *     tags={"Level"},	 
 	 *     @OA\Parameter(
      *       name="parent_id",
 	 *       description="id level",

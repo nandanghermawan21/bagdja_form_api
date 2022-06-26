@@ -15,7 +15,7 @@ class Page extends MY_Controller
     /**
      * @OA\Post(
      *     path="/page/create",
-     *     tags={"page"},
+     *     tags={"Page"},
      * 	   description="create new page",
      *     @OA\RequestBody(
      *     @OA\MediaType(
@@ -55,7 +55,7 @@ class Page extends MY_Controller
      /**
 	 * @OA\Post(
 	 *     path="/page/update",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="update page",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -96,7 +96,7 @@ class Page extends MY_Controller
     /**
 	 * @OA\Get(
 	 *     path="/page/delete",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="delete page",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -131,7 +131,7 @@ class Page extends MY_Controller
     /**
      * @OA\Get(
      *     path="/page/questions",
-     *     tags={"page"},
+     *     tags={"Page"},
      * 	   description="Get all quustion group on page",
      *     @OA\Parameter(
      *       name="id",
@@ -167,7 +167,7 @@ class Page extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/page/addQuestion",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="add data question to page",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
@@ -206,7 +206,7 @@ class Page extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/page/updateQuestion",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="update question in page",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -254,7 +254,7 @@ class Page extends MY_Controller
      /**
 	 * @OA\Post(
 	 *     path="/page/deleteQuestion",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="delete question from page",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -296,7 +296,7 @@ class Page extends MY_Controller
 	/**
 	 * @OA\Get(
 	 *     path="/page/dicissionSummary",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="get page dicission summary",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -333,7 +333,7 @@ class Page extends MY_Controller
 	/**
 	 * @OA\Get(
 	 *     path="/page/dicission",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="get page dicission",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -378,7 +378,7 @@ class Page extends MY_Controller
 	 /**
 	 * @OA\Post(
 	 *     path="/page/addDicission",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="add page dicission",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
@@ -417,7 +417,7 @@ class Page extends MY_Controller
 	 /**
 	 * @OA\Post(
 	 *     path="/page/updateDicission",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="update page dicission",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
@@ -456,7 +456,7 @@ class Page extends MY_Controller
 	 /**
 	 * @OA\Post(
 	 *     path="/page/deleteDicission",
-	 *     tags={"page"},
+	 *     tags={"Page"},
 	 * 	   description="delete page dicission",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(

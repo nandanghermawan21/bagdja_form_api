@@ -16,7 +16,7 @@ class User extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/user",
-     *     tags={"user"},
+     *     tags={"User"},
 	 * 	   description="Get all user param id null, get specific with param id",
 	 *     @OA\Parameter(
      *       name="id",
@@ -59,7 +59,7 @@ class User extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/user/org",
-     *     tags={"user"},
+     *     tags={"User"},
 	 * 	   description="Get all user param id null, get specific with param id",
 	 *     @OA\Parameter(
      *       name="id",
@@ -97,7 +97,7 @@ class User extends MY_Controller {
 	/**
      * @OA\Post(
      *     path="/user/create",
-     *     tags={"user"},
+     *     tags={"User"},
      *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
@@ -181,7 +181,7 @@ class User extends MY_Controller {
 	/**
      * @OA\Post(
      *     path="/user/update",
-     *     tags={"user"},
+     *     tags={"User"},
      *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
@@ -276,7 +276,7 @@ class User extends MY_Controller {
 	/**
      * @OA\Get(
      *     path="/user/remove",
-     *     tags={"user"},	 
+     *     tags={"User"},	 
 	 *     @OA\Parameter(
      *       name="id",
 	 * 		 required=true,
