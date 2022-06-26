@@ -26,17 +26,31 @@ class Application_model extends CI_Model
     }
 
     //cuntion khusus merecord order ke submission and set current user to CMO
-    public function assignSurvey()
+    public function assignSurvey($submission, $data, $createNewUser = true)
     {
         $this->db->trans_start();
 
-        //check us
-        $this->db->query('AN SQL QUERY...');
-        $this->db->query('ANOTHER QUERY...');
+        //create user 
+        if ($createNewUser == true) {
+            $queryInsertUser = "INSERT INTO usm_users (
+                                            [username],
+                                            [password],
+                                            [name],
+                                            [organitation_id]) VALUES (
+                                                '".$data["cmoUserName"]."',
+                                                '".$this->key->lockhash($data["cmoUserName"])."',
+                                                '".$data["cmoFullName"]."',
+                                                3
+                                            );";
+        }
+        $this->db->query($queryInsertUser);
+
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
-            // generate an error... or use the log_message() function to log your error
+           return "assign submission surver failed";
+        }else{
+           return "assign submission surver success";
         }
     }
 }

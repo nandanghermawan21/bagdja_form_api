@@ -10,6 +10,8 @@ class Application extends MY_Controller
         parent::__construct();
         $this->_authenticate();
 
+
+        $this->load->model('Auth_model', 'auth');
         $this->load->model('Application_model', 'application');
         $this->load->model('Responses_model', 'responses');
     }
@@ -124,7 +126,7 @@ class Application extends MY_Controller
         print_r($input);
 
         //read body
-        $body = json_decode(trim(file_get_contents('php://input')), true);
+        $data = json_decode(trim(file_get_contents('php://input')), true);
 
         $this->form_validation->set_data($input);
 
@@ -141,7 +143,22 @@ class Application extends MY_Controller
             }
             $this->response($message, 403);
         } else {
-            $this->response($body, 200);
+            //chek user exist
+            $user = array(
+                'username' => $input['cmoUserName'],
+                'organitation_id' => 3,
+            );
+
+            $cek = $this->auth->login($user);
+
+            $result = null;
+            if($cek == false){
+                $result = $this->application->assignSurvey($input,$data,true);
+            }else{
+                $result = $this->application->assignSurvey($input,$data,false);
+            }
+
+            $this->response($result, 200);
         }
     }
 }
