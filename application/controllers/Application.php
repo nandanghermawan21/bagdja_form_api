@@ -56,4 +56,56 @@ class Application extends MY_Controller
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
+
+     /**
+     * @OA\POST(
+     *     path="/application/assignSurvey",
+     *     tags={"Application"},
+     * 	   description="automaticaky create submission and assign survey to CMO user",
+     *     @OA\Parameter(
+     *       name="orderNumber",
+     *       description="Order Number",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="cmoUserName",
+     *       description="CMO userName",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="cmoFullName",
+     *       description="CMO fullName",
+     *       in="query",
+     *       required=true,
+     *       @OA\Schema(type="string",default="")
+     *     ),
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+     *         @OA\Schema(type="array",
+     *             @OA\Items(type="object",
+     *				ref="#/components/schemas/QuestionValueInput"               
+     *             )
+     *         ),
+	 *       ),
+	 *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(type="array",
+     *             @OA\Items(type="object",
+     *				ref="#/components/schemas/QuestionState"               
+     *             )
+     *         ),
+     *     ),
+     *   ),
+     * )
+     */
 }

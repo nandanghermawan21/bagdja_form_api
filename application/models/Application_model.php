@@ -33,17 +33,34 @@ class QuestionState
 {
     /**
      * @OA\Property()
-     * @var integer
+     * @var string
      */
     public $code;
     /**
      * @OA\Property()
-     * @var integer
+     * @var string
      */
     public $name;
     /**
      * @OA\Property()
-     * @var integer
+     * @var string
      */
     public $type;
+}
+
+/**
+ * @OA\Schema(schema="QuestionValueInput")
+ */
+class QuestionValueInput
+{
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $code;
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $value;
 }
