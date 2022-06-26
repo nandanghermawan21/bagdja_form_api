@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Dudung extends MY_Controller
+class Application extends MY_Controller
 {
 
     public function __construct()
@@ -10,21 +10,21 @@ class Dudung extends MY_Controller
         parent::__construct();
         $this->_authenticate();
 
-        $this->load->model('Dudung_model', 'application');
+        $this->load->model('Application_model', 'application');
         $this->load->model('Responses_model', 'responses');
     }
 
     /**
      * @OA\Get(
-     *     path="/dudung/listQuestionState",
-     *     tags={"dudung"},
+     *     path="/Application/listQuestionState",
+     *     tags={"Application"},
      * 	   description="Get all question on state apllication",
      *     @OA\Parameter(
      *       name="code",
      *       description="application code",
      *       in="query",
      *       @OA\Schema(type="string",default="SURVEY")
-     *     ),'
+     *     ),
      *     @OA\Parameter(
      *       name="stateId",
      *       description="application state",
