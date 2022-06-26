@@ -72,7 +72,7 @@ class Application_model extends CI_Model
             " . $user->id . ",
             100,
             GETUTCDATE(),
-            " . (array) $cek["id"] . ",
+            " .  $cek->id . ",
             302,
             101
         );";
