@@ -34,7 +34,7 @@ class Application_model extends CI_Model
     public function assignSurvey($user, $submission, $data)
     {
 
-        $cek = $this->auth->login(["username" => $submission['username'], "organitation_id" => 302]);
+        $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
 
         if ($cek == false) {
             $queryInsertUser = "INSERT INTO usm_users (
