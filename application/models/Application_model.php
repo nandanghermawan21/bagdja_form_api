@@ -66,7 +66,7 @@ class Application_model extends CI_Model
             [current_state]
         ) VALUES (
             'number',
-            1,
+            201,
             " . $user->id . ",
             " . $user->organitation_id . ",
             " . $user->id . ",
