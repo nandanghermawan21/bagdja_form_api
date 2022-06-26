@@ -55,7 +55,7 @@ class User_model extends CI_Model {
           $this->db->select('*, usm_users.id as id');
           $this->db->from('usm_organitation');               
           $this->db->where($where);                    
-          $this->db->join('usm_users','usm_users.organitation_id=csm_organitation.id','LEFT');
+          $this->db->join('usm_users','usm_users.organitation_id=usm_organitation.id','LEFT');
            $query = $this->db->get();
            return $query->result();
      }

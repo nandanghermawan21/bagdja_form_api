@@ -5,8 +5,9 @@ class Aplication_model extends CI_Model{
     public function getQuestionState($appCode, $stateId, &$refTotal)
     {
 
-        $sql = "SELECT qt.code as question_code,
-        qt.name as question_name
+        $sql = "SELECT  qt.code as code,
+                        qt.name as [name],
+                        qt.[type] as [type]
                 from sys_application a
                 join sys_application_state s on s.application_id = a.id
                 join sys_state st on st.id = s.state_id
@@ -23,7 +24,26 @@ class Aplication_model extends CI_Model{
         return $query->result();
     }
 
-    
-
 }
 
+/**
+ * @OA\Schema(schema="QuestionState")
+ */
+class QuestionState
+{
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $code;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $name;
+    /**
+     * @OA\Property()
+     * @var integer
+     */
+    public $type;
+}
