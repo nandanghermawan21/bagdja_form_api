@@ -15,7 +15,7 @@ class Form extends MY_Controller
     /**
      * @OA\Get(
      *     path="/form/application",
-     *     tags={"Form"},
+     *     tags={"form"},
      * 	   description="Get all form on application",
      *     @OA\Parameter(
      *       name="id",
@@ -52,7 +52,7 @@ class Form extends MY_Controller
     /**
      * @OA\Get(
      *     path="/form/pages",
-     *     tags={"Form"},
+     *     tags={"form"},
      * 	   description="Get all pages of form",
      *     @OA\Parameter(
      *       name="id",

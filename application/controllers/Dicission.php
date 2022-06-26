@@ -15,7 +15,7 @@ class Dicission extends MY_Controller
     /**
      * @OA\Get(
      *     path="/dicission/types",
-     *     tags={"Dicission Types"},
+     *     tags={"dicission Types"},
      * 	   description="Get all quustion group param id null, get specific with param id",
      *     @OA\Parameter(
      *       name="id",

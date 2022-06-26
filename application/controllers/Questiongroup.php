@@ -15,7 +15,7 @@ class Questiongroup extends MY_Controller
     /**
      * @OA\Get(
      *     path="/questiongroup/list",
-     *     tags={"Question Group"},
+     *     tags={"question Group"},
      * 	   description="Get all quustion group param id null, get specific with param id",
      *     @OA\Parameter(
      *       name="id",
@@ -55,7 +55,7 @@ class Questiongroup extends MY_Controller
     /**
      * @OA\Post(
      *     path="/questiongroup/create",
-     *     tags={"Question Group"},
+     *     tags={"question Group"},
      * 	   description="create new question group",
      *     @OA\RequestBody(
      *     @OA\MediaType(
@@ -95,7 +95,7 @@ class Questiongroup extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/questiongroup/update",
-	 *     tags={"Question Group"},
+	 *     tags={"question Group"},
 	 * 	   description="update group",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -136,7 +136,7 @@ class Questiongroup extends MY_Controller
     /**
 	 * @OA\Get(
 	 *     path="/questiongroup/delete",
-	 *     tags={"Question Group"},
+	 *     tags={"question Group"},
 	 * 	   description="Get all quustion group param id null, get specific with param id",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -171,7 +171,7 @@ class Questiongroup extends MY_Controller
     /**
 	 * @OA\Get(
 	 *     path="/questiongroup/data",
-	 *     tags={"Question Group"},
+	 *     tags={"question Group"},
 	 * 	   description="get data collection",
 	 *     @OA\Parameter(
 	 *       name="id",
@@ -208,7 +208,7 @@ class Questiongroup extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/questiongroup/addData",
-	 *     tags={"Question Group"},
+	 *     tags={"question Group"},
 	 * 	   description="add data question to question group",
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
@@ -247,7 +247,7 @@ class Questiongroup extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/questiongroup/updateData",
-	 *     tags={"Question Group"},
+	 *     tags={"question Group"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",
@@ -295,7 +295,7 @@ class Questiongroup extends MY_Controller
     /**
 	 * @OA\Post(
 	 *     path="/questiongroup/deleteData",
-	 *     tags={"Question Group"},
+	 *     tags={"question Group"},
 	 * 	   description="update collection",
 	 *     @OA\Parameter(
 	 *       	name="id",
