@@ -10,7 +10,7 @@ class Dudung extends MY_Controller
         parent::__construct();
         $this->_authenticate();
 
-        $this->load->model('Application_model', 'application');
+        $this->load->model('Dudung_model', 'application');
         $this->load->model('Responses_model', 'responses');
     }
 
