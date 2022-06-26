@@ -16,7 +16,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/list",
+     *     path="/application/listQuestionState",
      *     tags={"application"},
      * 	   description="Get all question on state apllication",
      *     @OA\Parameter(
