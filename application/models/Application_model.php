@@ -19,7 +19,7 @@ class Application_model extends CI_Model
                 join sys_question qt on qt.id = q.question_id
                 WHERE s.state_id = ? and a.code = '?'";
 
-        $query = $this->db->query($sql, array($stateId, $appCode));
+        $query = $this->db->query($sql, array($stateId,$appCode));
 
         $refTotal = $query->num_rows();
         return $query->result();
