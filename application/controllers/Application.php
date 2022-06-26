@@ -116,7 +116,7 @@ class Application extends MY_Controller
     public function assignSurvey_post()
     {
         //getuserInfo
-        $user = $this->_getData()["data"];
+        $user = $this->_getData()->data;
 
         //input 
         $input = [
