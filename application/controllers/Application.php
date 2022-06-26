@@ -49,7 +49,7 @@ class Application extends MY_Controller
     public function listQuestionState_get()
     {
         $applicationCode = $this->get("code");
-        $stateId = $this->get("id");
+        $stateId = $this->get("stateId");
         $total = 0;
         $data = null;
         $data = $this->application->getQuestionState($applicationCode, $stateId, $total);
