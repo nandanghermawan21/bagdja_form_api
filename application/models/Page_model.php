@@ -475,7 +475,7 @@ class PageDicissionSummary
     /**
      * @OA\Property()
      * @var integer
-     */
+    */
     public $page_id;
     /**
      * @OA\Property()
