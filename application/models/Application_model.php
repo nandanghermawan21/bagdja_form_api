@@ -48,7 +48,7 @@ class Application_model extends CI_Model
                     302
                 );";
             $this->db->query($queryInsertUser);
-            $cek = $this->auth->login(["username" => $submission['username'], "organitation_id" => 302]);
+            $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
         }
 
         $this->db->trans_start();
