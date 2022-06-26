@@ -88,6 +88,18 @@ class Application extends MY_Controller
      *       in="query",
      *       @OA\Schema(type="string",default="")
      *     ),
+     *     @OA\Parameter(
+     *       name="lat",
+     *       description="lat",
+     *       in="query",
+     *       @OA\Schema(type="string",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="lon",
+     *       description="lon",
+     *       in="query",
+     *       @OA\Schema(type="string",default="")
+     *     ),
      *     @OA\RequestBody(
      *       @OA\MediaType(
      *           mediaType="application/json",

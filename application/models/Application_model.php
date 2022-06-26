@@ -11,8 +11,9 @@ class Application_model extends CI_Model
     public function getQuestionState($appCode, $stateId, &$refTotal)
     {
 
-        $sql = "SELECT  qt.code as code,
-                        qt.name as [name],
+        $sql = "SELECT  qt.[id] as [id],
+                        qt.[code] as [code],
+                        qt.[name] as [name],
                         qt.[type] as [type]
                 from sys_application a
                 join sys_application_state s on s.application_id = a.id
@@ -65,7 +66,7 @@ class Application_model extends CI_Model
             [current_user_id],
             [current_state]
         ) VALUES (
-            '".$submission["orderNumber"]."',
+            '" . $submission["orderNumber"] . "',
             201,
             " . $user->id . ",
             " . $user->organitation_id . ",
@@ -79,16 +80,30 @@ class Application_model extends CI_Model
 
         $this->db->query($queryInsertSubmission);
 
-        // foreach($data as $val){
-
-        // }
+        $submissionId = $this->db->insert_id();
+        foreach ($data as $val) {
+            $inserQuery = "INSERT into app_submission_data (
+                [submission_id],
+                [question_id],
+                [value],
+                [lat],
+                [lon]
+            )VALUES(
+                " . $submissionId . ",
+                " . $val["id"] . ",
+                " . $val["value"] . ",
+                " . $submission["lat"] . ",
+                " . $submission["lon"] . "
+            );";
+            $this->db->query($inserQuery);
+        }
 
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
             return "assign submission surver failed";
         } else {
-            return "assign submission surver success ".$this->db->insert_id();
+            return "assign submission surver success " . $this->db->insert_id();
         }
     }
 }
@@ -98,6 +113,11 @@ class Application_model extends CI_Model
  */
 class QuestionState
 {
+    /**
+     * @OA\Property()
+     * @var int
+     */
+    public $id;
     /**
      * @OA\Property()
      * @var string
