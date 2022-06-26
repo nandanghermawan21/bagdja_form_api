@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
-class Application_model extends CI_Model{
+class Application_model extends CI_Model
+{
 
     public function getQuestionState($appCode, $stateId, &$refTotal)
     {
@@ -18,12 +19,11 @@ class Application_model extends CI_Model{
                 join sys_question qt on qt.id = q.question_id
                 WHERE s.state_id = ? and a.code = '?'";
 
-        $query = $this->db->query($sql,array($stateId,$appCode));
+        $query = $this->db->query($sql, array($stateId, $appCode));
 
         $refTotal = $query->num_rows();
         return $query->result();
     }
-
 }
 
 /**
