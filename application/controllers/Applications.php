@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Application extends MY_Controller
+class Aplications extends MY_Controller
 {
 
     public function __construct()
@@ -16,8 +16,8 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/listQuestionState",
-     *     tags={"application"},
+     *     path="/applications/listQuestionState",
+     *     tags={"applications"},
      * 	   description="Get all question on state apllication",
      *     @OA\Parameter(
      *       name="code",
