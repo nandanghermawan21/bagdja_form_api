@@ -57,7 +57,7 @@ class Application extends MY_Controller
         $this->response($response, 200);
     }
 
-     /**
+    /**
      * @OA\POST(
      *     path="/application/assignSurvey",
      *     tags={"Application"},
@@ -66,40 +66,36 @@ class Application extends MY_Controller
      *       name="orderNumber",
      *       description="Order Number",
      *       in="query",
-     *       required=true,
      *       @OA\Schema(type="string",default="")
      *     ),
      *     @OA\Parameter(
      *       name="cmoUserName",
      *       description="CMO userName",
      *       in="query",
-     *       required=true,
      *       @OA\Schema(type="string",default="")
      *     ),
      *     @OA\Parameter(
      *       name="cmoFullName",
      *       description="CMO fullName",
      *       in="query",
-     *       required=true,
      *       @OA\Schema(type="string",default="")
      *     ),
      *     @OA\Parameter(
      *       name="message",
      *       description="message",
      *       in="query",
-     *       required=true,
      *       @OA\Schema(type="string",default="")
      *     ),
-	 *     @OA\RequestBody(
-	 *     @OA\MediaType(
-	 *         mediaType="application/json",
-     *         @OA\Schema(type="array",
-     *             @OA\Items(type="object",
-     *				ref="#/components/schemas/QuestionValueInput"               
-     *             )
+     *     @OA\RequestBody(
+     *       @OA\MediaType(
+     *           mediaType="application/json",
+     *           @OA\Schema(type="array",
+     *               @OA\Items(type="object",
+     *		     		ref="#/components/schemas/QuestionValueInput"               
+     *               )
+     *           ),
      *         ),
-	 *       ),
-	 *     ),
+     *     ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
@@ -115,8 +111,31 @@ class Application extends MY_Controller
      *   ),
      * )
      */
-    public function assignSurvey_post(){
-        $data = $this->_getData();
-        print_r($data);
+    public function assignSurvey_post()
+    {
+        //validate 
+        $input = [
+            'orderNumber' => $this->get("orderNumber"),
+            'cmoUserName' => $this->get("cmoUserName"),
+            'cmoFullName' => $this->get("cmoFullName"),
+            'message' => $this->get("message"),
+        ];
+
+        $this->form_validation->set_data($input);
+        foreach ($input as $row => $key) :
+            $this->form_validation->set_rules($row, $row, 'trim|required|xss_clean');
+        endforeach;
+
+        $this->form_validation->set_error_delimiters(null, null);
+
+        if ($this->form_validation->run() == FALSE) {
+            $message = array();
+            foreach ($input as $key => $value) {
+                $message[$key] = form_error($key);
+            }
+            $this->response($message, 400);
+        }else{
+            $this->response("Data Valid");
+        }
     }
 }
