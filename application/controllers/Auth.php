@@ -17,7 +17,7 @@ class Auth extends MY_Controller
 	/**
 	 * @OA\Post(
 	 *     path="/auth/login",
-	 *     tags={"Auth"},
+	 *     tags={"auth"},
 	 *    @OA\Response(response="200",
 	 * 		description="Success",
 	 *      @OA\JsonContent(
