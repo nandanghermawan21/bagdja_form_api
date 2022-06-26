@@ -54,6 +54,7 @@ class Application_model extends CI_Model
 
         $this->db->trans_start();
 
+        //create submission
         $queryInsertSubmission = "INSERT INTO app_submission (
             [number],
             [application_id],
@@ -77,10 +78,10 @@ class Application_model extends CI_Model
             " .  $cek->id . ",
             101
         );";
-
         $this->db->query($queryInsertSubmission);
-
         $submissionId = $this->db->insert_id();
+
+        //save submission data
         foreach ($data as $val) {
             $inserQuery = "INSERT into app_submission_data (
                 [submission_id],
@@ -97,6 +98,27 @@ class Application_model extends CI_Model
             );";
             $this->db->query($inserQuery);
         }
+
+        //save to history
+        $insertHistory = "insert into wfs_history_state (
+            [submission_id],
+            [source_state_id],
+            [destination_state_id],
+            [source_user_id],
+            [destination_user_id],
+            [source_org_id],
+            [destination_org_id],
+            [message]
+        )VALUES(
+            " . $submissionId . ",
+            100,
+            101,
+            " . $user->id . ",
+            " . $cek->id . ",
+            " . $user->organitation_id . ",
+            302,
+            '" . $submission["message"] . "'
+        );";
 
         $this->db->trans_complete();
 
