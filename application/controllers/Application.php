@@ -121,10 +121,13 @@ class Application extends MY_Controller
             'message' => $this->get("message"),
         ];
 
+        print_r($input);
+
         //read body
         $body = json_decode(trim(file_get_contents('php://input')), true);
 
         $this->form_validation->set_data($input);
+
         foreach ($input as $row => $key) :
             $this->form_validation->set_rules($row, $row, 'trim|required|xss_clean');
         endforeach;
