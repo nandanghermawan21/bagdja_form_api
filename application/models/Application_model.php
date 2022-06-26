@@ -67,9 +67,9 @@ class Application_model extends CI_Model
         ) VALUES (
             'number',
             1,
-            " . $user["id"] . ",
-            " . $user["organitation_id"] . ",
-            " . $user["id"] . ",
+            " . $user->id . ",
+            " . $user->organitation_id . ",
+            " . $user->id . ",
             100,
             GETUTCDATE(),
             " . (array) $cek["id"] . ",
