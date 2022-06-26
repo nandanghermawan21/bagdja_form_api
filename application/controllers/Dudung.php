@@ -16,8 +16,8 @@ class Dudung extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/applications/listQuestionState",
-     *     tags={"applications"},
+     *     path="/dudung/listQuestionState",
+     *     tags={"dudung"},
      * 	   description="Get all question on state apllication",
      *     @OA\Parameter(
      *       name="code",
