@@ -115,7 +115,10 @@ class Application extends MY_Controller
      */
     public function assignSurvey_post()
     {
-        //validate 
+        //getuserInfo
+        $user = $this->_getData()["data"];
+
+        //input 
         $input = [
             'orderNumber' => $this->input->get("orderNumber", TRUE),
             'cmoUserName' => $this->input->get("cmoUserName", TRUE),
@@ -141,20 +144,8 @@ class Application extends MY_Controller
             }
             $this->response($message, 403);
         } else {
-            //chek user exist
-            $user = array(
-                'username' => $input['cmoUserName'],
-                'organitation_id' => 3,
-            );
 
-            $cek = $this->auth->login($user);
-
-            $result = null;
-            if($cek == false){
-                $result = $this->application->assignSurvey($input,$data,true);
-            }else{
-                $result = $this->application->assignSurvey($input,$data,false);
-            }
+            $result = $this->application->assignSurvey($user, $input, $data);
 
             $this->response($result, 200);
         }

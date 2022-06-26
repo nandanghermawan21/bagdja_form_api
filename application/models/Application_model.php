@@ -2,6 +2,11 @@
 
 class Application_model extends CI_Model
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('Auth_model', 'auth');
+    }
 
     public function getQuestionState($appCode, $stateId, &$refTotal)
     {
@@ -26,31 +31,60 @@ class Application_model extends CI_Model
     }
 
     //cuntion khusus merecord order ke submission and set current user to CMO
-    public function assignSurvey($submission, $data, $createNewUser = true)
+    public function assignSurvey($user, $submission, $data)
     {
+
+        $cek = $this->auth->login(["username" => $submission['username'], "organitation_id" => 302]);
+
+        if ($cek == false) {
+            $queryInsertUser = "INSERT INTO usm_users (
+                [username],
+                [password],
+                [name],
+                [organitation_id]) VALUES (
+                    '" . $submission["cmoUserName"] . "',
+                    '" . $this->key->lockhash($submission["cmoUserName"]) . "',
+                    '" . $submission["cmoFullName"] . "',
+                    302
+                );";
+            $this->db->query($queryInsertUser);
+            $cek = $this->auth->login(["username" => $submission['username'], "organitation_id" => 302]);
+        }
+
         $this->db->trans_start();
 
-        //create user 
-        if ($createNewUser == true) {
-            $queryInsertUser = "INSERT INTO usm_users (
-                                            [username],
-                                            [password],
-                                            [name],
-                                            [organitation_id]) VALUES (
-                                                '".$submission["cmoUserName"]."',
-                                                '".$this->key->lockhash($submission["cmoUserName"])."',
-                                                '".$submission["cmoFullName"]."',
-                                                3
-                                            );";
-        }
-        $this->db->query($queryInsertUser);
+        $queryInsertSubmission = "INSERT INTO app_submission (
+            [number],
+            [application_id],
+            [creator_user_id],
+            [prev_organitation_id],
+            [prev_user_id],
+            [prev_state],
+            [submit_date],
+            [current_organitation_id],
+            [current_user_id],
+            [current_state]
+        ) VALUES (
+            'number',
+            1,
+            " . $user["id"] . ",
+            " . $user["organitation_id"] . ",
+            " . $user["id"] . ",
+            100,
+            GETUTCDATE(),
+            " . (array) $cek["id"] . ",
+            302,
+            101
+        );";
+
+        $this->db->query($queryInsertSubmission);
 
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
-           return "assign submission surver failed";
-        }else{
-           return "assign submission surver success";
+            return "assign submission surver failed";
+        } else {
+            return "assign submission surver success";
         }
     }
 }
