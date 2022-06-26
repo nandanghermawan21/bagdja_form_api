@@ -17,9 +17,9 @@ class Application_model extends CI_Model
                 JOIN sys_page_question g on g.page_id = p.id
                 JOIN sys_question_list q on q.group_id = g.group_id
                 join sys_question qt on qt.id = q.question_id
-                WHERE s.state_id = ? and a.code = 'SURVEY'";
+                WHERE s.state_id = " . $stateId . " and a.code = '" . $appCode . "'";
 
-        $query = $this->db->query($sql, array(100, "SURVEY"));
+        $query = $this->db->query($sql);
 
         $refTotal = $query->num_rows();
         return $query->result();
