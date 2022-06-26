@@ -79,12 +79,16 @@ class Application_model extends CI_Model
 
         $this->db->query($queryInsertSubmission);
 
+        // foreach($data as $val){
+
+        // }
+
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
             return "assign submission surver failed";
         } else {
-            return "assign submission surver success";
+            return "assign submission surver success ".$this->db->insert_id();
         }
     }
 }
