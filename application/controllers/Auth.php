@@ -69,12 +69,10 @@ class Auth extends MY_Controller
 
 				if ($cek) {
 					if ($this->key->openhash($input['password'], $cek->password)) {
-						$c = $this->_createJWToken($input['username']);
-
 						$res = (array) $cek;
+						$token = $this->_createJWToken($input['username'], $res);
 						unset($res['parent_user_id']);
-						$token = ['token' => $c];
-						$data = array_merge($res, $token);
+						$data = array_merge($res, ['token' => $token]);
 						$this->response($this->responses->successWithData($data, 1), 200);
 					} else {
 						$this->response(['invalid username or password'], 400);
