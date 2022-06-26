@@ -37,9 +37,9 @@ class Application_model extends CI_Model
                                             [password],
                                             [name],
                                             [organitation_id]) VALUES (
-                                                '".$data["cmoUserName"]."',
-                                                '".$this->key->lockhash($data["cmoUserName"])."',
-                                                '".$data["cmoFullName"]."',
+                                                '".$submission["cmoUserName"]."',
+                                                '".$this->key->lockhash($submission["cmoUserName"])."',
+                                                '".$submission["cmoFullName"]."',
                                                 3
                                             );";
         }

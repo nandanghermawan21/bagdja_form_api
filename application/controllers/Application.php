@@ -123,8 +123,6 @@ class Application extends MY_Controller
             'message' => $this->input->get("message", TRUE),
         ];
 
-        print_r($input);
-
         //read body
         $data = json_decode(trim(file_get_contents('php://input')), true);
 
