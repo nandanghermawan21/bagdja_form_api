@@ -136,6 +136,8 @@ class Application extends MY_Controller
             'cmoUserName' => $this->input->get("cmoUserName", TRUE),
             'cmoFullName' => $this->input->get("cmoFullName", TRUE),
             'message' => $this->input->get("message", TRUE),
+            'lat' => $this->input->get("lat", TRUE),
+            'lon' => $this->input->get("lon", TRUE),
         ];
 
         //read body
