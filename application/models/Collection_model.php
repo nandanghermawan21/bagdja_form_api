@@ -192,9 +192,14 @@ class CollectionData
      * @var string
      */
     public $value;
-      /**
+    /**
      * @OA\Property()
      * @var string
      */
     public $label;
+      /**
+     * @OA\Property()
+     * @var string
+     */
+    public $group;
 }
