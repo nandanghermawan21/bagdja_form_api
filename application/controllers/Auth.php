@@ -96,7 +96,7 @@ class Auth extends MY_Controller
 	 *       	@OA\Schema(type="String",default=null)
 	 *     ),	 
 	 *     @OA\Parameter(
-	 *       	name="value",
+	 *       	name="password",
 	 *       	description="value",
 	 *       	in="query",
 	 *       	@OA\Schema(type="String",default=null)
