@@ -144,6 +144,6 @@ class Auth extends MY_Controller
 	   /* close curl */
 	   curl_close($curl);
 
-	   $this->response($result, 200);
+	   $this->response(var_dump($result), 200);
     }
 }
