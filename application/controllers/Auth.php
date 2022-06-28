@@ -86,7 +86,7 @@ class Auth extends MY_Controller
 
 	/**
 	 * @OA\Post(
-	 *     path="/auth/loginCMO",
+	 *     path="/auth/loginWithSFI",
 	 *     tags={"auth"},
 	 * 	   description="login for CMO mobile application",
 	 *     @OA\Parameter(

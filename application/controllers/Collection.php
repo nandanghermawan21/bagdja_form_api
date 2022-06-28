@@ -307,7 +307,7 @@ class Collection extends MY_Controller
 	 *       	name="id",
 	 *       	description="id",
 	 *       	in="query",
-	 *       	@OA\Schema(type="String",default=null)
+	 *       	@OA\Schema(type="integer",default=null)
 	 *     ),	 
 	 *     @OA\Parameter(
 	 *       	name="value",
