@@ -114,8 +114,8 @@ class Auth extends MY_Controller
 	public function loginWithSFI_post()
     {
 		//read data
-		$userName = $this->input->get('username');
-		$password = $this->input->get('password');
+		$userName = $this->input->get('username',true);
+		$password = $this->input->get('password',true);
 
         /* Endpoint */
 	   $url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
