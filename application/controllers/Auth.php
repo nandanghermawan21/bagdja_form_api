@@ -10,6 +10,7 @@ class Auth extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->library('curl');
 		$this->load->model('Auth_model', 'auth');
 		$this->load->model('Responses_model', 'responses');
 	}
@@ -129,32 +130,37 @@ class Auth extends MY_Controller
 			'password' => "user.100",
 		];
 
-		/* Set JSON data to POST */
-		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-		/* Define content type */
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
+		$result =  $this->curl->simple_post($url, $data, array(CURLOPT_BUFFERSIZE => 10));
 
-		/* Return json */
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		$this->response($result,200);
 
-		/* make request */
-		$result = curl_exec($curl);
+		// /* Set JSON data to POST */
+		// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 
-		/* close curl */
-		curl_close($curl);
+		// /* Define content type */
+		// curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
+
+		// /* Return json */
+		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+		// /* make request */
+		// $result = curl_exec($curl);
+
+		// /* close curl */
+		// curl_close($curl);
 
 
-		if ($result != false) {
-			$user = var_dump($result, true);
+		// if ($result != false) {
+		// 	$user = var_dump($result, true);
 
-			if ($user["status"] == "1") {
-				$this->response($this->auth->createIfNotFound($user["username"], $this->key->lockhash($password), 302), 200);
-			} else {
-				$this->response("account notfound", 403);
-			}
-		} else {
-			$this->response("login failed", 403);
-		}
+		// 	if ($user["status"] == "1") {
+		// 		$this->response($this->auth->createIfNotFound($user["username"], $this->key->lockhash($password), 302), 200);
+		// 	} else {
+		// 		$this->response("account notfound", 403);
+		// 	}
+		// } else {
+		// 	$this->response("login failed", 403);
+		// }
 	}
 }
