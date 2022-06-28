@@ -111,7 +111,7 @@ class Auth extends MY_Controller
 	 *    ),
 	 *   )
 	 */
-	public function loginCMO()
+	public function loginWithSFI_post()
     {
 		//read data
 		$userName = $this->input->get('username');
