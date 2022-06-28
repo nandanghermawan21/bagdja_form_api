@@ -121,10 +121,11 @@ class Auth extends MY_Controller
 		/* Endpoint */
 		$url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
 
+
 		/* Data */
 		$data = [
-			'username' => $userName,
-			'password' => $password,
+			'username' => "danu.prakarsa",
+			'password' => "user.100",
 		];
 
 
@@ -132,7 +133,23 @@ class Auth extends MY_Controller
 
 		$this->response($result,200);
 
-		// if ($result) {
+		// /* Set JSON data to POST */
+		// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+		// /* Define content type */
+		// curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
+
+		// /* Return json */
+		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+		// /* make request */
+		// $result = curl_exec($curl);
+
+		// /* close curl */
+		// curl_close($curl);
+
+
+		// if ($result != false) {
 		// 	$user = var_dump($result, true);
 
 		// 	if ($user["status"] == "1") {
