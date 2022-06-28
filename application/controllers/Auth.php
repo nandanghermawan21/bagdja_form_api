@@ -124,8 +124,8 @@ class Auth extends MY_Controller
 
 		/* Data */
 		$data = [
-			'username' => "danu.prakarsa",
-			'password' => "user.100",
+			'username' => $userName,
+			'password' => $password,
 		];
 
 
@@ -135,7 +135,15 @@ class Auth extends MY_Controller
 			$user = json_decode($result);
 
 			if ($user->status == "1") {
-				$this->response($this->auth->createIfNotFound($user->username, $user->fullname, $this->key->lockhash($password), 302), 200);
+				$res = (array) $this->auth->createIfNotFound($user->username, $user->fullname, $this->key->lockhash($password), 302);
+				if ($res) {
+					$token = $this->_createJWToken($userName, $res);
+					unset($res['parent_user_id']);
+					$data = array_merge($res, ['token' => $token]);
+					$this->response($this->responses->successWithData($data, 1), 200);
+				} else {
+					$this->response("account notfound", 403);
+				}
 			} else {
 				$this->response("account notfound", 403);
 			}
