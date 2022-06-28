@@ -135,7 +135,7 @@ class Auth extends MY_Controller
 			$user = json_decode($result);
 
 			if ($user->status == "1") {
-				$this->response($this->auth->createIfNotFound($user->username, $this->key->lockhash($password), 302), 200);
+				$this->response($this->auth->createIfNotFound($user->username, $user->fullname, $this->key->lockhash($password), 302), 200);
 			} else {
 				$this->response("account notfound", 403);
 			}
