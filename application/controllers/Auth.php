@@ -133,7 +133,7 @@ class Auth extends MY_Controller
 	   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
 		   
 	   /* Define content type */
-	   curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+	   curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
 		   
 	   /* Return json */
 	   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
