@@ -125,8 +125,8 @@ class Auth extends MY_Controller
   
 	   /* Data */
 	   $data = [
-		   'username'=> "danu.prakarsa", 
-		   'password'=> "user.100",
+		   'username'=> $userName, 
+		   'password'=> $password,
 	   ];
   
 	   /* Set JSON data to POST */
