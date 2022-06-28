@@ -146,9 +146,7 @@ class Auth extends MY_Controller
 
 
 		if ($result != false) {
-			$user = var_dump(json_decode($result, true));
-
-			print_r($user);
+			$user = var_dump($result, true);
 
 			if ($user["status"] == "1") {
 				$this->response($this->auth->createIfNotFound($user["username"], $this->key->lockhash($password), 302), 200);
