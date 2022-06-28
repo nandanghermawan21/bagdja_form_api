@@ -144,7 +144,7 @@ class Auth extends MY_Controller
 		/* close curl */
 		curl_close($curl);
 
-		// print($result);
+		print($result);
 
 		// if ($result) {
 		// 	$user = var_dump(json_decode($result, true));
