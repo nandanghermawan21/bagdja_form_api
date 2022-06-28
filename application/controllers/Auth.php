@@ -125,8 +125,8 @@ class Auth extends MY_Controller
 
 		/* Data */
 		$data = [
-			'username' => $userName,
-			'password' => $password,
+			'username' => "danu.prakarsa",
+			'password' => "user.100",
 		];
 
 		/* Set JSON data to POST */
@@ -143,6 +143,8 @@ class Auth extends MY_Controller
 
 		/* close curl */
 		curl_close($curl);
+
+		print($result);
 
 		if ($result) {
 			$user = var_dump(json_decode($result, true));
