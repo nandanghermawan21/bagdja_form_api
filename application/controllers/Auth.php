@@ -144,19 +144,19 @@ class Auth extends MY_Controller
 		/* close curl */
 		curl_close($curl);
 
-		print($result);
+		// print($result);
 
-		if ($result) {
-			$user = var_dump(json_decode($result, true));
+		// if ($result) {
+		// 	$user = var_dump(json_decode($result, true));
 			
-			print_r($user);
+		// 	print_r($user);
 
-			if ($user["status"] == "1") {
-				return $this->auth->createIfNotFound($user["username"], $this->key->lockhash($password), 302);
-			}
-		} else {
-			$this->response("login failed",403);
-		}
+		// 	if ($user["status"] == "1") {
+		// 		return $this->auth->createIfNotFound($user["username"], $this->key->lockhash($password), 302);
+		// 	}
+		// } else {
+		// 	$this->response("login failed",403);
+		// }
 
 		$this->response(var_dump($result), 200);
 	}
