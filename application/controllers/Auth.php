@@ -83,4 +83,67 @@ class Auth extends MY_Controller
 			}
 		}
 	}
+
+	/**
+	 * @OA\Post(
+	 *     path="/auth/loginCMO",
+	 *     tags={"auth"},
+	 * 	   description="login for CMO mobile application",
+	 *     @OA\Parameter(
+	 *       	name="username",
+	 *       	description="id",
+	 *       	in="query",
+	 *       	@OA\Schema(type="integer",default=null)
+	 *     ),	 
+	 *     @OA\Parameter(
+	 *       	name="value",
+	 *       	description="value",
+	 *       	in="query",
+	 *       	@OA\Schema(type="String",default=null)
+	 *     ),	 
+	 *    security={{"bearerAuth": {}}},
+	 *    @OA\Response(response="401", description="Unauthorized"),
+	 *    @OA\Response(response="200", 
+	 * 		description="Response data inside Responses model",
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/AuthModel"
+	 *      ),
+	 *    ),
+	 *   )
+	 */
+	public function loginCMO()
+    {
+		//read data
+		$userName = $this->input->get('username');
+		$password = $this->input->get('password');
+
+        /* Endpoint */
+	   $url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
+   
+	   /* eCurl */
+	   $curl = curl_init($url);
+  
+	   /* Data */
+	   $data = [
+		   'username'=> $userName, 
+		   'password'=> $password,
+	   ];
+  
+	   /* Set JSON data to POST */
+	   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+		   
+	   /* Define content type */
+	   curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type:application/json'));
+		   
+	   /* Return json */
+	   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+		   
+	   /* make request */
+	   $result = curl_exec($curl);
+			
+	   /* close curl */
+	   curl_close($curl);
+
+	   $this->response($result, 200);
+    }
 }
