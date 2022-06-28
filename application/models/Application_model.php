@@ -35,22 +35,24 @@ class Application_model extends CI_Model
     public function assignSurvey($user, $submission, $data)
     {
 
-        $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
+        // $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
 
-        if ($cek == false) {
-            $queryInsertUser = "INSERT INTO usm_users (
-                [username],
-                [password],
-                [name],
-                [organitation_id]) VALUES (
-                    '" . $submission["cmoUserName"] . "',
-                    '" . $this->key->lockhash($submission["cmoUserName"]) . "',
-                    '" . $submission["cmoFullName"] . "',
-                    302
-                );";
-            $this->db->query($queryInsertUser);
-            $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
-        }
+        // if ($cek == false) {
+        //     $queryInsertUser = "INSERT INTO usm_users (
+        //         [username],
+        //         [password],
+        //         [name],
+        //         [organitation_id]) VALUES (
+        //             '" . $submission["cmoUserName"] . "',
+        //             '" . $this->key->lockhash($submission["cmoUserName"]) . "',
+        //             '" . $submission["cmoFullName"] . "',
+        //             302
+        //         );";
+        //     $this->db->query($queryInsertUser);
+        //     $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
+        // }
+
+        $cek = $this->auth->createIfNotFound($submission['cmoUserName'], $submission["cmoFullName"], $this->key->lockhash($submission["cmoUserName"]), 302);
 
         $this->db->trans_start();
 

@@ -112,38 +112,47 @@ class Auth extends MY_Controller
 	 *   )
 	 */
 	public function loginWithSFI_post()
-    {
+	{
 		//read data
-		$userName = $this->input->get('username',true);
-		$password = $this->input->get('password',true);
+		$userName = $this->input->get('username', true);
+		$password = $this->input->get('password', true);
 
-        /* Endpoint */
-	   $url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
-   
-	   /* eCurl */
-	   $curl = curl_init($url);
-  
-	   /* Data */
-	   $data = [
-		   'username'=> $userName, 
-		   'password'=> $password,
-	   ];
-  
-	   /* Set JSON data to POST */
-	   curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-		   
-	   /* Define content type */
-	   curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
-		   
-	   /* Return json */
-	   curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-		   
-	   /* make request */
-	   $result = curl_exec($curl);
-			
-	   /* close curl */
-	   curl_close($curl);
+		/* Endpoint */
+		$url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
 
-	   $this->response(var_dump($result), 200);
-    }
+		/* eCurl */
+		$curl = curl_init($url);
+
+		/* Data */
+		$data = [
+			'username' => $userName,
+			'password' => $password,
+		];
+
+		/* Set JSON data to POST */
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
+
+		/* Define content type */
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
+
+		/* Return json */
+		curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+		/* make request */
+		$result = curl_exec($curl);
+
+		/* close curl */
+		curl_close($curl);
+
+		if ($result) {
+			$user = var_dump(json_decode($result, true));
+			if ($user["status"] == "1") {
+				return $this->auth->createIfNotFound($user["username"], $this->key->lockhash($password), 302);
+			}
+		} else {
+			$this->response("login failed",403);
+		}
+
+		$this->response(var_dump($result), 200);
+	}
 }
