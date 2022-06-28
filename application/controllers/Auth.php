@@ -131,24 +131,6 @@ class Auth extends MY_Controller
 
 		$result =  $this->curl->simple_post($url, $data, array(CURLOPT_BUFFERSIZE => 10));
 
-		$this->response($result,200);
-
-		// /* Set JSON data to POST */
-		// curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-
-		// /* Define content type */
-		// curl_setopt($curl, CURLOPT_HTTPHEADER, array('application/x-www-form-urlencoded'));
-
-		// /* Return json */
-		// curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-		// /* make request */
-		// $result = curl_exec($curl);
-
-		// /* close curl */
-		// curl_close($curl);
-
-
 		if ($result) {
 			$user = json_decode($result);
 
