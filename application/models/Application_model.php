@@ -11,7 +11,8 @@ class Application_model extends CI_Model
     public function getQuestionState($appCode, $stateId, &$refTotal)
     {
 
-        $sql = "SELECT  qt.[id] as [id],
+        $sql = "SELECT  DISTINCT 
+                        qt.[id] as [id],
                         qt.[code] as [code],
                         qt.[name] as [name],
                         qt.[type] as [type]
