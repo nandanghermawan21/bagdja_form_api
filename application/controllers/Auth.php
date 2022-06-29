@@ -89,22 +89,25 @@ class Auth extends MY_Controller
 	 * @OA\Post(
 	 *     path="/auth/loginWithSFI",
 	 *     tags={"auth"},
-	 * 	   description="login for CMO mobile application",
+	 *    @OA\Response(response="200",
+	 * 		description="Success",
+	 *      @OA\JsonContent(
+	 *		ref="#/components/schemas/AuthModel"
+	 *     ),
+	 * ),
+	 *    @OA\Response(response="400", description="required field",
+	 *       @OA\JsonContent(
+	 *       ref="#/components/schemas/required"
+	 *     ),
+	 * ),
 	 *    @OA\RequestBody(
 	 *      required=true,
 	 *      @OA\JsonContent(
 	 *          @OA\Property(property="username",description="Login username.",type="string"),
 	 *          @OA\Property(property="password",description="Login Password.",type="string"),
-	 *     ), 
-	 *    security={{"bearerAuth": {}}},
-	 *    @OA\Response(response="401", description="Unauthorized"),
-	 *    @OA\Response(response="200", 
-	 * 		description="Response data inside Responses model",
-	 *      @OA\JsonContent(
-	 *        ref="#/components/schemas/AuthModel"
-	 *      ),
-	 *    ),
-	 *   )
+	 *     ),
+	 *   ),
+	 * )
 	 */
 	public function loginWithSFI_post()
 	{
