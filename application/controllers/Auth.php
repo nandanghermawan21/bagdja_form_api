@@ -90,18 +90,12 @@ class Auth extends MY_Controller
 	 *     path="/auth/loginWithSFI",
 	 *     tags={"auth"},
 	 * 	   description="login for CMO mobile application",
-	 *     @OA\Parameter(
-	 *       	name="username",
-	 *       	description="id",
-	 *       	in="query",
-	 *       	@OA\Schema(type="String",default=null)
-	 *     ),	 
-	 *     @OA\Parameter(
-	 *       	name="password",
-	 *       	description="value",
-	 *       	in="query",
-	 *       	@OA\Schema(type="String",default=null)
-	 *     ),	 
+	 *    @OA\RequestBody(
+	 *      required=true,
+	 *      @OA\JsonContent(
+	 *          @OA\Property(property="username",description="Login username.",type="string"),
+	 *          @OA\Property(property="password",description="Login Password.",type="string"),
+	 *     ), 
 	 *    security={{"bearerAuth": {}}},
 	 *    @OA\Response(response="401", description="Unauthorized"),
 	 *    @OA\Response(response="200", 
@@ -115,8 +109,9 @@ class Auth extends MY_Controller
 	public function loginWithSFI_post()
 	{
 		//read data
-		$userName = $this->input->get('username', true);
-		$password = $this->input->get('password', true);
+		$input = json_decode(trim(file_get_contents('php://input')), true);
+		$userName = $input["username"];
+		$password = $input["password"];
 
 		/* Endpoint */
 		$url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
