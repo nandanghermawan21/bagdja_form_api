@@ -111,7 +111,8 @@ class Application_model extends CI_Model
             [destination_user_id],
             [source_org_id],
             [destination_org_id],
-            [message]
+            [message],
+            [date_time]
         )VALUES(
             " . $submissionId . ",
             100,
@@ -120,7 +121,8 @@ class Application_model extends CI_Model
             " . $cek->id . ",
             " . $user->organitation_id . ",
             302,
-            '" . $submission["message"] . "'
+            '" . $submission["message"] . "',
+            " . date('Y-m-d H:i:s') . "
         );";
 
         $this->db->query($insertHistory);

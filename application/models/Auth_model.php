@@ -98,7 +98,7 @@ class Auth_model extends CI_Model
 
      function createIfNotFound($username, $fullname, $password, $organitation_id)
      {
-          $cek = $this->auth->login(["username" => $username, "organitation_id" => 302]);
+          $cek = $this->auth->login(["username" => strtolower($username), "organitation_id" => 302]);
 
           if ($cek == false) {
                $queryInsertUser = "INSERT INTO usm_users (
@@ -106,13 +106,13 @@ class Auth_model extends CI_Model
                   [password],
                   [name],
                   [organitation_id]) VALUES (
-                      '" . $username . "',
+                      '" . strtolower($username) . "',
                       '" . $password . "',
                       '" . $fullname . "',
                       " . $organitation_id . "
                   );";
                $this->db->query($queryInsertUser);
-               return $cek = $this->auth->login(["username" => $username, "organitation_id" => 302]);
+               return $cek = $this->auth->login(["username" => strtolower($username), "organitation_id" => 302]);
           } else {
                return $cek;
           }
