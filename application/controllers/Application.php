@@ -167,7 +167,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/listQuestionState",
+     *     path="/application/inbox",
      *     tags={"Application"},
      * 	   description="Get all question on state apllication",
      * security={{"bearerAuth": {}}},
