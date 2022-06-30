@@ -183,7 +183,8 @@ class Application_model extends CI_Model
         $result = $query->result();
 
         foreach ($result as $submission) {
-            $submission->data = $this->getSnapShoot($submission->submission_id, null);
+            $submission->totalData = 0;
+            $submission->data = $this->getSnapShoot($submission->submission_id, $submission->totalData);
         }
 
         return $result;
