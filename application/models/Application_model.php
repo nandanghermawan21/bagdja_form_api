@@ -8,6 +8,7 @@ class Application_model extends CI_Model
         $this->load->model('Auth_model', 'auth');
         $this->load->model('Form_model', 'form');
         $this->load->model('Page_model', 'page');
+        $this->load->model('Questiongroup_model', 'group');
     }
 
     public function getQuestionState($appCode, $stateId, &$refTotal)
@@ -62,7 +63,7 @@ class Application_model extends CI_Model
                 from app_submission s
                 join sys_application_state_ref asr on s.application_id = asr.application_id AND s.current_state = asr.state_id
                 join sys_form f on asr.form_id = f.id
-                WHERE s.id = ".$submission_id."";
+                WHERE s.id = " . $submission_id . "";
 
         $query = $this->db->query($sql);
         $refTotal = $query->num_rows();
@@ -77,6 +78,11 @@ class Application_model extends CI_Model
                 $page->questionGroups = $this->page->getQuestions(["page_id" => $page->id], $page->totalQuestionGroup);
                 $page->totalDicission = 0;
                 $page->dicissions = $this->page->getDicission(["page_id" => $page->id], $page->totalQuestionGroup);
+
+                foreach ($page->questionGroups as $group) {
+                    $group->totalQuestions = 0;
+                    $group->questions = $this->group->getData(["group_id" => $group->id], $group->totalQuestions);
+                }
             }
         }
 
