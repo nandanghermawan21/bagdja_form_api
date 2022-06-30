@@ -72,6 +72,8 @@ class Application_model extends CI_Model
         foreach ($result as $form) {
             $form->totalPage = 0;
             $form->pages = $this->form->getFormPages($form->id, $form->totalPage);
+            $form->totalData = 0;
+            $form->data = $this->getSubmissionData($submission_id, $form->totalData76);
 
             foreach ($form->pages as $page) {
                 $page->totalQuestionGroup = 0;
@@ -178,6 +180,22 @@ class Application_model extends CI_Model
         } else {
             return "assign submission surver success " . $this->db->insert_id();
         }
+    }
+
+    public function getSubmissionData($submission_id, &$refTotal)
+    {
+        $sql = "select  submission_id,
+                        question_id,
+                        [value],
+                        lat,
+                        lon
+                from app_submission_data sd
+                WHERE sd.submission_id = " . $submission_id . "";
+
+        $query = $this->db->query($sql);
+
+        $refTotal = $query->num_rows();
+        return $query->result();
     }
 
     public function getInbox($userid, &$refTotal)
