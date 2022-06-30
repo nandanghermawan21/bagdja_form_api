@@ -81,7 +81,7 @@ class Application_model extends CI_Model
 
                 foreach ($page->questionGroups as $group) {
                     $group->totalQuestions = 0;
-                    $group->questions = $this->group->getData(["group_id" => $group->id], $group->totalQuestions);
+                    $group->questions = $this->group->getData(["group_id" => $group->group_id], $group->totalQuestions);
                 }
             }
         }
