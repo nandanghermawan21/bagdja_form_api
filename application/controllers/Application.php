@@ -201,6 +201,12 @@ class Application extends MY_Controller
      *     path="/application/formRef",
      *     tags={"Application"},
      * 	   description="Get all form ref read only",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
@@ -218,11 +224,11 @@ class Application extends MY_Controller
      */
     public function formRef_get(){
         //getuserInfo
-        $user = $this->_getData()->data;
+        $submissionId = $this->input->get("submissionId", TRUE);
 
         $total = 0;
         $data = null;
-        $data = $this->application->getFormRef($user->id, $total);
+        $data = $this->application->getFormRef($submissionId, $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
