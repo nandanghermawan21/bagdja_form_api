@@ -32,6 +32,26 @@ class Application_model extends CI_Model
         return $query->result();
     }
 
+
+    public function getSnapShoot($submission_id, &$refTotal)
+    {
+        $sql = "SELECT  q.id,
+                        q.code,
+                        q.label,
+                        sd.[value]
+                from app_submission s
+                join sys_application_state ast on s.current_state = ast.state_id
+                join sys_question_list ql on ast.question_group_id = ql.group_id
+                join sys_question q on ql.question_id = q.id
+                LEFT JOIN app_submission_data sd on q.id = sd.question_id and s.id = sd.submission_id
+                WHERE s.id = " . $submission_id . "";
+
+        $query = $this->db->query($sql);
+
+        $refTotal = $query->num_rows();
+        return $query->result();
+    }
+
     //cuntion khusus merecord order ke submission and set current user to CMO
     public function assignSurvey($user, $submission, $data)
     {
@@ -159,7 +179,14 @@ class Application_model extends CI_Model
         $query = $this->db->query($sql);
 
         $refTotal = $query->num_rows();
-        return $query->result();
+
+        $result = $query->result();
+
+        foreach ($result as $submission) {
+            $submission->data = $this->getSnapShoot($submission->submission_id, null);
+        }
+
+        return $result;
     }
 }
 
@@ -283,6 +310,40 @@ class ApplicationInbox
      * @var string
      */
     public $submit_message;  //": "INI TEST ORDER IN FORM BARU"
+
+    /**
+     * @OA\Property
+     * @var ApplicatioSnapShoot
+     */
+    public $data;  //": "INI TEST ORDER IN FORM BARU"
 }
 
+/**
+ * @OA\Schema(schema="ApplicatioSnapShoot")
+ */
+class ApplicatioSnapShoot
+{
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $id;
 
+    /**
+     * @OA/Property
+     * @var string
+     */
+    public $code;
+
+    /**
+     * @OA/Property
+     * @var string
+     */
+    public $label;
+
+    /**
+     * @OA/Property
+     * @var string
+     */
+    public  $value;
+}
