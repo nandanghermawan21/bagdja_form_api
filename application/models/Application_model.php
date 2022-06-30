@@ -206,3 +206,83 @@ class QuestionValueInput
      */
     public $value;
 }
+
+
+/**
+ * @OA\Schema(schema="ApplicationInbox")
+ */
+class ApplicationInbox
+{
+    /**
+     * @OA\Property
+     * @var integer
+     */
+    public $submission_id;  //": 29,
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $submission_number;  //": "ORDERIN/TEST/FORMTERBARU/00003",
+    /**
+     * @OA\Property
+     * @var integer
+     */
+    public $application_id;  //": 201,
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $application_code;  //": "SURVEY",
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $application_name;  //": "SURVEY",
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $submission_date;  //": "2022-06-30 00:27:57.820",
+    /**
+     * @OA\Property
+     * @var float
+     */
+    public $submission_lat;  //": 0,
+    /**
+     * @OA\Property
+     * @var float
+     */
+    public $submission_lon;  //": 0,
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $state_name;  //": "ASSIGNED",
+    /**
+     * @OA\Property
+     * @var integer
+     */
+    public $user_id;  //": 9,
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $user_name;  //": "DANU PRAKARSA",
+    /**
+     * @OA\Property
+     * @var integer
+     */
+    public $organitation_id;  //": 302,
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $organitaion_name;  //": "CMO",
+    /**
+     * @OA\Property
+     * @var string
+     */
+    public $submit_message;  //": "INI TEST ORDER IN FORM BARU"
+}
+
+

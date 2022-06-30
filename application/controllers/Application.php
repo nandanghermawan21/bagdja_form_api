@@ -178,7 +178,7 @@ class Application extends MY_Controller
      *         mediaType="application/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
-     *				ref="#/components/schemas/QuestionState"               
+     *				ref="#/components/schemas/ApplicationInbox"               
      *             )
      *         ),
      *     ),
