@@ -126,7 +126,7 @@ class Application_model extends CI_Model
             " . $user->organitation_id . ",
             302,
             '" . $submission["message"] . "',
-            " . date('Y-m-d H:i:s') . "
+            '" . date('Y-m-d H:i:s') . "'
         );";
 
         $this->db->query($insertHistory);
