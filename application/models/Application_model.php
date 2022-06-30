@@ -36,23 +36,6 @@ class Application_model extends CI_Model
     public function assignSurvey($user, $submission, $data)
     {
 
-        // $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
-
-        // if ($cek == false) {
-        //     $queryInsertUser = "INSERT INTO usm_users (
-        //         [username],
-        //         [password],
-        //         [name],
-        //         [organitation_id]) VALUES (
-        //             '" . $submission["cmoUserName"] . "',
-        //             '" . $this->key->lockhash($submission["cmoUserName"]) . "',
-        //             '" . $submission["cmoFullName"] . "',
-        //             302
-        //         );";
-        //     $this->db->query($queryInsertUser);
-        //     $cek = $this->auth->login(["username" => $submission['cmoUserName'], "organitation_id" => 302]);
-        // }
-
         $cek = $this->auth->createIfNotFound($submission['cmoUserName'], $submission["cmoFullName"], $this->key->lockhash($submission["cmoUserName"]), 302);
 
         $this->db->trans_start();
@@ -138,6 +121,45 @@ class Application_model extends CI_Model
         } else {
             return "assign submission surver success " . $this->db->insert_id();
         }
+    }
+
+    public function getInbox($userid, &$refTotal)
+    {
+        $sql = "select  s.id as submission_id,
+                        s.number as submission_number,
+                        s.application_id as application_id,
+                        a.code as application_code,
+                        a.name as application_name,
+                        s.submit_date as submission_date,
+                        s.lat as submission_lat,
+                        s.lon as submission_lon,
+                        st.name as state_name,
+                        u.id as user_id,
+                        u.name as user_name,
+                        o.id as organitation_id,
+                        o.name as organitaion_name,
+                        (select TOP 1
+                            hs.message
+                        from
+                            wfs_history_state hs
+                        WHERE hs.submission_id = s.id
+                            and hs.source_state_id = s.prev_state
+                            and hs.source_org_id = s.prev_organitation_id
+                            and hs.destination_user_id = s.current_user_id
+                            and hs.destination_org_id = s.current_organitation_id
+                        order by hs.id desc) as submit_message
+                    from app_submission s
+                        join usm_users u on s.current_user_id = u.id
+                        join usm_organitation o on s.current_organitation_id = o.id
+                        join sys_application a on s.application_id = a.id
+                        join sys_application_state ast on s.current_state = ast.state_id
+                        join sys_state  st on ast.state_id = st.id
+                    WHERE s.current_user_id = " . $userid . "";
+
+        $query = $this->db->query($sql);
+
+        $refTotal = $query->num_rows();
+        return $query->result();
     }
 }
 

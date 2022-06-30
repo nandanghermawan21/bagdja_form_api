@@ -164,4 +164,35 @@ class Application extends MY_Controller
             $this->response($result, 200);
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/application/listQuestionState",
+     *     tags={"Application"},
+     * 	   description="Get all question on state apllication",
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(type="array",
+     *             @OA\Items(type="object",
+     *				ref="#/components/schemas/QuestionState"               
+     *             )
+     *         ),
+     *     ),
+     *   ),
+     * )
+     */
+    public function inbox_get(){
+        //getuserInfo
+        $user = $this->_getData()->data;
+
+        $total = 0;
+        $data = null;
+        $data = $this->application->getInbox($user->id, $total);
+        $response = $this->responses->successWithData($data, $total);
+        $this->response($response, 200);
+    }
 }
