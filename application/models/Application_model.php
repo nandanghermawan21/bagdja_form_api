@@ -313,8 +313,13 @@ class ApplicationInbox
     public $submit_message;  //": "INI TEST ORDER IN FORM BARU"
 
     /**
-     * @OA\Property
-     * @var ApplicatioSnapShoot
+     * @OA\Property(
+     *     type="array",
+     *     @OA\Items(type="object",
+     *		  ref="#/components/schemas/ApplicatioSnapShoot"               
+     *     )
+     *     description="token",
+     * ),
      */
     public $data;  //": "INI TEST ORDER IN FORM BARU"
 }
