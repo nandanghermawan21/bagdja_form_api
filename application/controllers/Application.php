@@ -195,4 +195,35 @@ class Application extends MY_Controller
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
+
+     /**
+     * @OA\Get(
+     *     path="/application/formRef",
+     *     tags={"Application"},
+     * 	   description="Get all form ref read only",
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(type="array",
+     *             @OA\Items(type="object",
+     *				ref="#/components/schemas/ApplicationInbox"               
+     *             )
+     *         ),
+     *     ),
+     *   ),
+     * )
+     */
+    public function formRef_get(){
+        //getuserInfo
+        $user = $this->_getData()->data;
+
+        $total = 0;
+        $data = null;
+        $data = $this->application->getFormRef($user->id, $total);
+        $response = $this->responses->successWithData($data, $total);
+        $this->response($response, 200);
+    }
 }
