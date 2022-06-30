@@ -68,7 +68,9 @@ class Application_model extends CI_Model
             [submit_date],
             [current_organitation_id],
             [current_user_id],
-            [current_state]
+            [current_state],
+            [lat],
+            [lon]
         ) VALUES (
             '" . $submission["orderNumber"] . "',
             201,
@@ -79,7 +81,9 @@ class Application_model extends CI_Model
             GETUTCDATE(),
             302,
             " .  $cek->id . ",
-            101
+            101,
+            " . $submission["lat"] . ",
+            " . $submission["lon"] . "
         );";
         $this->db->query($queryInsertSubmission);
         $submissionId = $this->db->insert_id();
