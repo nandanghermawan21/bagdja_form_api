@@ -55,9 +55,9 @@ class Application_model extends CI_Model
 
     public function getFormRef($submission_id, &$refTotal)
     {
-        $sql = "SELECT  f.id as form_id,
-                        f.code as form_code,
-                        f.name as form_name
+        $sql = "SELECT  f.id as id,
+                        f.code as code,
+                        f.name as [name]
                 from app_submission s
                 join sys_application_state_ref asr on s.application_id = asr.application_id AND s.current_state = asr.state_id
                 join sys_form f on asr.form_id = f.id
