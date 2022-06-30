@@ -7,6 +7,7 @@ class Application_model extends CI_Model
         parent::__construct();
         $this->load->model('Auth_model', 'auth');
         $this->load->model('Form_model', 'form');
+        $this->load->model('Page_model', 'page');
     }
 
     public function getQuestionState($appCode, $stateId, &$refTotal)
@@ -70,6 +71,11 @@ class Application_model extends CI_Model
         foreach ($result as $form) {
             $form->totalPage = 0;
             $form->pages = $this->form->getFormPages($form->id, $form->totalPage);
+
+            foreach ($form->pages as $page) {
+                $page->totalQuestionGroup = 0;
+                $page->questionGroups = $this->page->getQuestions(["page_id" => $page->id], $page->totalQuestionGroup);
+            }
         }
 
         return $result;
