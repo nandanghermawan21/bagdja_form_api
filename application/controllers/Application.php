@@ -232,4 +232,42 @@ class Application extends MY_Controller
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
+
+
+     /**
+     * @OA\Get(
+     *     path="/application/form",
+     *     tags={"Application"},
+     * 	   description="Get all form ref read only",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(type="array",
+     *             @OA\Items(type="object",
+     *				ref="#/components/schemas/ApplicationInbox"               
+     *             )
+     *         ),
+     *     ),
+     *   ),
+     * )
+     */
+    public function form_get(){
+        //getuserInfo
+        $submissionId = $this->input->get("submissionId", TRUE);
+
+        $total = 0;
+        $data = null;
+        $data = $this->application->getForm($submissionId, $total);
+        $response = $this->responses->successWithData($data, $total);
+        $this->response($response, 200);
+    }
 }

@@ -69,7 +69,28 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         $result = $query->result();
 
-        foreach ($result as $form) {
+        return  $this->getFormComponent($submission_id, $result);
+    }
+
+    public function getForm($submission_id, &$refTotal)
+    {
+        $sql = "SELECT  f.id as id,
+                        f.code as code,
+                        f.name as [name]
+                from app_submission s
+                join sys_application_state asr on s.application_id = asr.application_id AND s.current_state = asr.state_id
+                join sys_form f on asr.form_id = f.id
+                WHERE s.id = " . $submission_id . "";
+
+        $query = $this->db->query($sql);
+        $refTotal = $query->num_rows();
+        $result = $query->result();
+
+        return  $this->getFormComponent($submission_id, $result);
+    }
+
+    public function getFormComponent($submission_id, $forms){
+        foreach ($forms as $form) {
             $form->totalPage = 0;
             $form->pages = $this->form->getFormPages($form->id, $form->totalPage);
             $form->totalData = 0;
@@ -88,7 +109,7 @@ class Application_model extends CI_Model
             }
         }
 
-        return $result;
+        return $forms;
     }
 
     //cuntion khusus merecord order ke submission and set current user to CMO
