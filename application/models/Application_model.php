@@ -86,7 +86,7 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         $result = $query->result();
 
-        return  $this->getFormComponent($submission_id, $result);
+        return  $this->getFormComponent($submission_id, $result)[0];
     }
 
     public function getFormComponent($submission_id, $forms){

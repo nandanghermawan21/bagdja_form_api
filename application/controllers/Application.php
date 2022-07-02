@@ -249,14 +249,9 @@ class Application extends MY_Controller
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
-     *      @OA\MediaType(
-     *         mediaType="application/json",
-     *         @OA\Schema(type="array",
-     *             @OA\Items(type="object",
-     *				ref="#/components/schemas/ApplicationInbox"               
-     *             )
-     *         ),
-     *     ),
+	 *      @OA\JsonContent(
+	 *        ref="#/components/schemas/ApplicationInbox"
+	 *      ),
      *   ),
      * )
      */
