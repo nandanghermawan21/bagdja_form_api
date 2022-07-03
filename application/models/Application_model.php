@@ -274,7 +274,7 @@ class Application_model extends CI_Model
         
 
         $query = $this->db->query($sql);
-        $refTotal = $query->affected_rows();
+        $refTotal = $this->db->affected_rows();
        
         return $refTotal;
     }
