@@ -273,7 +273,7 @@ class Application_model extends CI_Model
                 WHERE id = ".$submisiionId."";
         
 
-        $query = $this->db->query($sql);
+        $this->db->query($sql);
         $refTotal = $this->db->affected_rows();
        
         return $refTotal;
