@@ -229,6 +229,7 @@ class Application_model extends CI_Model
                         s.submit_date as submission_date,
                         s.lat as submission_lat,
                         s.lon as submission_lon,
+                        st.id as state_id,
                         st.name as state_name,
                         u.id as user_id,
                         u.name as user_name,
