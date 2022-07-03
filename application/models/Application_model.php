@@ -189,7 +189,7 @@ class Application_model extends CI_Model
             " . $user->organitation_id . ",
             302,
             '" . $submission["message"] . "',
-            '" . date('Y-m-d H:i:s') . "'
+            'GETUTCDATE()'
         );";
 
         $this->db->query($insertHistory);
@@ -264,6 +264,18 @@ class Application_model extends CI_Model
         }
 
         return $result;
+    }
+
+    public function confirmGet($submisiionId, &$refTotal){
+        $sql = "UPDATE app_submission
+                set get_date = GETUTCDATE()
+                WHERE id = ".$submisiionId."";
+        
+
+        $query = $this->db->query($sql);
+        $refTotal = $query->affected_rows();
+       
+        return $refTotal;
     }
 }
 

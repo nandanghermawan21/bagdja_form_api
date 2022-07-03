@@ -265,4 +265,34 @@ class Application extends MY_Controller
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
+
+     /**
+     * @OA\Get(
+     *     path="/application/confirmGet",
+     *     tags={"Application"},
+     * 	   description="Confirm if cmo has been get the form",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+	 *      @OA\bool,
+     *   ),
+     * )
+     */
+    public function confirm_get(){
+        //getuserInfo
+        $submissionId = $this->input->get("submissionId", TRUE);
+
+        $total = 0;
+        $data = null;
+        $data = $this->application->confirm_get($submissionId, $total);
+        $response = $this->responses->successWithData($data, $total);
+        $this->response($response, 200);
+    }
 }

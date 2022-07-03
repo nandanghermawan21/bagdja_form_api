@@ -27,7 +27,7 @@
       "id": 109,
       "code": "CUST_TYPE",
       "name": "TIPE PEMOHON",
-      "value": "{PERSONAL:PERSONAL}"
+      "value": "PERSONAL:PERSONAL"
     },
     {
       "id": 110,
@@ -48,7 +48,7 @@
       "value": "320510020691000005"
     },
     {
-      "id": 113,
+      "id": 113, 
       "code": "CUST_FULL_NAME",
       "name": "NAMA LENGKAP PEMOHON",
       "value": "DUDUNG JUNAEDI"
@@ -63,7 +63,7 @@
       "id": 115,
       "code": "MARTIAL_STAT",
       "name": "STATUS PEMOHON",
-      "value": "{KAWIN:KAWIN}"
+      "value": "KAWIN:KAWIN"
     },
     {
       "id": 116,
@@ -93,7 +93,7 @@
       "id": 120,
       "code": "QOI0015",
       "name": "TIPE KENDARAAN",
-      "value": "{PASSENGER:PASSENGER}"
+      "value": "PASSENGER:PASSENGER"
     },
     {
       "id": 121,
@@ -183,7 +183,7 @@
       "id": 140,
       "code": "QMH0011",
       "name": "STATUS PASANGAN / PENJAMIN",
-      "value": "{KAWIN:KAWIN}"
+      "value": "KAWIN:KAWIN"
     },
     {
       "id": 141,
@@ -213,7 +213,7 @@
       "id": 145,
       "code": "CUST_MODEL_CODE",
       "name": "CUSTOMER MODEL",
-      "value": "{PROFESIONAL:PROFESIONAL}"
+      "value": "PROFESIONAL:PROFESIONAL"
     },
     {
       "id": 146,
