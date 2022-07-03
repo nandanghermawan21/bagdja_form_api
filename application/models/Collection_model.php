@@ -19,6 +19,11 @@ class Collection_model extends CI_Model
      * @var string
      */
     public $name;
+    /**
+     * @OA\Property()
+     * @var string
+     */
+    public $hash;
 
     public function get($where = null, &$refTotal)
     {

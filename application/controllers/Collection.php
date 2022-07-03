@@ -8,7 +8,6 @@ class Collection extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->_authenticate();
 
 		$this->load->model('Collection_model', 'collection');
 		$this->load->model('Responses_model', 'responses');
@@ -78,6 +77,7 @@ class Collection extends MY_Controller
 	 */
 	public function create_post()
 	{
+		$this->_authenticate();
 
 		$response = null;
 		$messageResult = null;
@@ -125,6 +125,8 @@ class Collection extends MY_Controller
 	 */
 	public function update_post()
 	{
+		$this->_authenticate();
+
 		$id = $this->input->get('id', TRUE);
 		$message = "";
 		$input = json_decode(trim(file_get_contents('php://input')), true);
@@ -162,6 +164,9 @@ class Collection extends MY_Controller
 	 */
 	public function delete_get()
 	{
+		$this->_authenticate();
+
+
 		$id = $this->input->get('id');
 		$data = $this->collection->delete($id);
 
@@ -233,6 +238,8 @@ class Collection extends MY_Controller
 	 */
 	public function addData_post()
 	{
+		$this->_authenticate();
+
 		$response = null;
 		$messageResult = null;
 		$data = null;
@@ -285,6 +292,8 @@ class Collection extends MY_Controller
 	 */
 	public function updateData_post()
 	{
+		$this->_authenticate();
+
 		$id = $this->input->get('id', TRUE);
 		$value = $this->input->get('value', TRUE);
 		$message = "";
@@ -327,6 +336,8 @@ class Collection extends MY_Controller
 	 */
 	public function deleteData_post()
 	{
+		$this->_authenticate();
+
 		$id = $this->input->get('id');
 		$value = $this->input->get('value');
 		$data = $this->collection->deleteData($id, $value);
