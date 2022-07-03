@@ -99,6 +99,7 @@ class Application_model extends CI_Model
             foreach ($form->pages as $page) {
                 $page->totalQuestionGroup = 0;
                 $page->questionGroups = $this->page->getQuestions(["page_id" => $page->id], $page->totalQuestionGroup);
+                
                 $page->totalDicission = 0;
                 $page->dicissions = $this->page->getDicission(["page_id" => $page->id], $page->totalQuestionGroup);
 
