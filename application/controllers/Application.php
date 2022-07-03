@@ -291,7 +291,7 @@ class Application extends MY_Controller
 
         $total = 0;
         $data = null;
-        $data = $this->application->confirm_get($submissionId, $total);
+        $data = $this->application->confirmGet($submissionId, $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
