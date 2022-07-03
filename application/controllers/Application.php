@@ -268,9 +268,9 @@ class Application extends MY_Controller
 
      /**
      * @OA\Get(
-     *     path="/application/confirmGet",
+     *     path="/application/confirm",
      *     tags={"Application"},
-     * 	   description="Confirm if cmo has been get the form",
+     * 	   description="Confirm if cmo has been get the form to local devices",
      *     @OA\Parameter(
      *       name="submissionId",
      *       description="Submission ID",
