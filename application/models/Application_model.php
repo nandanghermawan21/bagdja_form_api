@@ -89,7 +89,8 @@ class Application_model extends CI_Model
         return  $this->getFormComponent($submission_id, $result)[0];
     }
 
-    public function getFormComponent($submission_id, $forms){
+    public function getFormComponent($submission_id, $forms)
+    {
         foreach ($forms as $form) {
             $form->totalPage = 0;
             $form->pages = $this->form->getFormPages($form->id, $form->totalPage);
@@ -99,13 +100,18 @@ class Application_model extends CI_Model
             foreach ($form->pages as $page) {
                 $page->totalQuestionGroup = 0;
                 $page->questionGroups = $this->page->getQuestions(["page_id" => $page->id], $page->totalQuestionGroup);
-                
+
                 $page->totalDicission = 0;
                 $page->dicissions = $this->page->getDicission(["page_id" => $page->id], $page->totalQuestionGroup);
 
                 foreach ($page->questionGroups as $group) {
                     $group->totalQuestions = 0;
                     $group->questions = $this->group->getData(["group_id" => $group->group_id], $group->totalQuestions);
+
+                    foreach ($group->questions as $question) {
+                        $question->form_id = $form->id;
+                        $question->page_id = $page->id;
+                    }
                 }
             }
         }
@@ -268,15 +274,16 @@ class Application_model extends CI_Model
         return $result;
     }
 
-    public function confirmGet($submisiionId, &$refTotal){
+    public function confirmGet($submisiionId, &$refTotal)
+    {
         $sql = "UPDATE app_submission
                 set get_date = GETUTCDATE()
-                WHERE id = ".$submisiionId."";
-        
+                WHERE id = " . $submisiionId . "";
+
 
         $query = $this->db->query($sql);
         $refTotal = $this->db->affected_rows();
-       
+
         return $query;
     }
 }
