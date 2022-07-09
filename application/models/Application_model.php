@@ -274,7 +274,7 @@ class Application_model extends CI_Model
         return $result;
     }
 
-    public function process($submisiionId, $userid, $organitation_id, &$refTotal)
+    public function setToProcess($submisiionId, $userid, $organitation_id, &$refTotal)
     {
         $sql = "insert into wfs_history_state (
                         [submission_id],
