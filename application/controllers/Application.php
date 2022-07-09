@@ -294,7 +294,40 @@ class Application extends MY_Controller
 
         $total = 0;
         $data = null;
-        $data = $this->application->confirmGet($submissionId, $user->id. $user->$user->organitation_id,  $total);
+        $data = $this->application->setToProcess($submissionId, $user->id. $user->$user->organitation_id,  $total);
+        $response = $this->responses->successWithData($data, $total);
+        $this->response($response, 200);
+    }
+
+     /**
+     * @OA\Get(
+     *     path="/application/setToupload",
+     *     tags={"Application"},
+     * 	   description="set submission to upload (mobile app will be upload )",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+	 *      @OA\bool,
+     *   ),
+     * )
+     */
+    public function setToupload_get(){
+        //getuserInfo
+        $user = $this->_getData()->data;
+
+        //getuserInfo
+        $submissionId = $this->input->get("submissionId", TRUE);
+
+        $total = 0;
+        $data = null;
+        $data = $this->application->setToProcess($submissionId, $user->id. $user->$user->organitation_id,  $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
