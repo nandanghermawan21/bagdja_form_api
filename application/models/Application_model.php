@@ -274,7 +274,7 @@ class Application_model extends CI_Model
         return $result;
     }
 
-    public function setToProcess($submisiionId, $userid, $organitation_id, &$refTotal)
+    public function process($submisiionId, $userid, $organitation_id, &$refTotal)
     {
         $sql = "insert into wfs_history_state (
                         [submission_id],
@@ -287,7 +287,7 @@ class Application_model extends CI_Model
                         [message],
                         [date_time]
                     )
-                select s.id, s.current_state, " . $userid . ", s.current_user_id, 9, s.current_organitation_id, " . $organitation_id . ", '', GETUTCDATE()  from app_submission  s
+                select s.id, s.current_state, 102, " . $userid . ", 9, " . $organitation_id . ", 302, '', GETUTCDATE()  from app_submission  s
                 WHERE id = " . $submisiionId . "";
 
 
