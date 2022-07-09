@@ -185,7 +185,8 @@ class Application extends MY_Controller
      *   ),
      * )
      */
-    public function inbox_get(){
+    public function inbox_get()
+    {
         //getuserInfo
         $user = $this->_getData()->data;
 
@@ -196,7 +197,7 @@ class Application extends MY_Controller
         $this->response($response, 200);
     }
 
-     /**
+    /**
      * @OA\Get(
      *     path="/application/formRef",
      *     tags={"Application"},
@@ -222,7 +223,8 @@ class Application extends MY_Controller
      *   ),
      * )
      */
-    public function formRef_get(){
+    public function formRef_get()
+    {
         //getuserInfo
         $submissionId = $this->input->get("submissionId", TRUE);
 
@@ -234,7 +236,7 @@ class Application extends MY_Controller
     }
 
 
-     /**
+    /**
      * @OA\Get(
      *     path="/application/form",
      *     tags={"Application"},
@@ -249,13 +251,14 @@ class Application extends MY_Controller
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
-	 *      @OA\JsonContent(
-	 *        ref="#/components/schemas/ApplicationInbox"
-	 *      ),
+     *      @OA\JsonContent(
+     *        ref="#/components/schemas/ApplicationInbox"
+     *      ),
      *   ),
      * )
      */
-    public function form_get(){
+    public function form_get()
+    {
         //getuserInfo
         $submissionId = $this->input->get("submissionId", TRUE);
 
@@ -266,7 +269,7 @@ class Application extends MY_Controller
         $this->response($response, 200);
     }
 
-     /**
+    /**
      * @OA\Get(
      *     path="/application/setToProcess",
      *     tags={"Application"},
@@ -281,11 +284,12 @@ class Application extends MY_Controller
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
-	 *      @OA\bool,
+     *      @OA\bool,
      *   ),
      * )
      */
-    public function setToProcess_get(){
+    public function setToProcess_get()
+    {
         //getuserInfo
         $user = $this->_getData()->data;
 
@@ -294,12 +298,12 @@ class Application extends MY_Controller
 
         $total = 0;
         $data = null;
-        $data = $this->application->setToProcess($submissionId, $user->id. $user->organitation_id,);
+        $data = $this->application->setToProcess($submissionId, $user->id . $user->organitation_id, $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
 
-     /**
+    /**
      * @OA\Get(
      *     path="/application/setToupload",
      *     tags={"Application"},
@@ -314,11 +318,12 @@ class Application extends MY_Controller
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
-	 *      @OA\bool,
+     *      @OA\bool,
      *   ),
      * )
      */
-    public function setToupload_get(){
+    public function setToupload_get()
+    {
         //getuserInfo
         $user = $this->_getData()->data;
 
@@ -327,7 +332,7 @@ class Application extends MY_Controller
 
         $total = 0;
         $data = null;
-        $data = $this->application->setToProcess($submissionId, $user->id. $user->$user->organitation_id,  $total);
+        $data = $this->application->setToProcess($submissionId, $user->id . $user->$user->organitation_id,  $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
