@@ -332,7 +332,7 @@ class Application extends MY_Controller
 
         $total = 0;
         $data = null;
-        $data = $this->application->setToProcess($submissionId, $user->id . $user->organitation_id,  $total);
+        $data = $this->application->setToProcess($submissionId, $user->id, $user->organitation_id,  $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
