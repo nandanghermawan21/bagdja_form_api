@@ -274,10 +274,20 @@ class Application_model extends CI_Model
         return $result;
     }
 
-    public function confirmGet($submisiionId, &$refTotal)
+    public function setToProcess($submisiionId, $userid, $organitation_id, &$refTotal)
     {
-        $sql = "UPDATE app_submission
-                set get_date = GETUTCDATE()
+        $sql = "insert into wfs_history_state (
+                        [submission_id],
+                        [source_state_id],
+                        [destination_state_id],
+                        [source_user_id],
+                        [destination_user_id],
+                        [source_org_id],
+                        [destination_org_id],
+                        [message],
+                        [date_time]
+                    )
+                select s.id, s.current_state, " . $userid . ", s.current_user_id, 9, s.current_organitation_id, " . $organitation_id . ", '', GETUTCDATE()  from app_submission  s
                 WHERE id = " . $submisiionId . "";
 
 

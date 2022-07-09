@@ -268,9 +268,9 @@ class Application extends MY_Controller
 
      /**
      * @OA\Get(
-     *     path="/application/confirm",
+     *     path="/application/setToProcess",
      *     tags={"Application"},
-     * 	   description="Confirm if cmo has been get the form to local devices",
+     * 	   description="set submission to process (getted to local storage device on app)",
      *     @OA\Parameter(
      *       name="submissionId",
      *       description="Submission ID",
@@ -285,13 +285,16 @@ class Application extends MY_Controller
      *   ),
      * )
      */
-    public function confirm_get(){
+    public function setToProcess_get(){
+        //getuserInfo
+        $user = $this->_getData()->data;
+
         //getuserInfo
         $submissionId = $this->input->get("submissionId", TRUE);
 
         $total = 0;
         $data = null;
-        $data = $this->application->confirmGet($submissionId, $total);
+        $data = $this->application->confirmGet($submissionId, $user->id. $user->$user->organitation_id,  $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
