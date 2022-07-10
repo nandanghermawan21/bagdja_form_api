@@ -118,7 +118,7 @@ class Application_model extends CI_Model
                     $group->questions = $this->group->getData(["group_id" => $group->group_id], $group->totalQuestions);
 
                     foreach ($group->questions as $question) {
-                        $question->submission_id = $submission_id;
+                        $question->submission_id =  (int) $submission_id;
                         $question->form_id = $form->id;
                         $question->page_id = $page->id;
                     }
