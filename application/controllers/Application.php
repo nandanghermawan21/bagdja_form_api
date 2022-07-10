@@ -448,7 +448,7 @@ class Application extends MY_Controller
 	 *     @OA\RequestBody(
 	 *     @OA\MediaType(
 	 *         mediaType="application/json",
-	 *         @OA\Schema(ref="#/components/schemas/SubmissionDataUpload")
+	 *         @OA\Schema(ref="#/components/schemas/QuestionInput")
 	 *       ),
 	 *     ),
      * security={{"bearerAuth": {}}},
