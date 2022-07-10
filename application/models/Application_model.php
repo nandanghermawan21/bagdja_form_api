@@ -163,7 +163,7 @@ class Application_model extends CI_Model
             'SUBMITED',
             " . $submission["message"] . ",
             '" . $deviceInfo->deviceId . "',
-            '" . $deviceInfo->deviceName . "',
+            '" . $deviceInfo->deviceModel . "',
             " . $user->id . ",
             'GETUTCDATE()'
         );";
@@ -216,7 +216,7 @@ class Application_model extends CI_Model
             'SUBMITED',
             " . $user->id . ",
             '" . $deviceInfo->deviceId . "',
-            '" . $deviceInfo->deviceName . "'
+            '" . $deviceInfo->deviceModel . "'
         );";
 
         $this->db->query($insertHistory);
