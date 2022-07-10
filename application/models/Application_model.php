@@ -11,7 +11,8 @@ class Application_model extends CI_Model
         $this->load->model('Questiongroup_model', 'group');
     }
 
-    public function getSubmission($where, &$refTotal ){
+    public function getSubmission($where, &$refTotal)
+    {
         if ($where != null) {
             $this->db->where($where);
         }
@@ -117,6 +118,7 @@ class Application_model extends CI_Model
                     $group->questions = $this->group->getData(["group_id" => $group->group_id], $group->totalQuestions);
 
                     foreach ($group->questions as $question) {
+                        $question->submission_id = $submission_id;
                         $question->form_id = $form->id;
                         $question->page_id = $page->id;
                     }
@@ -367,6 +369,54 @@ class Application_model extends CI_Model
 
         return $query;
     }
+
+    public function upload($user, $data, $deviceInfo, &$refTotal, &$resultMessage)
+    {
+
+        //start transaction
+        $this->db->trans_start();
+
+        $insertQuestionHisotry = "INSERT into   app_submission_data_history(
+                                                [aubmission_id],
+                                                [form_id],
+                                                [page_id],
+                                                [group_id],
+                                                [question_id],
+                                                [value],
+                                                [lat],
+                                                [lon],
+                                                [input_date],
+                                                [device_id],
+                                                [device_model],
+                                                [created_by],
+                                                [created_date]
+                                            )VALUES(
+                                                " . $data->submission_id . ",
+                                                " . $data->form_id . ",
+                                                " . $data->page_id . ",
+                                                " . $data->group_id . ",
+                                                '" . $data->value . "',
+                                                " . $data->lat . ",
+                                                " . $data->lon . ",
+                                                '" . $data->input_date . "',
+                                                '" . $deviceInfo->deviceId . "',
+                                                '" . $data->deviceModel . "',
+                                                " . $user->id . ",
+                                                GETUTCDATE()
+                                            )";
+
+        $this->db->query($insertQuestionHisotry);
+        $refTotal = $this->db->affected_rows();
+        
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $resultMessage = "upload failed";
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 /**
@@ -530,4 +580,66 @@ class ApplicatioSnapShoot
      * @var string
      */
     public  $value;
+}
+
+/**
+ * @OA\Schema(schema="SubmissionDataUpload")
+ */
+class SubmissionDataUpload
+{
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $question_id; //": questionId,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $value; //": value,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $lat; //": lat,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $lon; //": lon,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $collection_id; //": collectionId,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $question_state; //": questionState,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $form_id; //": formId,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $page_id; //": pageId,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $group_id; //": groupId,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $submission_id; //": submissionId,
+    /**
+     * @OA/Property
+     * @var integer
+     */
+    public $input_date; //": inputDate?.toIso8601String(),
 }

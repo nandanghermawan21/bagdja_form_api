@@ -375,7 +375,7 @@ class Application extends MY_Controller
 
 
     /**
-     * @OA\Get(
+     * @OA\GET(
      *     path="/application/confirmUploading",
      *     tags={"Application"},
      * 	   description="set submission to uploading process (getted to local storage device on app)",
@@ -427,6 +427,80 @@ class Application extends MY_Controller
         $resultMessage = "";
         $data = null;
         $data = $this->application->confirm($submissionId, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
+        if ($data == null) {
+            $this->response($this->responses->error($resultMessage), 403);
+        } else {
+            $this->response($this->responses->successWithData($data, $total), 200);
+        }
+    }
+
+    /**
+     * @OA\GET(
+     *     path="/application/upload",
+     *     tags={"Application"},
+     * 	   description="upload onw by one question",
+     *     @OA\Parameter(
+     *       name="message",
+     *       description="message",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     *     @OA\RequestBody(
+     *       @OA\MediaType(
+     *           mediaType="application/json",
+     *           @OA\Schema(type="array",
+     *               ref="#/components/schemas/SubmissionDataUpload" 
+     *           ),
+     *         ),
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\bool,
+     *   ),
+     * )
+     */
+    public function upload_post()
+    {
+        //getuserInfo
+        $user = $this->_getData()->data;
+
+        //deviceInfo
+        $deviceInfo = $this->_getDeviceInfo();
+
+        //getuserParam
+        $message = $this->input->get("message", TRUE);
+
+        $body = json_decode(trim(file_get_contents('php://input')), true);
+
+
+        //getSubmision
+        $totalSubmission = 0;
+        $submission = $this->application->getSubmission(["id" => $body->submission_id], $totalSubmission);
+
+        //check device
+        if ($totalSubmission == 0) {
+            $this->response($this->responses->error("submission not found"), 403);
+        }
+
+        if($submission->current_device_id != $deviceInfo->deviceId){
+            $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 403);
+        }
+
+        //upload
+        $totalUpload = 0;
+        $resultMessageUpload = "";
+        $resultUpload = $this->application->upload($user,$body,$deviceInfo,$totalUpload,$resultMessageUpload);
+
+        if($resultUpload == false){
+            $this->response($this->responses->error($resultMessageUpload), 403);
+        }
+
+        $total = 0;
+        $resultMessage = "";
+        $data = null;
+        $data = $this->application->confirm($body->submission_id, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
         if ($data == null) {
             $this->response($this->responses->error($resultMessage), 403);
         } else {
