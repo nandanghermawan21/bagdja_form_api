@@ -144,7 +144,7 @@ class Application_model extends CI_Model
             [current_state_status],
             [current_state_message],
             [current_device_id],
-            [current_model_id],
+            [current_device_model],
             [updated_by],
             [updated_date]
         ) VALUES (
@@ -202,7 +202,7 @@ class Application_model extends CI_Model
             [status],
             [created_by],
             [device_id],
-            [device_name]
+            [device_model]
         )VALUES(
             " . $submissionId . ",
             100,
