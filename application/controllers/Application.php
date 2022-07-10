@@ -291,7 +291,49 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/setToProcess",
+     *     path="/application/confirmRead",
+     *     tags={"Application"},
+     * 	   description="set submission to readed (getted to local storage device on app)",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\bool,
+     *   ),
+     * )
+     */
+    public function confirmRead_get()
+    {
+        //getuserInfo
+        $user = $this->_getData()->data;
+
+        //deviceInfo
+        $deviceInfo = $this->_getDeviceInfo();
+
+        //getuserParam
+        $submissionId = $this->input->get("submissionId", TRUE);
+
+        $total = 0;
+        $resultMessage = "";
+        $data = null;
+        $data = $this->application->confirm($submissionId, $user->id, 'READED', '', $deviceInfo, $total, $resultMessage);
+        if ($data == null) {
+            $this->response($this->responses->error($resultMessage), 403);
+        } else {
+            $this->response($this->responses->successWithData($data, $total), 200);
+        }
+    }
+
+
+    /**
+     * @OA\Get(
+     *     path="/application/confirmProcess",
      *     tags={"Application"},
      * 	   description="set submission to process (getted to local storage device on app)",
      *     @OA\Parameter(
@@ -308,29 +350,44 @@ class Application extends MY_Controller
      *   ),
      * )
      */
-    public function setToProcess_get()
+    public function confirmProcess_get()
     {
         //getuserInfo
         $user = $this->_getData()->data;
 
-        //getuserInfo
+        //deviceInfo
+        $deviceInfo = $this->_getDeviceInfo();
+
+        //getuserParam
         $submissionId = $this->input->get("submissionId", TRUE);
 
         $total = 0;
+        $resultMessage = "";
         $data = null;
-        $data = $this->application->setToProcess($submissionId, $user->id, $user->organitation_id, $total);
-        $response = $this->responses->successWithData($data, $total);
-        $this->response($response, 200);
+        $data = $this->application->confirm($submissionId, $user->id, 'PROCESSED', '', $deviceInfo, $total, $resultMessage);
+
+        if ($data == null) {
+            $this->response($this->responses->error($resultMessage), 403);
+        } else {
+            $this->response($this->responses->successWithData($data, $total), 200);
+        }
     }
+
 
     /**
      * @OA\Get(
-     *     path="/application/setToupload",
+     *     path="/application/confirmUploading",
      *     tags={"Application"},
-     * 	   description="set submission to upload (mobile app will be upload )",
+     * 	   description="set submission to uploading process (getted to local storage device on app)",
      *     @OA\Parameter(
      *       name="submissionId",
      *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="message",
+     *       description="message",
      *       in="query",
      *       @OA\Schema(type="integer",default="")
      *     ),
@@ -342,18 +399,26 @@ class Application extends MY_Controller
      *   ),
      * )
      */
-    public function setToupload_get()
+    public function confirmUploading_get()
     {
         //getuserInfo
         $user = $this->_getData()->data;
 
-        //getuserInfo
+        //deviceInfo
+        $deviceInfo = $this->_getDeviceInfo();
+
+        //getuserParam
         $submissionId = $this->input->get("submissionId", TRUE);
+        $message = $this->input->get("message", TRUE);
 
         $total = 0;
+        $resultMessage = "";
         $data = null;
-        $data = $this->application->setToProcess($submissionId, $user->id, $user->organitation_id,  $total);
-        $response = $this->responses->successWithData($data, $total);
-        $this->response($response, 200);
+        $data = $this->application->confirm($submissionId, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
+        if ($data == null) {
+            $this->response($this->responses->error($resultMessage), 403);
+        } else {
+            $this->response($this->responses->successWithData($data, $total), 200);
+        }
     }
 }

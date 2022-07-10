@@ -299,9 +299,12 @@ class Application_model extends CI_Model
         return $result;
     }
 
-    public function setToProcess($submisiionId, $userid, $organitation_id, &$refTotal)
+    public function confirm($submisiionId, $userid, $status, $message, $deviceInfo, &$refTotal, &$resultMessage)
     {
-        $sql = "insert into wfs_history_state (
+        //start transaction
+        $this->db->trans_start();
+
+        $insertHistory = "insert into wfs_history_state (
                         [submission_id],
                         [source_state_id],
                         [destination_state_id],
@@ -310,14 +313,49 @@ class Application_model extends CI_Model
                         [source_org_id],
                         [destination_org_id],
                         [message],
-                        [date_time]
+                        [date_time],
+                        [status],
+                        [created_by],
+                        [device_id],
+                        [device_model]
                     )
-                select s.id, s.current_state, 102, " . $userid . ", 9, " . $organitation_id . ", 302, '', GETUTCDATE()  from app_submission  s
+                select s.id, 
+                       s.current_state, 
+                       s.current_state, 
+                       s.current_user_id, 
+                       s.current_user_id, 
+                       s.current_organitation_id, 
+                       s.current_organitation_id, 
+                       '" . $message . "',
+                       GETUTCDATE(), 
+                       '" . $status . "', 
+                       " . $userid . ",
+                       '" . $deviceInfo->deviceId . "',
+                       '" . $deviceInfo->deviceModel . "'
+                from app_submission  s
                 WHERE id = " . $submisiionId . "";
-
-
-        $query = $this->db->query($sql);
+        $query = $this->db->query($insertHistory);
         $refTotal = $this->db->affected_rows();
+
+        $updateSubmission = "UPDATE app_submission
+                                set current_state_status = '" . $status . "',
+                                    current_state_message = '" . $message . "',
+                                    current_device_id = '" . $deviceInfo->deviceId . "',
+                                    current_device_model = '" . $deviceInfo->deviceModel . "',
+                                    updated_by = " . $userid . ",
+                                    updated_date = GETUTCDATE()
+                                where id = " . $submisiionId . "";
+
+        $this->db->query($updateSubmission);
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $resultMessage = "confirm " . $status . " failed";
+            return null;
+        } else {
+            return "";
+        }
 
         return $query;
     }
