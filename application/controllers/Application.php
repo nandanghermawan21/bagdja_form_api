@@ -445,14 +445,12 @@ class Application extends MY_Controller
      *       in="query",
      *       @OA\Schema(type="integer",default="")
      *     ),
-     *     @OA\RequestBody(
-     *       @OA\MediaType(
-     *           mediaType="application/json",
-     *           @OA\Schema(type="array",
-     *               ref="#/components/schemas/SubmissionDataUpload" 
-     *           ),
-     *         ),
-     *     ),
+	 *     @OA\RequestBody(
+	 *     @OA\MediaType(
+	 *         mediaType="application/json",
+	 *         @OA\Schema(ref="#/components/schemas/SubmissionDataUpload")
+	 *       ),
+	 *     ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
