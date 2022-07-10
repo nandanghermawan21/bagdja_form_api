@@ -62,12 +62,9 @@ class MY_Controller extends RestController
   }
 
   public function _getDeviceInfo(){
-    $data = [
-      'deviceId' => $this->input->get_request_header('deviceId', TRUE),
-      'deviceModel' => $this->input->get_request_header('deviceModel', TRUE),
-
-    ];
-    
+    $data = new stdClass;
+    $data->deviceId = $this->input->get_request_header('deviceId', TRUE);
+    $data->deviceModel = $this->input->get_request_header('deviceModel', TRUE);
     return $data;
   }
 
