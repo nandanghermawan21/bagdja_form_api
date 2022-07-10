@@ -178,7 +178,7 @@ class Application extends MY_Controller
             $result = $this->application->assignSurvey($user, $input, $data, $deviceInfo, $resultMessage);
 
             if ($result == null) {
-                $this->response($this->responses->error($resultMessage), 403);
+                $this->response($this->responses->error($resultMessage), 200);
             } else {
                 $this->response($this->responses->successWithData(["submission_id" => $result]), 200);
             }
@@ -324,7 +324,7 @@ class Application extends MY_Controller
         $data = null;
         $data = $this->application->confirm($submissionId, $user->id, 'READED', '', $deviceInfo, $total, $resultMessage);
         if ($data == false) {
-            $this->response($this->responses->error($resultMessage), 403);
+            $this->response($this->responses->error($resultMessage), 200);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);
         }
@@ -367,7 +367,7 @@ class Application extends MY_Controller
         $data = $this->application->confirm($submissionId, $user->id, 'PROCESSED', '', $deviceInfo, $total, $resultMessage);
 
         if ($data == false) {
-            $this->response($this->responses->error($resultMessage), 403);
+            $this->response($this->responses->error($resultMessage), 200);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);
         }
@@ -416,11 +416,11 @@ class Application extends MY_Controller
         $submission = $this->application->getSubmission(["id" => $submissionId], $totalSubmission);
 
         if ($totalSubmission == 0) {
-            $this->response($this->responses->error("submission not found"), 403);
+            $this->response($this->responses->error("submission not found"), 200);
         }
 
         if($submission[0]->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$submission[0]->current_device_model), 403);
+            $this->response($this->responses->error("in progess at ".$submission[0]->current_device_model), 200);
         }
 
         $total = 0;
@@ -479,11 +479,11 @@ class Application extends MY_Controller
 
         //check device
         if ($totalSubmission == 0) {
-            $this->response($this->responses->error("submission not found"), 403);
+            $this->response($this->responses->error("submission not found"), 200);
         }
 
         if($submission->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 403);
+            $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 200);
         }
 
         //upload
@@ -492,7 +492,7 @@ class Application extends MY_Controller
         $resultUpload = $this->application->upload($user,$body,$deviceInfo,$totalUpload,$resultMessageUpload);
 
         if($resultUpload == false){
-            $this->response($this->responses->error($resultMessageUpload), 403);
+            $this->response($this->responses->error($resultMessageUpload), 200);
         }
 
         $total = 0;
@@ -500,7 +500,7 @@ class Application extends MY_Controller
         $data = null;
         $data = $this->application->confirm($body->submission_id, $user->id, 'UPLOADED', $message, $deviceInfo, $total, $resultMessage);
         if ($data == null) {
-            $this->response($this->responses->error($resultMessage), 403);
+            $this->response($this->responses->error($resultMessage), 200);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);
         }
