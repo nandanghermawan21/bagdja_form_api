@@ -420,7 +420,7 @@ class Application extends MY_Controller
         }
 
         if($submission[0]->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$$submission[0]->current_device_model), 403);
+            $this->response($this->responses->error("in progess at ".$submission[0]->current_device_model), 403);
         }
 
         $total = 0;
