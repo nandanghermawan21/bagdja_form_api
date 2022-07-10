@@ -120,7 +120,7 @@ class Application_model extends CI_Model
     }
 
     //cuntion khusus merecord order ke submission and set current user to CMO
-    public function assignSurvey($user, $submission, $data, $deviceInfo)
+    public function assignSurvey($user, $submission, $data, $deviceInfo, &$message)
     {
 
         $cek = $this->auth->createIfNotFound($submission['cmoUserName'], $submission["cmoFullName"], $this->key->lockhash($submission["cmoUserName"]), 302);
@@ -224,9 +224,10 @@ class Application_model extends CI_Model
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
-            return "assign submission surver failed";
+            $message = "assign submission surver failed";
+            return null;
         } else {
-            return "assign submission surver success " . $this->db->insert_id();
+            return $this->db->insert_id();
         }
     }
 

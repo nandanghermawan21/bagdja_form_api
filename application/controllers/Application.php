@@ -144,7 +144,6 @@ class Application extends MY_Controller
 
         //deviceInfo
         $deviceInfo = $this->_getDeviceInfo();
-      
 
         //input 
         $input = [
@@ -175,9 +174,14 @@ class Application extends MY_Controller
             $this->response($message, 403);
         } else {
 
-            $result = $this->application->assignSurvey($user, $input, $data, $deviceInfo);
+            $resultMessage = "";
+            $result = $this->application->assignSurvey($user, $input, $data, $deviceInfo, $resultMessage);
 
-            $this->response($result, 200);
+            if ($result == null) {
+                $this->response($this->responses->error($resultMessage), 403);
+            } else {
+                $this->response($this->responses->successWithData(["submission_id" => $result]), 200);
+            }
         }
     }
 
@@ -314,7 +318,7 @@ class Application extends MY_Controller
 
         $total = 0;
         $data = null;
-        $data = $this->application->setToProcess($submissionId, $user->id , $user->organitation_id, $total);
+        $data = $this->application->setToProcess($submissionId, $user->id, $user->organitation_id, $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
