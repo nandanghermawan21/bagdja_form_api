@@ -103,13 +103,13 @@ class Application extends MY_Controller
      *     @OA\Parameter(
      *       name="deviceId",
      *       description="deviceId",
-     *       in="header",
+     *       in="query",
      *       @OA\Schema(type="string",default="")
      *     ),
      *     @OA\Parameter(
      *       name="deviceModel",
      *       description="deviceModel",
-     *       in="header",
+     *       in="query",
      *       @OA\Schema(type="string",default="")
      *     ),
      *     @OA\RequestBody(
