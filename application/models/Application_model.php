@@ -165,7 +165,7 @@ class Application_model extends CI_Model
             '" . $deviceInfo->deviceId . "',
             '" . $deviceInfo->deviceModel . "',
             " . $user->id . ",
-            'GETUTCDATE()'
+            GETUTCDATE()
         );";
         $this->db->query($queryInsertSubmission);
         $submissionId = $this->db->insert_id();
@@ -212,7 +212,7 @@ class Application_model extends CI_Model
             " . $user->organitation_id . ",
             302,
             '" . $submission["message"] . "',
-            'GETUTCDATE()',
+            GETUTCDATE(),
             'SUBMITED',
             " . $user->id . ",
             '" . $deviceInfo->deviceId . "',
