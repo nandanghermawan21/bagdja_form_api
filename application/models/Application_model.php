@@ -120,7 +120,7 @@ class Application_model extends CI_Model
     }
 
     //cuntion khusus merecord order ke submission and set current user to CMO
-    public function assignSurvey($user, $submission, $data)
+    public function assignSurvey($user, $submission, $data, $deviceInfo)
     {
 
         $cek = $this->auth->createIfNotFound($submission['cmoUserName'], $submission["cmoFullName"], $this->key->lockhash($submission["cmoUserName"]), 302);
@@ -186,7 +186,11 @@ class Application_model extends CI_Model
             [source_org_id],
             [destination_org_id],
             [message],
-            [date_time]
+            [date_time],
+            [status],
+            [created_by],
+            [device_id],
+            [device_name]
         )VALUES(
             " . $submissionId . ",
             100,
@@ -196,7 +200,11 @@ class Application_model extends CI_Model
             " . $user->organitation_id . ",
             302,
             '" . $submission["message"] . "',
-            'GETUTCDATE()'
+            'GETUTCDATE()',
+            'SUBMITED',
+            " . $user->id . ",
+            '" . $deviceInfo->deviceId . "',
+            '" . $deviceInfo->deviceName . "'
         );";
 
         $this->db->query($insertHistory);

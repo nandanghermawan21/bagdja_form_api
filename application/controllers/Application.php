@@ -100,6 +100,18 @@ class Application extends MY_Controller
      *       in="query",
      *       @OA\Schema(type="string",default="")
      *     ),
+     *     @OA\Parameter(
+     *       name="deviceId",
+     *       description="deviceId",
+     *       in="header",
+     *       @OA\Schema(type="string",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="deviceModel",
+     *       description="deviceModel",
+     *       in="header",
+     *       @OA\Schema(type="string",default="")
+     *     ),
      *     @OA\RequestBody(
      *       @OA\MediaType(
      *           mediaType="application/json",
@@ -130,6 +142,10 @@ class Application extends MY_Controller
         //getuserInfo
         $user = $this->_getData()->data;
 
+        //deviceInfo
+        $deviceInfo = $this->_getDeviceInfo();
+      
+
         //input 
         $input = [
             'orderNumber' => $this->input->get("orderNumber", TRUE),
@@ -159,7 +175,7 @@ class Application extends MY_Controller
             $this->response($message, 403);
         } else {
 
-            $result = $this->application->assignSurvey($user, $input, $data);
+            $result = $this->application->assignSurvey($user, $input, $data, $deviceInfo);
 
             $this->response($result, 200);
         }
