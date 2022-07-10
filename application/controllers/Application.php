@@ -389,7 +389,7 @@ class Application extends MY_Controller
      *       name="message",
      *       description="message",
      *       in="query",
-     *       @OA\Schema(type="integer",default="")
+     *       @OA\Schema(type="string",default="")
      *     ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
