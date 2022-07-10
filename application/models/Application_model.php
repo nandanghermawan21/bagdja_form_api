@@ -11,6 +11,15 @@ class Application_model extends CI_Model
         $this->load->model('Questiongroup_model', 'group');
     }
 
+    public function getSubmission($where, &$refTotal ){
+        if ($where != null) {
+            $this->db->where($where);
+        }
+        $query = $this->db->get("app_submission");
+        $refTotal = $query->num_rows();
+        return $query->result();
+    }
+
     public function getQuestionState($appCode, $stateId, &$refTotal)
     {
 
@@ -34,7 +43,6 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         return $query->result();
     }
-
 
     public function getSnapShoot($submission_id, &$refTotal)
     {

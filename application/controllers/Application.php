@@ -411,6 +411,18 @@ class Application extends MY_Controller
         $submissionId = $this->input->get("submissionId", TRUE);
         $message = $this->input->get("message", TRUE);
 
+        //getSubmision
+        $totalSubmission = 0;
+        $submission = $this->application->getSubmission(["id" => $submissionId], $totalSubmission);
+
+        if ($totalSubmission == 0) {
+            $this->response($this->responses->error("submission not found"), 403);
+        }
+
+        if($submission->current_device_id != $deviceInfo->deviceId){
+            $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 403);
+        }
+
         $total = 0;
         $resultMessage = "";
         $data = null;
