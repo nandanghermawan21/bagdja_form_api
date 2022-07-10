@@ -259,10 +259,13 @@ class Application_model extends CI_Model
                         s.lon as submission_lon,
                         st.id as state_id,
                         st.name as state_name,
+                        s.current_state_status as state_status,
                         u.id as user_id,
                         u.name as user_name,
                         o.id as organitation_id,
                         o.name as organitaion_name,
+                        s.current_device_id as device_id,
+                        s.current_device_model as device_model,
                         (select TOP 1
                             hs.message
                         from
@@ -279,7 +282,8 @@ class Application_model extends CI_Model
                         join sys_application a on s.application_id = a.id
                         join sys_application_state ast on s.current_state = ast.state_id
                         join sys_state  st on ast.state_id = st.id
-                    WHERE s.current_user_id = " . $userid . "";
+                    WHERE s.current_state_status in ('SUBMITED', 'READED', 'PROCESS') and
+                    s.current_user_id = " . $userid . "";
 
         $query = $this->db->query($sql);
 
