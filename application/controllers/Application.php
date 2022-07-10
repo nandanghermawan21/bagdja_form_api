@@ -323,7 +323,7 @@ class Application extends MY_Controller
         $resultMessage = "";
         $data = null;
         $data = $this->application->confirm($submissionId, $user->id, 'READED', '', $deviceInfo, $total, $resultMessage);
-        if ($data == null) {
+        if ($data == false) {
             $this->response($this->responses->error($resultMessage), 403);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);
@@ -366,7 +366,7 @@ class Application extends MY_Controller
         $data = null;
         $data = $this->application->confirm($submissionId, $user->id, 'PROCESSED', '', $deviceInfo, $total, $resultMessage);
 
-        if ($data == null) {
+        if ($data == false) {
             $this->response($this->responses->error($resultMessage), 403);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);
@@ -427,7 +427,7 @@ class Application extends MY_Controller
         $resultMessage = "";
         $data = null;
         $data = $this->application->confirm($submissionId, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
-        if ($data == null) {
+        if ($data == false) {
             $this->response($this->responses->error($resultMessage), 403);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);

@@ -366,8 +366,6 @@ class Application_model extends CI_Model
         } else {
             return true;
         }
-
-        return $query;
     }
 
     public function upload($user, $data, $deviceInfo, &$refTotal, &$resultMessage)
