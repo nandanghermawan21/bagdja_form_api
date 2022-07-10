@@ -611,11 +611,6 @@ class SubmissionDataUpload
      * @OA\Property()
      * @var integer
      */
-    public $collection_id;
-    /**
-     * @OA\Property()
-     * @var integer
-     */
     public $form_id;
     /**
      * @OA\Property()
