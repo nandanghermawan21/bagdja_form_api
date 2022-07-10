@@ -500,7 +500,7 @@ class Application extends MY_Controller
         $total = 0;
         $resultMessage = "";
         $data = null;
-        $data = $this->application->confirm($body->submission_id, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
+        $data = $this->application->confirm($body->submission_id, $user->id, 'UPLOADED', $message, $deviceInfo, $total, $resultMessage);
         if ($data == null) {
             $this->response($this->responses->error($resultMessage), 403);
         } else {
