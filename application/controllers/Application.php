@@ -419,19 +419,21 @@ class Application extends MY_Controller
             $this->response($this->responses->error("submission not found"), 403);
         }
 
-        if($submission->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 403);
-        }
+        print_r($submission);
 
-        $total = 0;
-        $resultMessage = "";
-        $data = null;
-        $data = $this->application->confirm($submissionId, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
-        if ($data == false) {
-            $this->response($this->responses->error($resultMessage), 403);
-        } else {
-            $this->response($this->responses->successWithData($data, $total), 200);
-        }
+        // if($submission->current_device_id != $deviceInfo->deviceId){
+        //     $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 403);
+        // }
+
+        // $total = 0;
+        // $resultMessage = "";
+        // $data = null;
+        // $data = $this->application->confirm($submissionId, $user->id, 'UPLOADING', $message, $deviceInfo, $total, $resultMessage);
+        // if ($data == false) {
+        //     $this->response($this->responses->error($resultMessage), 403);
+        // } else {
+        //     $this->response($this->responses->successWithData($data, $total), 200);
+        // }
     }
 
     /**
