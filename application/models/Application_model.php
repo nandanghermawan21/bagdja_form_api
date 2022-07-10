@@ -407,7 +407,7 @@ class Application_model extends CI_Model
 
         $this->db->query($insertQuestionHisotry);
         $refTotal = $this->db->affected_rows();
-        
+
         $this->db->trans_complete();
 
         if ($this->db->trans_status() === FALSE) {
@@ -587,54 +587,54 @@ class ApplicatioSnapShoot
  */
 class SubmissionDataUpload
 {
-     /**
+    /**
      * @OA\Property()
-     * @var string
-     */
-    public $question_id; 
-    /**
-     * @OA/Property()
      * @var integer
      */
-    public $value; 
+    public $question_id;
     /**
-     * @OA/Property()
+     * @OA\Property()
      * @var integer
      */
-    public $lat; 
+    public $value;
     /**
-     * @OA/Property()
+     * @OA\Property()
+     * @var double
+     */
+    public $lat;
+    /**
+     * @OA\Property()
+     * @var double
+     */
+    public $lon;
+    /**
+     * @OA\Property()
      * @var integer
      */
-    public $lon; 
+    public $collection_id;
     /**
-     * @OA/Property()
-     * @var integer
-     */
-    public $collection_id; 
-    /**
-     * @OA/Property()
+     * @OA\Property()
      * @var integer
      */
     public $form_id;
     /**
-     * @OA/Property()
+     * @OA\Property()
      * @var integer
      */
     public $page_id;
     /**
-     * @OA/Property()
+     * @OA\Property()
      * @var integer
      */
-    public $group_id; 
+    public $group_id;
     /**
-     * @OA/Property()
+     * @OA\Property()
      * @var integer
      */
-    public $submission_id; 
+    public $submission_id;
     /**
-     * @OA/Property()
-     * @var String
+     * @OA\Property()
+     * @var string
      */
     public $input_date;
 }
