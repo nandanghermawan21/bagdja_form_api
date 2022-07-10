@@ -161,7 +161,7 @@ class Application_model extends CI_Model
             " . $submission["lat"] . ",
             " . $submission["lon"] . ",
             'SUBMITED',
-            " . $submission["message"] . ",
+            '" . $submission["message"] . "',
             '" . $deviceInfo->deviceId . "',
             '" . $deviceInfo->deviceModel . "',
             " . $user->id . ",
