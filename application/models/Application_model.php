@@ -352,9 +352,9 @@ class Application_model extends CI_Model
 
         if ($this->db->trans_status() === FALSE) {
             $resultMessage = "confirm " . $status . " failed";
-            return null;
+            return false;
         } else {
-            return "";
+            return true;
         }
 
         return $query;
