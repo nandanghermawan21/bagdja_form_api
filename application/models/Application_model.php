@@ -140,7 +140,13 @@ class Application_model extends CI_Model
             [current_user_id],
             [current_state],
             [lat],
-            [lon]
+            [lon],
+            [current_state_status],
+            [current_state_message],
+            [current_device_id],
+            [current_model_id],
+            [updated_by],
+            [updated_date]
         ) VALUES (
             '" . $submission["orderNumber"] . "',
             201,
@@ -153,7 +159,13 @@ class Application_model extends CI_Model
             " .  $cek->id . ",
             101,
             " . $submission["lat"] . ",
-            " . $submission["lon"] . "
+            " . $submission["lon"] . ",
+            'SUBMITED',
+            " . $submission["message"] . ",
+            '" . $deviceInfo->deviceId . "',
+            '" . $deviceInfo->deviceName . "',
+            " . $user->id . ",
+            'GETUTCDATE()'
         );";
         $this->db->query($queryInsertSubmission);
         $submissionId = $this->db->insert_id();
