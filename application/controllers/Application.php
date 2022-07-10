@@ -435,7 +435,7 @@ class Application extends MY_Controller
     }
 
     /**
-     * @OA\GET(
+     * @OA\POST(
      *     path="/application/upload",
      *     tags={"Application"},
      * 	   description="upload onw by one question",
