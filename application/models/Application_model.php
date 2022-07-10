@@ -587,9 +587,9 @@ class ApplicatioSnapShoot
  */
 class SubmissionDataUpload
 {
-    /**
-     * @OA/Property()
-     * @var integer
+     /**
+     * @OA\Property()
+     * @var string
      */
     public $question_id; 
     /**
@@ -628,12 +628,12 @@ class SubmissionDataUpload
      */
     public $group_id; 
     /**
-     * @OA/Property
+     * @OA/Property()
      * @var integer
      */
     public $submission_id; 
     /**
-     * @OA/Property
+     * @OA/Property()
      * @var String
      */
     public $input_date;
