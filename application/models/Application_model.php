@@ -588,58 +588,53 @@ class ApplicatioSnapShoot
 class SubmissionDataUpload
 {
     /**
-     * @OA/Property
+     * @OA/Property()
      * @var integer
      */
-    public $question_id; //": questionId,
+    public $question_id; 
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $value; 
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $lat; 
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $lon; 
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $collection_id; 
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $form_id;
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $page_id;
+    /**
+     * @OA/Property()
+     * @var integer
+     */
+    public $group_id; 
     /**
      * @OA/Property
      * @var integer
      */
-    public $value; //": value,
+    public $submission_id; 
     /**
      * @OA/Property
-     * @var integer
+     * @var String
      */
-    public $lat; //": lat,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $lon; //": lon,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $collection_id; //": collectionId,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $question_state; //": questionState,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $form_id; //": formId,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $page_id; //": pageId,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $group_id; //": groupId,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $submission_id; //": submissionId,
-    /**
-     * @OA/Property
-     * @var integer
-     */
-    public $input_date; //": inputDate?.toIso8601String(),
+    public $input_date;
 }
