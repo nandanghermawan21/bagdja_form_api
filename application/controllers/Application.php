@@ -490,7 +490,7 @@ class Application extends MY_Controller
         $data = $this->application->confirm($submissionId, $user->id, 'FINISHED', $message, $deviceInfo, $total, $resultMessage);
 
         if ($data == false) {
-            $this->response($this->responses->error($resultMessage), 403);
+            $this->response($this->responses->error($resultMessage), 200);
         }
 
         $resultUpdate = "";
