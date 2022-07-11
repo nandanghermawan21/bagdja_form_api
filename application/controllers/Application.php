@@ -490,7 +490,7 @@ class Application extends MY_Controller
         $data = $this->application->confirm($submissionId, $user->id, 'FINISHED', $message, $deviceInfo, $total, $resultMessage);
 
         if ($data == false) {
-            $this->response($this->responses->error($resultMessage), 403);
+            $this->response($this->responses->error($resultMessage), 200);
         } else {
             $this->response($this->responses->successWithData($data, $total), 200);
         }
@@ -499,11 +499,12 @@ class Application extends MY_Controller
         $data2 = null;
         $data2 = $this->application->changeState($submissionId,$user,$deviceInfo,$message,102,$resultUpdate);
 
-        if ($data2 == false) {
-            $this->response($this->responses->error($resultMessage), 403);
-        } else {
-            $this->response($this->responses->successWithData($data2, $total), 200);
-        }
+        echo("Change state");
+        // if ($data2 == false) {
+        //     $this->response($this->responses->error($resultMessage), 403);
+        // } else {
+        //     $this->response($this->responses->successWithData($data2, $total), 200);
+        // }
     }
 
     /**
