@@ -434,6 +434,78 @@ class Application extends MY_Controller
         }
     }
 
+
+    /**
+     * @OA\GET(
+     *     path="/application/confirmFinish",
+     *     tags={"Application"},
+     * 	   description="set submission to uploading process (getted to local storage device on app)",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="message",
+     *       description="message",
+     *       in="query",
+     *       @OA\Schema(type="string",default="")
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\bool,
+     *   ),
+     * )
+     */
+    public function confirmFinish_get()
+    {
+        //getuserInfo
+        $user = $this->_getData()->data;
+
+        //deviceInfo
+        $deviceInfo = $this->_getDeviceInfo();
+
+        //getuserParam
+        $submissionId = $this->input->get("submissionId", TRUE);
+        $message = $this->input->get("message", TRUE);
+
+        //getSubmision
+        $totalSubmission = 0;
+        $submission = $this->application->getSubmission(["id" => $submissionId], $totalSubmission);
+
+        if ($totalSubmission == 0) {
+            $this->response($this->responses->error("submission not found"), 200);
+        }
+
+        if($submission[0]->current_device_id != $deviceInfo->deviceId){
+            $this->response($this->responses->error("in progess at ".$submission[0]->current_device_model), 200);
+        }
+
+        $total = 0;
+        $resultMessage = "";
+        $data = null;
+        $data = $this->application->confirm($submissionId, $user->id, 'FINISHED', $message, $deviceInfo, $total, $resultMessage);
+
+        if ($data == false) {
+            $this->response($this->responses->error($resultMessage), 403);
+        } else {
+            $this->response($this->responses->successWithData($data, $total), 200);
+        }
+
+        $resultUpdate = "";
+        $data2 = null;
+        $data2 = $this->application->changeState($submissionId,$user,$deviceInfo,$message,102,$resultUpdate);
+
+        if ($data2 == false) {
+            $this->response($this->responses->error($resultMessage), 403);
+        } else {
+            $this->response($this->responses->successWithData($data2, $total), 200);
+        }
+    }
+
     /**
      * @OA\POST(
      *     path="/application/upload",

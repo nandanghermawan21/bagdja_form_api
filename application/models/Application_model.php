@@ -416,6 +416,68 @@ class Application_model extends CI_Model
             return true;
         }
     }
+
+    public function changeState($submissionId, $user, $deviceInfo, $message, $stateId, &$resultMessage)
+    {
+        $this->db->trans_start();
+
+        $queryUpdateState = "update app_submission
+                                set prev_state = current_state,
+                                    prev_organitation_id = current_organitation_id,
+                                    prev_user_id = current_user_id,
+                                    current_state = " . $stateId . ",
+                                    current_organitation_id = " . $user->organitation_id . ",
+                                    current_user_id = " . $user->id . ",
+                                    current_state_message = '" . $message . "',
+                                    updated_by = " . $user->id . ",
+                                    updated_date = GETUTCDATE()
+                                where id = " . $submissionId . "";
+
+        $this->db->query($queryUpdateState);
+
+        //save to history
+        $insertHistory = "insert into wfs_history_state (
+                            [submission_id],
+                            [source_state_id],
+                            [destination_state_id],
+                            [source_user_id],
+                            [destination_user_id],
+                            [source_org_id],
+                            [destination_org_id],
+                            [message],
+                            [date_time],
+                            [status],
+                            [created_by],
+                            [device_id],
+                            [device_model]
+                        )VALUES
+                        select s.id, 
+                            s.prev_state, 
+                            s.current_state,
+                            s.prev_user_id,
+                            s.current_user_id,
+                            s.prev_organitation_id,
+                            s.current_organitation_id,
+                            s.current_state_message,
+                            GETUTCDATE(),
+                            'SUBMITED',
+                             " . $user->id . ",
+                            '" . $deviceInfo->deviceId . "',
+                            '" . $deviceInfo->deviceModel . "'
+                        from app_submission s
+                        where s.id = " . $submissionId . "";
+
+        $this->db->query($insertHistory);
+
+        $this->db->trans_complete();
+
+        if ($this->db->trans_status() === FALSE) {
+            $resultMessage = "upload failed";
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 /**
