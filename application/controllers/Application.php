@@ -475,7 +475,7 @@ class Application extends MY_Controller
 
         //getSubmision
         $totalSubmission = 0;
-        $submission = $this->application->getSubmission(["id" => $body->submission_id], $totalSubmission);
+        $submission = $this->application->getSubmission(["id" => $body["submission_id"]], $totalSubmission);
 
         //check device
         if ($totalSubmission == 0) {
