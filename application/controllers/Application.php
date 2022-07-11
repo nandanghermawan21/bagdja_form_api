@@ -419,8 +419,8 @@ class Application extends MY_Controller
             $this->response($this->responses->error("submission not found"), 200);
         }
 
-        if($submission[0]->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$submission[0]->current_device_model), 200);
+        if ($submission[0]->current_device_id != $deviceInfo->deviceId) {
+            $this->response($this->responses->error("in progess at " . $submission[0]->current_device_model), 200);
         }
 
         $total = 0;
@@ -480,8 +480,8 @@ class Application extends MY_Controller
             $this->response($this->responses->error("submission not found"), 200);
         }
 
-        if($submission[0]->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$submission[0]->current_device_model), 200);
+        if ($submission[0]->current_device_id != $deviceInfo->deviceId) {
+            $this->response($this->responses->error("in progess at " . $submission[0]->current_device_model), 200);
         }
 
         $total = 0;
@@ -490,21 +490,18 @@ class Application extends MY_Controller
         $data = $this->application->confirm($submissionId, $user->id, 'FINISHED', $message, $deviceInfo, $total, $resultMessage);
 
         if ($data == false) {
-            $this->response($this->responses->error($resultMessage), 200);
-        } else {
-            $this->response($this->responses->successWithData($data, $total), 200);
+            $this->response($this->responses->error($resultMessage), 403);
         }
 
         $resultUpdate = "";
         $data2 = null;
-        $data2 = $this->application->changeState($submissionId,$user,$deviceInfo,$message,102,$resultUpdate);
+        $data2 = $this->application->changeState($submissionId, $user, $deviceInfo, $message, 102, $resultUpdate);
 
-        echo("Change state");
-        // if ($data2 == false) {
-        //     $this->response($this->responses->error($resultMessage), 403);
-        // } else {
-        //     $this->response($this->responses->successWithData($data2, $total), 200);
-        // }
+        if ($data2 == false) {
+            $this->response($this->responses->error($resultMessage), 200);
+        } else {
+            $this->response($this->responses->successWithData($data2, $total), 200);
+        }
     }
 
     /**
@@ -518,12 +515,12 @@ class Application extends MY_Controller
      *       in="query",
      *       @OA\Schema(type="integer",default="")
      *     ),
-	 *     @OA\RequestBody(
-	 *     @OA\MediaType(
-	 *         mediaType="application/json",
-	 *         @OA\Schema(ref="#/components/schemas/SubmissionDataUpload")
-	 *       ),
-	 *     ),
+     *     @OA\RequestBody(
+     *     @OA\MediaType(
+     *         mediaType="application/json",
+     *         @OA\Schema(ref="#/components/schemas/SubmissionDataUpload")
+     *       ),
+     *     ),
      * security={{"bearerAuth": {}}},
      *    @OA\Response(response="401", description="Unauthorized"),
      *    @OA\Response(response="200", 
@@ -555,16 +552,16 @@ class Application extends MY_Controller
             $this->response($this->responses->error("submission not found"), 200);
         }
 
-        if($submission[0]->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$$submission[0]->device_model), 200);
+        if ($submission[0]->current_device_id != $deviceInfo->deviceId) {
+            $this->response($this->responses->error("in progess at " . $$submission[0]->device_model), 200);
         }
 
         //upload
         $totalUpload = 0;
         $resultMessageUpload = "";
-        $resultUpload = $this->application->upload($user,$body,$deviceInfo,$totalUpload,$resultMessageUpload);
+        $resultUpload = $this->application->upload($user, $body, $deviceInfo, $totalUpload, $resultMessageUpload);
 
-        if($resultUpload == false){
+        if ($resultUpload == false) {
             $this->response($this->responses->error($resultMessageUpload), 200);
         }
 
