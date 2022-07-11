@@ -389,16 +389,16 @@ class Application_model extends CI_Model
                                                 [created_by],
                                                 [created_date]
                                             )VALUES(
-                                                " . $data->submission_id . ",
-                                                " . $data->form_id . ",
-                                                " . $data->page_id . ",
-                                                " . $data->group_id . ",
-                                                '" . $data->value . "',
-                                                " . $data->lat . ",
-                                                " . $data->lon . ",
-                                                '" . $data->input_date . "',
+                                                " . $data["submission_id"] . ",
+                                                " . $data["form_id"] . ",
+                                                " . $data["page_id"] . ",
+                                                " . $data["group_id"] . ",
+                                                '" . $data["value"] . "',
+                                                " . $data["lat"] . ",
+                                                " . $data["lon"] . ",
+                                                '" . $data["input_date"] . "',
                                                 '" . $deviceInfo->deviceId . "',
-                                                '" . $data->deviceModel . "',
+                                                '" . $data["deviceModel"] . "',
                                                 " . $user->id . ",
                                                 GETUTCDATE()
                                             )";
