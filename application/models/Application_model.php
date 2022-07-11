@@ -375,7 +375,7 @@ class Application_model extends CI_Model
         $this->db->trans_start();
 
         $insertQuestionHisotry = "INSERT into   app_submission_data_history(
-                                                [aubmission_id],
+                                                [submission_id],
                                                 [form_id],
                                                 [page_id],
                                                 [group_id],
