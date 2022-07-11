@@ -450,7 +450,7 @@ class Application_model extends CI_Model
                             [created_by],
                             [device_id],
                             [device_model]
-                        )VALUES
+                        )
                         select s.id, 
                             s.prev_state, 
                             s.current_state,
