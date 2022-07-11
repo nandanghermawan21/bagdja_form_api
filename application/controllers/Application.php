@@ -482,8 +482,8 @@ class Application extends MY_Controller
             $this->response($this->responses->error("submission not found"), 200);
         }
 
-        if($submission->current_device_id != $deviceInfo->deviceId){
-            $this->response($this->responses->error("in progess at ".$deviceInfo->deviceModel), 200);
+        if($submission[0]->current_device_id != $deviceInfo->deviceId){
+            $this->response($this->responses->error("in progess at ".$$submission[0]->device_model), 200);
         }
 
         //upload
