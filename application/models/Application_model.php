@@ -393,12 +393,13 @@ class Application_model extends CI_Model
                                                 " . $data["form_id"] . ",
                                                 " . $data["page_id"] . ",
                                                 " . $data["group_id"] . ",
+                                                " . $data["question_id"] . ",
                                                 '" . $data["value"] . "',
                                                 " . $data["lat"] . ",
                                                 " . $data["lon"] . ",
                                                 '" . $data["input_date"] . "',
                                                 '" . $deviceInfo->deviceId . "',
-                                                '" . $data["deviceModel"] . "',
+                                                '" . $deviceInfo->deviceModel . "',
                                                 " . $user->id . ",
                                                 GETUTCDATE()
                                             )";
