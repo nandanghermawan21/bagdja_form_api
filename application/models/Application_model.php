@@ -293,6 +293,7 @@ class Application_model extends CI_Model
                         join sys_application_state ast on s.current_state = ast.state_id
                         join sys_state  st on ast.state_id = st.id
                     WHERE s.current_state_status in ('SUBMITED', 'READED', 'PROCESSED') and
+                    s.current_state = 101 and
                     s.current_user_id = " . $userid . "";
 
         $query = $this->db->query($sql);
@@ -344,7 +345,7 @@ class Application_model extends CI_Model
                         join sys_application a on s.application_id = a.id
                         join sys_application_state ast on s.current_state = ast.state_id
                         join sys_state  st on ast.state_id = st.id
-                    WHERE s.current_state_status in ('FINISHED') and
+                    WHERE s.current_state = 102 and
                     s.current_user_id = " . $userid . "";
 
         $query = $this->db->query($sql);
