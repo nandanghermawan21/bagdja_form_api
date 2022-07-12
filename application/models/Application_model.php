@@ -309,6 +309,58 @@ class Application_model extends CI_Model
         return $result;
     }
 
+    public function getFinished($userid, &$refTotal)
+    {
+        $sql = "select  s.id as submission_id,
+                        s.number as submission_number,
+                        s.application_id as application_id,
+                        a.code as application_code,
+                        a.name as application_name,
+                        s.submit_date as submission_date,
+                        s.lat as submission_lat,
+                        s.lon as submission_lon,
+                        st.id as state_id,
+                        st.name as state_name,
+                        s.current_state_status as state_status,
+                        u.id as user_id,
+                        u.name as user_name,
+                        o.id as organitation_id,
+                        o.name as organitaion_name,
+                        s.current_device_id as device_id,
+                        s.current_device_model as device_model,
+                        (select TOP 1
+                            hs.message
+                        from
+                            wfs_history_state hs
+                        WHERE hs.submission_id = s.id
+                            and hs.source_state_id = s.prev_state
+                            and hs.source_org_id = s.prev_organitation_id
+                            and hs.destination_user_id = s.current_user_id
+                            and hs.destination_org_id = s.current_organitation_id
+                        order by hs.id desc) as submit_message
+                    from app_submission s
+                        join usm_users u on s.current_user_id = u.id
+                        join usm_organitation o on s.current_organitation_id = o.id
+                        join sys_application a on s.application_id = a.id
+                        join sys_application_state ast on s.current_state = ast.state_id
+                        join sys_state  st on ast.state_id = st.id
+                    WHERE s.current_state_status in ('FINISHED') and
+                    s.current_user_id = " . $userid . "";
+
+        $query = $this->db->query($sql);
+
+        $refTotal = $query->num_rows();
+
+        $result = $query->result();
+
+        foreach ($result as $submission) {
+            $submission->totalData = 0;
+            $submission->data = $this->getSnapShoot($submission->submission_id, $submission->totalData);
+        }
+
+        return $result;
+    }
+
     public function confirm($submisiionId, $userid, $status, $message, $deviceInfo, &$refTotal, &$resultMessage)
     {
         //start transaction
