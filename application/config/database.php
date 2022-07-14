@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') or exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -47,9 +47,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |				'ssl_key'    - Path to the private key file
 |				'ssl_cert'   - Path to the public key certificate file
 |				'ssl_ca'     - Path to the certificate authority file
-|				'ssl_capath' - Path to a directory containing trusted CA certificates in PEM format
+|				'ssl_capath' - Path to a directory containing trusted CA certificats in PEM format
 |				'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
-|				'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not
+|				'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not ('mysqli' only)
 |
 |	['compress'] Whether or not to use client compression (MySQL only)
 |	['stricton'] TRUE/FALSE - forces 'Strict Mode' connections
@@ -73,49 +73,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 $active_group = 'default';
 $query_builder = TRUE;
 
-//UAT SUZUKI
-// $db['default'] = array(
-// 	'dsn'	=> '',
-// 	'hostname' => '172.16.1.172',
-// 	// 'port'	   => '19521',
-// 	'username' => 'sa',
-// 	'password' => 'P@ssw0rd',
-// 	'database' => 'SFI_Survey',
-// 	// 'hostname' => 'localhost',
-// 	// 'username' => 'root',
-// 	// 'password' => 'jalan',
-// 	// 'database' => 'survey',
-
-// 	'dbdriver' => 'sqlsrv',
-// 	'dbprefix' => '',
-// 	'pconnect' => FALSE,
-// 	'db_debug' => (ENVIRONMENT !== 'production'),
-// 	'cache_on' => FALSE,
-// 	'cachedir' => '',
-// 	'char_set' => 'utf8',
-// 	'dbcollat' => 'utf8_general_ci',
-// 	'swap_pre' => '',
-// 	'encrypt' => FALSE,
-// 	'compress' => FALSE,
-// 	'stricton' => FALSE,
-// 	'failover' => array(),
-// 	'save_queries' => TRUE
-// );
-
-//developemnt
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '209.209.40.87,19521',
-	// 'port'	   => '19521',
-	'username' => 'fahmi',
-	'password' => '@H3rm4w4n',
-	'database' => 'survey',
-	// 'hostname' => 'localhost',
-	// 'username' => 'root',
-	// 'password' => 'jalan',
-	// 'database' => 'survey',
-
-	'dbdriver' => 'sqlsrv',
+	'hostname' => 'localhost',
+	'username' => '',
+	'password' => '',
+	'database' => '',
+	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
