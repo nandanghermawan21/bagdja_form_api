@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -49,14 +49,44 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['default_controller'] = 'welcome';
+$route['default_controller'] = 'QuickStart';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 /*
 | -------------------------------------------------------------------------
-| Sample REST API Routes
+| URI ROUTING WITH VERSION
 | -------------------------------------------------------------------------
+| To use version in API set
+|
+|	$route['versioning'] = TRUE;
+|
+| Default it is  
+|
+|	$route['versioning'] = FALSE;
+|
+| This will make your routing like my_version/my-controller/my_method.
+|
+| Examples:	v1/Auth/login
 */
-$route['api/example/users/(:num)'] = 'api/example/users/id/$1'; // Example 4
-$route['api/example/users/(:num)(\.)([a-zA-Z0-9_-]+)(.*)'] = 'api/example/users/id/$1/format/$3$4'; // Example 8
+$route['versioning'] = TRUE;
+
+/*
+| -------------------------------------------------------------------------
+| Hidden Controller
+| -------------------------------------------------------------------------
+| To remove controller name from url add your method name in this array
+
+|	$route['bypass_methods'] = ['method1','method2'];
+|
+| Set Controller name where your method exist
+|
+|   $route['hidden_controller'] = 'YourController';      
+|
+| This will change your routing version/method ==> version/YourController/method.
+|
+| Examples:	v1/method ==> v1/YourController/method
+*/
+$route['bypass_methods'] = ['users', 'userByID'];
+// $route['bypass_methods'] = [];
+$route['hidden_controller'] = 'SilentController';
