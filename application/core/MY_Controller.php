@@ -1,16 +1,15 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+require_once APPPATH . '/libraries/REST_Controller.php';
+require_once APPPATH . '/libraries/JWT.php';
 
-use chriskacerguis\RestServer\RestController;
 use Firebase\JWT\JWT;
-use Firebase\JWT\Key;
-
 
 /**
  * @OA\Server(url="/api/")
  */
 
-class MY_Controller extends RestController
+class MY_Controller extends REST_Controller
 {
 
   private static $secret = 'sadasdkahdjabdjbdeydgbasdabdan';
