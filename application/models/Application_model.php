@@ -237,7 +237,7 @@ class Application_model extends CI_Model
             $message = "assign submission surver failed";
             return null;
         } else {
-            return $this->db->insert_id();
+            return $submissionId;
         }
     }
 
