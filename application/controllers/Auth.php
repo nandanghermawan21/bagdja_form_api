@@ -117,7 +117,7 @@ class Auth extends MY_Controller
 		$password = $input["password"];
 
 		/* Endpoint */
-		$url = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
+		$url = $this->config->item('url_login');// 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
 
 
 		/* Data */
