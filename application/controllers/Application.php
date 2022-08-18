@@ -607,4 +607,45 @@ class Application extends MY_Controller
             $this->response($this->responses->successWithData($data, $total), 200);
         }
     }
+
+    /**
+     * @OA\Get(
+     *     path="/application/value",
+     *     tags={"Application"},
+     * 	   description="get value of question",
+     *     @OA\Parameter(
+     *       name="submissionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     *     @OA\Parameter(
+     *       name="questionId",
+     *       description="Submission ID",
+     *       in="query",
+     *       @OA\Schema(type="integer",default="")
+     *     ),
+     * security={{"bearerAuth": {}}},
+     *    @OA\Response(response="401", description="Unauthorized"),
+     *    @OA\Response(response="200", 
+     * 		description="Response data inside Responses model",
+     *      @OA\JsonContent(
+     *        ref="#/components/schemas/ApplicationInbox"
+     *      ),
+     *   ),
+     * )
+     */
+    public function value_get()
+    {
+        //getuserInfo
+        $submissionId = $this->input->get("submissionId", TRUE);
+        $questionId = $this->input->get("questionId", TRUE);
+
+        $total = 0;
+        $data = null;
+        $data = $this->application->getValue($submissionId, $questionId, $total);
+
+        $response = $this->responses->successWithData($data[0], $total);
+        $this->response($response, 200);
+    }
 }

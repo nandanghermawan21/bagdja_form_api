@@ -243,12 +243,13 @@ class Application_model extends CI_Model
 
     public function getSubmissionData($submission_id, &$refTotal)
     {
-        $sql = "select  submission_id,
-                        question_id,
-                        [value],
-                        lat,
-                        lon
+        $sql = "select submission_id,
+                    question_id,
+                    CASE WHEN q.[type] = 'foto' THEN '[foto]' ELSE [value] END as 'value',
+                    lat,
+                    lon
                 from app_submission_data sd
+                    join sys_question q on sd.question_id = q.id
                 WHERE sd.submission_id = " . $submission_id . "";
 
         $query = $this->db->query($sql);
@@ -530,6 +531,23 @@ class Application_model extends CI_Model
         } else {
             return true;
         }
+    }
+
+    public function getValue($submissionId, $questionid, &$refTotal)
+    {
+        $sql = "select submission_id,
+                    question_id,
+                    [value],
+                    lat,
+                    lon
+                from app_submission_data sd
+                    join sys_question q on sd.question_id = q.id
+                WHERE sd.submission_id = " . $submissionId . " and question_id = " . $questionid . "";
+
+        $query = $this->db->query($sql);
+
+        $refTotal = $query->num_rows();
+        return $query->result();
     }
 }
 
