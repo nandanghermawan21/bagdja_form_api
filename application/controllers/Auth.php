@@ -115,6 +115,7 @@ class Auth extends MY_Controller
 		$input = json_decode(trim(file_get_contents('php://input')), true);
 		$userName = $input["username"];
 		$password = $input["password"];
+		$deviceId = $this->_getDeviceInfo()->deviceId;
 
 		/* Endpoint */
 		$url = $this->config->item('url_login');// 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
@@ -124,6 +125,7 @@ class Auth extends MY_Controller
 		$data = [
 			'username' => $userName,
 			'password' => $password,
+			'deviceid' => $deviceId,
 		];
 
 
