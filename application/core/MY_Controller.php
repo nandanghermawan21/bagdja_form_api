@@ -32,10 +32,10 @@ class MY_Controller extends RestController
 
     $deviceInfo = $this->_getDeviceInfo();
     $supportedAppVersion = $this->config->item('supported_app_version');
-
+    $appVersion = explode(" ",$deviceInfo->appVersion)[count(explode(" ",$deviceInfo->appVersion))-1];
     if (!isset($supportedAppVersion[$deviceInfo->appVersion])) {
       header("Content-Type: text/plain charset=UTF-8\r\n");
-      $this->response("Aplikasi anda sudah tidak didukung  versi app anda saat ini  " . $deviceInfo->appVersion . " versi yang didukung " . join(", ", $supportedAppVersion), 500);
+      $this->response("Aplikasi anda sudah tidak didukung  versi app anda saat ini  " . $appVersion . " versi yang didukung " . join(", ", $supportedAppVersion), 500);
     }
   }
 
