@@ -30,7 +30,12 @@ class MY_Controller extends RestController
 
     parent::__construct();
 
-    $this->response("Aplikasi anda sudah tidak didukung'", 500);
+    $deviceInfo = $this->_getDeviceInfo();
+    $supportedAppVersion = $this->config->item('supported_app_version');
+
+    if(!isset($supportedAppVersion[$deviceInfo->appVersion])){
+      $this->response("Aplikasi anda sudah tidak didukung \n versi app anda saat ini \n ".$deviceInfo->appVersion, 500);
+    }
   }
 
   function _createJWToken($user, $data)
@@ -76,6 +81,10 @@ class MY_Controller extends RestController
     $data = new stdClass;
     $data->deviceId = $this->input->get_request_header('deviceId', TRUE);
     $data->deviceModel = $this->input->get_request_header('deviceModel', TRUE);
+    $data->deviceOs = $this->input->get_request_header('deviceOs', TRUE);
+    $data->deviiceOsVersion = $this->input->get_request_header('deviiceOsVersion', TRUE);
+    $data->appVersion = $this->input->get_request_header('appVersion', TRUE);
+    $data->appVersionCode = $this->input->get_request_header('appVersionCode', TRUE);
     return $data;
   }
 
