@@ -29,6 +29,8 @@ class MY_Controller extends RestController
     ini_set('pdo_sqlsrv.client_buffer_max_kb_size', '524288'); // Setting to 512M - for pdo_sqlsrv
 
     parent::__construct();
+
+    $this->response("Aplikasi anda sudah tidak didukung'", 500);
   }
 
   function _createJWToken($user, $data)

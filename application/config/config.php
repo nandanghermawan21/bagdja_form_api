@@ -28,6 +28,7 @@ $root  = "https://" . $_SERVER['HTTP_HOST'];
 $root .= str_replace(basename($_SERVER['SCRIPT_NAME']), "", $_SERVER['SCRIPT_NAME']);
 $config['base_url']    = $root;
 $config['url_login'] = 'https://uat.sfi.co.id/sufismart_ci/TestApi/checklogin';
+$config['app_version_support'] = array("1.3.33", "1.3.34", "1.3.35");
 
 /*
 |--------------------------------------------------------------------------
