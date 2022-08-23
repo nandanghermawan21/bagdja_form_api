@@ -30,12 +30,12 @@ class MY_Controller extends RestController
 
     parent::__construct();
 
-    $deviceInfo = $this->_getDeviceInfo();
-    $supportedAppVersion = $this->config->item('supported_app_version');
-    $appVersion = explode(" ",$deviceInfo->appVersion)[count(explode(" ",$deviceInfo->appVersion))-1];
-    if (!in_array($appVersion, $supportedAppVersion)) {
-      $this->response("Aplikasi anda sudah tidak didukung  versi app anda saat ini  " . $appVersion . " versi yang didukung " . join(", ", $supportedAppVersion), 500);
-    }
+    // $deviceInfo = $this->_getDeviceInfo();
+    // $supportedAppVersion = $this->config->item('supported_app_version');
+    // $appVersion = explode(" ",$deviceInfo->appVersion)[count(explode(" ",$deviceInfo->appVersion))-1];
+    // if (!in_array($appVersion, $supportedAppVersion)) {
+    //   $this->response("Aplikasi anda sudah tidak didukung  versi app anda saat ini  " . $appVersion . " versi yang didukung " . join(", ", $supportedAppVersion), 500);
+    // }
   }
 
   function _createJWToken($user, $data)
