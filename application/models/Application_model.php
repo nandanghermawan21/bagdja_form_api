@@ -29,14 +29,14 @@ class Application_model extends CI_Model
                         qt.[code] as [code],
                         qt.[name] as [name],
                         qt.[type] as [type]
-                from sys_application a
-                join sys_application_state s on s.application_id = a.id
-                join sys_state st on st.id = s.state_id
-                join sys_form f on s.form_id = f.id
-                join sys_form_page p on p.form_id = f.id
-                JOIN sys_page_question g on g.page_id = p.id
-                JOIN sys_question_list q on q.group_id = g.group_id
-                join sys_question qt on qt.id = q.question_id
+                from sys_application a with(nolock) 
+                join sys_application_state s with(nolock)  on s.application_id = a.id
+                join sys_state st with(nolock)  on st.id = s.state_id
+                join sys_form f with(nolock)  on s.form_id = f.id
+                join sys_form_page p with(nolock)  on p.form_id = f.id
+                JOIN sys_page_question g with(nolock)  on g.page_id = p.id
+                JOIN sys_question_list q with(nolock)  on q.group_id = g.group_id
+                join sys_question qt with(nolock)  on qt.id = q.question_id
                 WHERE s.state_id = " . $stateId . " and a.code = '" . $appCode . "'";
 
         $query = $this->db->query($sql);
@@ -51,11 +51,11 @@ class Application_model extends CI_Model
                         q.code,
                         q.label,
                         sd.[value]
-                from app_submission s
-                join sys_application_state ast on s.current_state = ast.state_id
-                join sys_question_list ql on ast.question_group_id = ql.group_id
-                join sys_question q on ql.question_id = q.id
-                LEFT JOIN app_submission_data sd on q.id = sd.question_id and s.id = sd.submission_id
+                from app_submission s with(nolock) 
+                join sys_application_state ast with(nolock)  on s.current_state = ast.state_id
+                join sys_question_list ql with(nolock)  on ast.question_group_id = ql.group_id
+                join sys_question q with(nolock)  on ql.question_id = q.id
+                LEFT JOIN app_submission_data sd with(nolock)  on q.id = sd.question_id and s.id = sd.submission_id
                 WHERE s.id = " . $submission_id . "";
 
         $query = $this->db->query($sql);
@@ -69,7 +69,7 @@ class Application_model extends CI_Model
         $sql = "SELECT  f.id as id,
                         f.code as code,
                         f.name as [name]
-                from app_submission s
+                from app_submission s with(nolock) 
                 join sys_application_state_ref asr on s.application_id = asr.application_id AND s.current_state = asr.state_id
                 join sys_form f on asr.form_id = f.id
                 WHERE s.id = " . $submission_id . "";
@@ -86,8 +86,8 @@ class Application_model extends CI_Model
         $sql = "SELECT  f.id as id,
                         f.code as code,
                         f.name as [name]
-                from app_submission s
-                join sys_application_state asr on s.application_id = asr.application_id AND s.current_state = asr.state_id
+                from app_submission s with(nolock) 
+                join sys_application_state asr with(nolock)  on s.application_id = asr.application_id AND s.current_state = asr.state_id
                 join sys_form f on asr.form_id = f.id
                 WHERE s.id = " . $submission_id . "";
 
@@ -248,8 +248,8 @@ class Application_model extends CI_Model
                     CASE WHEN q.[type] = 'foto' THEN '[foto]' ELSE [value] END as 'value',
                     lat,
                     lon
-                from app_submission_data sd
-                    join sys_question q on sd.question_id = q.id
+                from app_submission_data sd with(nolock) 
+                    join sys_question q with(nolock) on sd.question_id = q.id
                 WHERE sd.submission_id = " . $submission_id . "";
 
         $query = $this->db->query($sql);
@@ -280,19 +280,19 @@ class Application_model extends CI_Model
                         (select TOP 1
                             hs.message
                         from
-                            wfs_history_state hs
+                            wfs_history_state hs with(nolock) 
                         WHERE hs.submission_id = s.id
                             and hs.source_state_id = s.prev_state
                             and hs.source_org_id = s.prev_organitation_id
                             and hs.destination_user_id = s.current_user_id
                             and hs.destination_org_id = s.current_organitation_id
                         order by hs.id desc) as submit_message
-                    from app_submission s
-                        join usm_users u on s.current_user_id = u.id
-                        join usm_organitation o on s.current_organitation_id = o.id
-                        join sys_application a on s.application_id = a.id
-                        join sys_application_state ast on s.current_state = ast.state_id
-                        join sys_state  st on ast.state_id = st.id
+                    from app_submission s with(nolock) 
+                        join usm_users u  with(nolock) on s.current_user_id = u.id
+                        join usm_organitation o  with(nolock) on s.current_organitation_id = o.id
+                        join sys_application a  with(nolock) on s.application_id = a.id
+                        join sys_application_state ast  with(nolock) on s.current_state = ast.state_id
+                        join sys_state  st  with(nolock) on ast.state_id = st.id
                     WHERE s.current_state_status in ('SUBMITED', 'READED', 'PROCESSED') and
                     s.current_state = 101 and
                     s.current_user_id = " . $userid . "";
@@ -333,19 +333,19 @@ class Application_model extends CI_Model
                         (select TOP 1
                             hs.message
                         from
-                            wfs_history_state hs
+                            wfs_history_state hs with(nolock) 
                         WHERE hs.submission_id = s.id
                             and hs.source_state_id = s.prev_state
                             and hs.source_org_id = s.prev_organitation_id
                             and hs.destination_user_id = s.current_user_id
                             and hs.destination_org_id = s.current_organitation_id
                         order by hs.id desc) as submit_message
-                    from app_submission s
-                        join usm_users u on s.current_user_id = u.id
-                        join usm_organitation o on s.current_organitation_id = o.id
-                        join sys_application a on s.application_id = a.id
-                        join sys_application_state ast on s.current_state = ast.state_id
-                        join sys_state  st on ast.state_id = st.id
+                    from app_submission s with(nolock) 
+                        join usm_users u  with(nolock) on s.current_user_id = u.id
+                        join usm_organitation o  with(nolock) on s.current_organitation_id = o.id
+                        join sys_application a  with(nolock) on s.application_id = a.id
+                        join sys_application_state ast  with(nolock) on s.current_state = ast.state_id
+                        join sys_state  st  with(nolock) on ast.state_id = st.id
                     WHERE s.current_state = 102 and
                     s.current_user_id = " . $userid . "";
 
@@ -396,7 +396,7 @@ class Application_model extends CI_Model
                        " . $userid . ",
                        '" . $deviceInfo->deviceId . "',
                        '" . $deviceInfo->deviceModel . "'
-                from app_submission  s
+                from app_submission  s with(nolock) 
                 WHERE id = " . $submisiionId . "";
         $query = $this->db->query($insertHistory);
         $refTotal = $this->db->affected_rows();
@@ -518,7 +518,7 @@ class Application_model extends CI_Model
                              " . $user->id . ",
                             '" . $deviceInfo->deviceId . "',
                             '" . $deviceInfo->deviceModel . "'
-                        from app_submission s
+                        from app_submission s with(nolock) 
                         where s.id = " . $submissionId . "";
 
         $this->db->query($insertHistory);
@@ -540,7 +540,7 @@ class Application_model extends CI_Model
                     [value],
                     lat,
                     lon
-                from app_submission_data sd
+                from app_submission_data sd with(nolock) 
                     join sys_question q on sd.question_id = q.id
                 WHERE sd.submission_id = " . $submissionId . " and question_id = " . $questionid . "";
 

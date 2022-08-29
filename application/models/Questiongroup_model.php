@@ -105,8 +105,8 @@ class Questiongroup_model extends CI_Model
             array_push($whereArray, "[" . $key . "]" . " = " . $where[$key]);
         }
 
-        $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a
-        join sys_question b on a.question_id = b.id ";
+        $sql = "select a.*, b.code, b.name, b.label, b.hint, b.[type], b.collection_id from sys_question_list as a with(nolock) 
+        join sys_question b with(nolock)  on a.question_id = b.id ";
 
         if (count($whereArray) > 0) {
             $sql = $sql . " where " . implode(" and ", $whereArray);

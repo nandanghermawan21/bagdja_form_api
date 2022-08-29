@@ -129,7 +129,7 @@ class Page_model extends CI_Model
                         q.[order],
                         g.[code],
                         g.[name]
-                from sys_page_question as q
+                from sys_page_question as q with(nolock) 
                 JOIN sys_question_group g on q.[group_id] = g.id ";
 
         if (count($whereArray) > 0) {
@@ -230,7 +230,7 @@ class Page_model extends CI_Model
                     g.code,
                     g.name,
                     COUNT(*) as total
-                from sys_page_dicission as d
+                from sys_page_dicission as d  with(nolock) 
                 join sys_question_group g on d.group_id = g.id
                 join sys_question q on d.dicission_question_id = q.id
                 where d.page_id = ?
@@ -259,9 +259,9 @@ class Page_model extends CI_Model
                     q.hint as question_hint,
                     q.type as question_type,
                     q.collection_id as question_collection_id
-                from sys_page_dicission as d
-                join sys_question_group g on d.dicission_group_id = g.id
-                join sys_question q on d.dicission_question_id = q.id ";
+                from sys_page_dicission as d  with(nolock) 
+                join sys_question_group g with(nolock)  on d.dicission_group_id = g.id
+                join sys_question q with(nolock)  on d.dicission_question_id = q.id ";
 
         if (count($whereArray) > 0) {
             $sql = $sql . " where " . implode(" and ", $whereArray);
