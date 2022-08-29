@@ -231,8 +231,8 @@ class Page_model extends CI_Model
                     g.name,
                     COUNT(*) as total
                 from sys_page_dicission as d  with(nolock) 
-                join sys_question_group g on d.group_id = g.id
-                join sys_question q on d.dicission_question_id = q.id
+                join sys_question_group g with(nolock)  on d.group_id = g.id
+                join sys_question q  with(nolock) on d.dicission_question_id = q.id
                 where d.page_id = ?
                 GROUP BY d.page_id, d.group_id, g.code, g.name";
 

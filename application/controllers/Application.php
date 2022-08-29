@@ -570,7 +570,7 @@ class Application extends MY_Controller
         $deviceInfo = $this->_getDeviceInfo();
 
         //getuserParam
-        $message = $this->input->get("message", TRUE);
+        $message = $this->input->get("message", FALSE);
 
         $body = json_decode(trim(file_get_contents('php://input')), true);
 
