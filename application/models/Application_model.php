@@ -311,43 +311,51 @@ class Application_model extends CI_Model
         return $result;
     }
 
-    public function getFinished($userid, &$refTotal)
+    public function getFinished($userid, $skip = 0, $limit = 10, $searchKey = "", &$refTotal)
     {
         $sql = "select  s.id as submission_id,
-                        s.number as submission_number,
-                        s.application_id as application_id,
-                        a.code as application_code,
-                        a.name as application_name,
-                        s.submit_date as submission_date,
-                        s.lat as submission_lat,
-                        s.lon as submission_lon,
-                        st.id as state_id,
-                        st.name as state_name,
-                        s.current_state_status as state_status,
-                        u.id as user_id,
-                        u.name as user_name,
-                        o.id as organitation_id,
-                        o.name as organitaion_name,
-                        s.current_device_id as device_id,
-                        s.current_device_model as device_model,
-                        (select TOP 1
-                            hs.message
-                        from
-                            wfs_history_state hs with(nolock) 
-                        WHERE hs.submission_id = s.id
-                            and hs.source_state_id = s.prev_state
-                            and hs.source_org_id = s.prev_organitation_id
-                            and hs.destination_user_id = s.current_user_id
-                            and hs.destination_org_id = s.current_organitation_id
-                        order by hs.id desc) as submit_message
-                    from app_submission s with(nolock) 
-                        join usm_users u  with(nolock) on s.current_user_id = u.id
-                        join usm_organitation o  with(nolock) on s.current_organitation_id = o.id
-                        join sys_application a  with(nolock) on s.application_id = a.id
-                        join sys_application_state ast  with(nolock) on s.current_state = ast.state_id
-                        join sys_state  st  with(nolock) on ast.state_id = st.id
-                    WHERE s.current_state = 102 and
-                    s.current_user_id = " . $userid . "";
+                s.number as submission_number,
+                s.application_id as application_id,
+                a.code as application_code,
+                a.name as application_name,
+                s.submit_date as submission_date,
+                s.lat as submission_lat,
+                s.lon as submission_lon,
+                st.id as state_id,
+                st.name as state_name,
+                s.current_state_status as state_status,
+                u.id as user_id,
+                u.name as user_name,
+                o.id as organitation_id,
+                o.name as organitaion_name,
+                s.current_device_id as device_id,
+                s.current_device_model as device_model,
+                (select TOP 1
+                    hs.message
+                from
+                    wfs_history_state hs with(nolock) 
+                WHERE hs.submission_id = s.id
+                    and hs.source_state_id = s.prev_state
+                    and hs.source_org_id = s.prev_organitation_id
+                    and hs.destination_user_id = s.current_user_id
+                    and hs.destination_org_id = s.current_organitation_id
+                order by hs.id desc) as submit_message,
+                (select top 1 date_time from wfs_history_state with(nolock) 
+                    where submission_id = s.id AND destination_state_id = 102
+                    AND [message] = 'survey finished'
+                    order by date_time desc) as finished_date
+                from app_submission s with(nolock) 
+                    join usm_users u  with(nolock) on s.current_user_id = u.id
+                    join usm_organitation o  with(nolock) on s.current_organitation_id = o.id
+                    join sys_application a  with(nolock) on s.application_id = a.id
+                    join sys_application_state ast  with(nolock) on s.current_state = ast.state_id
+                    join sys_state  st  with(nolock) on ast.state_id = st.id 
+                WHERE s.current_state = 102 and
+                s.current_user_id = " . $userid . " and
+                s.number like '" . $searchKey . "%'
+                order by s.submit_date DESC
+                OFFSET " . $skip . " ROWS
+                FETCH NEXT " . $limit . " ROWS ONLY";
 
         $query = $this->db->query($sql);
 

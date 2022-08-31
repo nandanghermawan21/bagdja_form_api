@@ -26,7 +26,8 @@
         {
             $this->db->where($where);
         }
-		$query = $this->db->get($this->tablename);
+		// $query = $this->db->get($this->tablename);
+		$query = $this->db->get_where($this->tablename, array('is_active' => 1));
 
         $refTotal = $query->num_rows();
 

@@ -216,7 +216,7 @@ class Application extends MY_Controller
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
-   
+
     /**
      * @OA\Get(
      *     path="/application/finished",
@@ -239,12 +239,24 @@ class Application extends MY_Controller
      */
     public function finished_get()
     {
+        //get param
+        $skip = $this->input->get("skip", TRUE);
+        $limit = $this->input->get("limit", TRUE);
+        $searchKey = $this->input->get("searchKey", TRUE);
+
+        if ($skip == "") {
+            $skip = 0;
+        }
+
+        if ($limit == "") {
+            $limit = 10;
+        }
         //getuserInfo
         $user = $this->_getData()->data;
 
         $total = 0;
         $data = null;
-        $data = $this->application->getFinished($user->id, $total);
+        $data = $this->application->getFinished($user->id, $skip, $limit, $searchKey, $total);
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
