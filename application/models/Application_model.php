@@ -104,7 +104,7 @@ class Application_model extends CI_Model
             $form->totalPage = 0;
             $form->pages = $this->form->getFormPages($form->id, $form->totalPage);
             $form->totalData = 0;
-            $form->data = $this->getSubmissionData($submission_id, $form->totalData76);
+            $form->data = $this->getSubmissionData($submission_id, $form->totalData);
 
             foreach ($form->pages as $page) {
                 $page->totalQuestionGroup = 0;

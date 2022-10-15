@@ -122,12 +122,12 @@ class Collection_model extends CI_Model
         }
     }
 
-    public function updateData($id,  $value,  $data, &$errorMessage)
+    public function updateData($id,  $value, $group,  $data, &$errorMessage)
     {
         $total = 0;
         $result = null;
 
-        $this->db->where(["collection_id" => $id, "value" => $value]);
+        $this->db->where(["collection_id" => $id, "value" => $value, "group" => $group]);
         $this->db->update($this->dataTableName, $data);
 
         $cc = $this->db->affected_rows();

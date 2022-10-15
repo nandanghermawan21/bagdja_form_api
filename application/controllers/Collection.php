@@ -296,9 +296,10 @@ class Collection extends MY_Controller
 
 		$id = $this->input->get('id', TRUE);
 		$value = $this->input->get('value', TRUE);
+		$group = $this->input->get('grup', TRUE);
 		$message = "";
 		$input = json_decode(trim(file_get_contents('php://input')), true);
-		$data = $this->collection->updateData($id, $value, $input, $message);
+		$data = $this->collection->updateData($id, $value, $group, $input, $message);
 		if ($data != null) {
 			$response = $this->responses->successWithData($data, 1);
 		} else {
