@@ -1,4 +1,5 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
 
 class Application_model extends CI_Model
 {
@@ -78,7 +79,7 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         $result = $query->result();
 
-        return  $this->getFormComponent($submission_id, $result);
+        return $this->getFormComponent($submission_id, $result);
     }
 
     public function getForm($submission_id, &$refTotal)
@@ -95,7 +96,7 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         $result = $query->result();
 
-        return  $this->getFormComponent($submission_id, $result)[0];
+        return $this->getFormComponent($submission_id, $result)[0];
     }
 
     public function getFormComponent($submission_id, $forms)
@@ -118,7 +119,7 @@ class Application_model extends CI_Model
                     $group->questions = $this->group->getData(["group_id" => $group->group_id], $group->totalQuestions);
 
                     foreach ($group->questions as $question) {
-                        $question->submission_id =  (int) $submission_id;
+                        $question->submission_id = (int) $submission_id;
                         $question->form_id = $form->id;
                         $question->page_id = $page->id;
                     }
@@ -166,7 +167,7 @@ class Application_model extends CI_Model
             100,
             GETUTCDATE(),
             302,
-            " .  $cek->id . ",
+            " . $cek->id . ",
             101,
             " . $submission["lat"] . ",
             " . $submission["lon"] . ",
@@ -549,6 +550,42 @@ class Application_model extends CI_Model
         $refTotal = $query->num_rows();
         return $query->result();
     }
+
+    public function getInitUploadCount($submissionId)
+    {
+        $sql = "select * from 
+                         wfs_history_state s
+                         where s.submission_id = " . $submissionId . "
+                         and s.[message] like 'Init Upload % question'
+                         ORDER By date_time DESC";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            $pieces = explode(" ", $row->message);
+            return intval($pieces[2]);
+        } else {
+            return 0;
+        }
+    }
+
+    public function validateUploaded($submissionId, $totalUpload)
+    {
+        $sql = "select * from 
+                         wfs_history_state s
+                         where s.submission_id =  " . $submissionId . "
+                         and s.[message] = '" . $totalUpload . "/" . $totalUpload . "'
+                         ORDER By date_time DESC";
+
+        $query = $this->db->query($sql);
+
+        if ($query->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /**
@@ -605,72 +642,72 @@ class ApplicationInbox
      * @OA\Property
      * @var integer
      */
-    public $submission_id;  //": 29,
+    public $submission_id; //": 29,
     /**
      * @OA\Property
      * @var string
      */
-    public $submission_number;  //": "ORDERIN/TEST/FORMTERBARU/00003",
+    public $submission_number; //": "ORDERIN/TEST/FORMTERBARU/00003",
     /**
      * @OA\Property
      * @var integer
      */
-    public $application_id;  //": 201,
+    public $application_id; //": 201,
     /**
      * @OA\Property
      * @var string
      */
-    public $application_code;  //": "SURVEY",
+    public $application_code; //": "SURVEY",
     /**
      * @OA\Property
      * @var string
      */
-    public $application_name;  //": "SURVEY",
+    public $application_name; //": "SURVEY",
     /**
      * @OA\Property
      * @var string
      */
-    public $submission_date;  //": "2022-06-30 00:27:57.820",
+    public $submission_date; //": "2022-06-30 00:27:57.820",
     /**
      * @OA\Property
      * @var float
      */
-    public $submission_lat;  //": 0,
+    public $submission_lat; //": 0,
     /**
      * @OA\Property
      * @var float
      */
-    public $submission_lon;  //": 0,
+    public $submission_lon; //": 0,
     /**
      * @OA\Property
      * @var string
      */
-    public $state_name;  //": "ASSIGNED",
+    public $state_name; //": "ASSIGNED",
     /**
      * @OA\Property
      * @var integer
      */
-    public $user_id;  //": 9,
+    public $user_id; //": 9,
     /**
      * @OA\Property
      * @var string
      */
-    public $user_name;  //": "DANU PRAKARSA",
+    public $user_name; //": "DANU PRAKARSA",
     /**
      * @OA\Property
      * @var integer
      */
-    public $organitation_id;  //": 302,
+    public $organitation_id; //": 302,
     /**
      * @OA\Property
      * @var string
      */
-    public $organitaion_name;  //": "CMO",
+    public $organitaion_name; //": "CMO",
     /**
      * @OA\Property
      * @var string
      */
-    public $submit_message;  //": "INI TEST ORDER IN FORM BARU"
+    public $submit_message; //": "INI TEST ORDER IN FORM BARU"
 
     /**
      * @OA\Property(
@@ -681,7 +718,7 @@ class ApplicationInbox
      *     description="token",
      * ),
      */
-    public $data;  //": "INI TEST ORDER IN FORM BARU"
+    public $data; //": "INI TEST ORDER IN FORM BARU"
 }
 
 /**
@@ -711,7 +748,7 @@ class ApplicatioSnapShoot
      * @OA/Property
      * @var string
      */
-    public  $value;
+    public $value;
 }
 
 /**

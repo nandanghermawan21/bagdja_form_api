@@ -7,7 +7,7 @@ use Firebase\JWT\Key;
 
 
 /**
- * @OA\Server(url="/api/")
+ * @OA\Server(url="/bagdja_form_api/")
  */
 
 class MY_Controller extends RestController
@@ -19,6 +19,7 @@ class MY_Controller extends RestController
   {
     header("Access-Control-Allow-Origin:*");
     header("Access-Control_Allow_Origin:*");
+    Header ("Access-Control-Allow-Origin:localhost");
     header("Access-Control-Allow-Methods: POST, GET, DELETE, HEAD, OPTIONS");
     header("Access-Control-Allow-Headers: access-control_allow_origin,client-timestamp,content-type");
     ini_set('max_execution_time', 0);

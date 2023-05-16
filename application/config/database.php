@@ -105,11 +105,10 @@ $query_builder = TRUE;
 //developemnt
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '209.209.40.87,19521',
-	// 'port'	   => '19521',
-	'username' => 'fahmi',
-	'password' => '@H3rm4w4n',
-	'database' => 'survey',
+	'hostname' => '172.16.1.172',
+    'username' => 'sa',
+    'password' => 'P@ssw0rd',
+    'database' => 'sfi_survey',
 	// 'hostname' => 'localhost',
 	// 'username' => 'root',
 	// 'password' => 'jalan',

@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class Application extends MY_Controller
+class Applications extends MY_Controller
 {
 
     public function __construct()
@@ -18,7 +18,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/listQuestionState",
+     *     path="/applications/listQuestionState",
      *     tags={"Application"},
      * 	   description="Get all question on state apllication",
      *     @OA\Parameter(
@@ -38,7 +38,7 @@ class Application extends MY_Controller
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
      *      @OA\MediaType(
-     *         mediaType="application/json",
+     *         mediaType="applications/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
      *				ref="#/components/schemas/QuestionState"               
@@ -61,7 +61,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\POST(
-     *     path="/application/assignSurvey",
+     *     path="/applications/assignSurvey",
      *     tags={"Application"},
      * 	   description="automaticaky create submission and assign survey to CMO user",
      *     @OA\Parameter(
@@ -114,7 +114,7 @@ class Application extends MY_Controller
      *     ),
      *     @OA\RequestBody(
      *       @OA\MediaType(
-     *           mediaType="application/json",
+     *           mediaType="applications/json",
      *           @OA\Schema(type="array",
      *               @OA\Items(type="object",
      *		     		ref="#/components/schemas/QuestionValueInput"               
@@ -127,7 +127,7 @@ class Application extends MY_Controller
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
      *      @OA\MediaType(
-     *         mediaType="application/json",
+     *         mediaType="applications/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
      *				ref="#/components/schemas/QuestionState"               
@@ -160,7 +160,7 @@ class Application extends MY_Controller
 
         $this->form_validation->set_data($input);
 
-        foreach ($input as $row => $key) :
+        foreach ($input as $row => $key):
             $this->form_validation->set_rules($row, $row, 'trim|required|xss_clean');
         endforeach;
 
@@ -187,7 +187,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/inbox",
+     *     path="/applications/inbox",
      *     tags={"Application"},
      * 	   description="Get all question on state apllication",
      * security={{"bearerAuth": {}}},
@@ -195,7 +195,7 @@ class Application extends MY_Controller
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
      *      @OA\MediaType(
-     *         mediaType="application/json",
+     *         mediaType="applications/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
      *				ref="#/components/schemas/ApplicationInbox"               
@@ -216,10 +216,10 @@ class Application extends MY_Controller
         $response = $this->responses->successWithData($data, $total);
         $this->response($response, 200);
     }
-   
+
     /**
      * @OA\Get(
-     *     path="/application/finished",
+     *     path="/applications/finished",
      *     tags={"Application"},
      * 	   description="Get all question on state apllication",
      * security={{"bearerAuth": {}}},
@@ -227,7 +227,7 @@ class Application extends MY_Controller
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
      *      @OA\MediaType(
-     *         mediaType="application/json",
+     *         mediaType="applications/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
      *				ref="#/components/schemas/ApplicationInbox"               
@@ -251,7 +251,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/formRef",
+     *     path="/applications/formRef",
      *     tags={"Application"},
      * 	   description="Get all form ref read only",
      *     @OA\Parameter(
@@ -265,7 +265,7 @@ class Application extends MY_Controller
      *    @OA\Response(response="200", 
      * 		description="Response data inside Responses model",
      *      @OA\MediaType(
-     *         mediaType="application/json",
+     *         mediaType="applications/json",
      *         @OA\Schema(type="array",
      *             @OA\Items(type="object",
      *				ref="#/components/schemas/ApplicationInbox"               
@@ -290,7 +290,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/form",
+     *     path="/applications/form",
      *     tags={"Application"},
      * 	   description="Get all form ref read only",
      *     @OA\Parameter(
@@ -323,7 +323,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/confirmRead",
+     *     path="/applications/confirmRead",
      *     tags={"Application"},
      * 	   description="set submission to readed (getted to local storage device on app)",
      *     @OA\Parameter(
@@ -365,7 +365,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/confirmProcess",
+     *     path="/applications/confirmProcess",
      *     tags={"Application"},
      * 	   description="set submission to process (getted to local storage device on app)",
      *     @OA\Parameter(
@@ -408,7 +408,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\GET(
-     *     path="/application/confirmUploading",
+     *     path="/applications/confirmUploading",
      *     tags={"Application"},
      * 	   description="set submission to uploading process (getted to local storage device on app)",
      *     @OA\Parameter(
@@ -469,7 +469,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\GET(
-     *     path="/application/confirmFinish",
+     *     path="/applications/confirmFinish",
      *     tags={"Application"},
      * 	   description="set submission to uploading process (getted to local storage device on app)",
      *     @OA\Parameter(
@@ -516,6 +516,23 @@ class Application extends MY_Controller
             $this->response($this->responses->error("in progess at " . $submission[0]->current_device_model), 200);
         }
 
+        //validate uploaded data
+
+        //get init upload data count
+        $totalUploadRequired = $this->application->getInitUploadCount($submissionId);
+
+        if ($totalUploadRequired == 0) {
+            $this->response($this->responses->error("Upload data belum lengkap"), 200);
+        }
+
+
+        //ceck uploaded data is complete
+        $isUploadComplete = $this->application->validateUploaded($submissionId, $totalUploadRequired);
+
+        if ($isUploadComplete == false) {
+            $this->response($this->responses->error("Upload data belum lengkap"), 200);
+        }
+
         $total = 0;
         $resultMessage = "";
         $data = null;
@@ -538,7 +555,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\POST(
-     *     path="/application/upload",
+     *     path="/applications/upload",
      *     tags={"Application"},
      * 	   description="upload onw by one question",
      *     @OA\Parameter(
@@ -549,7 +566,7 @@ class Application extends MY_Controller
      *     ),
      *     @OA\RequestBody(
      *     @OA\MediaType(
-     *         mediaType="application/json",
+     *         mediaType="applications/json",
      *         @OA\Schema(ref="#/components/schemas/SubmissionDataUpload")
      *       ),
      *     ),
@@ -610,7 +627,7 @@ class Application extends MY_Controller
 
     /**
      * @OA\Get(
-     *     path="/application/value",
+     *     path="/applications/value",
      *     tags={"Application"},
      * 	   description="get value of question",
      *     @OA\Parameter(
